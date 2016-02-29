@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<strings>
+    <string id="30000">OneDrive</string>
+    <string id="30001">Username</string>
+    <string id="30002">Password</string>
+    <string id="30003">Domain</string>
+	<string id="30004">User Agent</string>
+    <string id="30005">Save Authorization Session Information (speed up plugin)</string>
+    <string id="30006">Playback Type</string>
+    <string id="30007">Protocol</string>
+    <string id="30008">Login</string>
+    <string id="30009">Playback</string>
+    <string id="30010">Login Type</string>
+    <string id="30011">Cache Folder</string>
+    <string id="30012">Cache Folder (custom)</string>
+    <string id="30013">Quick Playback Links (fast but links are not persistent)</string>
+    <string id="30014">Wait for ...</string>
+    <string id="30019">Seconds</string>
+    <string id="30015">Set the Username and Password in addon settings before running.</string>
+    <string id="30016">You must add org.python.pydev.debug.pysrc to your PYTHONPATH.</string>
+    <string id="30017">Login information is incorrect or permission is denied</string>
+    <string id="30018">Clear Authorization Keys + Cookies</string>
+    <string id="30020">General</string>
+    <string id="30021">Accounts</string>
+    <string id="30022">View when in video plugin context</string>
+    <string id="30023">View when in music plugin context</string>
+    <string id="30024">View when in photo plugin context</string>
+    <string id="30025">Save STRMs</string>
+    <string id="30026">Location to Store STRMs</string>
+    <string id="30027">Do you want to create the STRM files in the path</string>
+    <string id="30028">STRM file creation complete.</string>
+    <string id="30030">Login Details for Account</string>
+    <string id="30031">Play...</string>
+    <string id="30032">Download...</string>
+    <string id="30033">Choose a stream</string>
+    <string id="30034">Photos</string>
+    <string id="30037">Context</string>
+    <string id="30038">Photo cache folder</string>
+    <string id="30035">Downloading...</string>
+    <string id="30036">Building STRMs...</string>
+    <string id="30039">Add another account</string>
+    <string id="30042">Save STRM</string>
+    <string id="30043">Options</string>
+    <string id="30044">Parameter is missing:</string>
+    <string id="30045">Error fetching from cloud service.</string>
+    <string id="30046">Watch Stream</string>
+    <string id="30047">Download and Watch</string>
+    <string id="30048">Watch AJAX Stream</string>
+    <string id="30049">Something went wrong.  The following value was not able to initialize: </string>
+    <string id="30050">Something went wrong.  WLSCC was not set, so most likely Microsoft wants you to accept an updated set of terms and conditions.  Please log into your OneDrive account from a web browser and review any prompts.  Once you can log into your account without any prompts, retry this pluggin.</string>
+    <string id="30051">Login Failed.  Password may be incorrect.</string>
+    <string id="30052">Tw0-factor auth is not supported.  App passwords are not supported (future release)</string>
+
+    <!-- CloudService Generic - Library -->
+    <string id="30060">Library</string>
+    <string id="30061">Library Integration via Microsoft Drive</string>
+    <string id="30062">GDrive account number to use (registered under accounts)</string>
+    <string id="30063">Spredsheet name</string>
+    <string id="30064">Use library integration?</string>
+    <string id="30088">Location to store movie STRMs (optional) </string>
+    <string id="30089">Location to store tv show STRMs (optional) </string>
+    <string id="30026">Location to store STRMs</string>
+    <string id="30027">Do you want to create the STRM files in the path</string>
+    <string id="30028">STRM file creation complete.</string>
+
+
+
+    <!-- CloudService Generic - Crash Reporting -->
+    <string id="30070">Would you like to send the error details to the developer?</string>
+    <string id="30071">No passwords will be sent.</string>
+    <string id="30072">You will be provided an identifer number after sent.</string>
+    <string id="30073">Your identification number of the error submission is </string>
+    <string id="30074">Logging</string>
+    <string id="30075">Enable sending crash logs to developer</string>
+    <string id="30076">Email address (optional)</string>
+    <string id="30077">Email address is for the developer to contact you at.</string>
+    <string id="30078">OS</string>
+    <string id="30079">XBMC version</string>
+    <string id="30080">Last identifier error #</string>
+    <string id="30081">Enable media list debug</string>
+
+    <string id="30090">Location to store cache files</string>
+    <string id="30091">Chunk size</string>
+    <string id="30092">Downloading...</string>
+    <string id="30035">Caching...</string>
+    <string id="30093">Percent to download before playback</string>
+    <string id="30094">Music</string>
+
+    <string id="30100">This feature is not supported on your version of XBMC / KODI</string>
+
+
+    <string id="30110">Enter search string</string>
+    <string id="30111">SEARCH</string>
+    <string id="30112">Choose a result to playback</string>
+
+    <string id="30113">Make offline</string>
+
+    <string id="30114">Downloads and Cache</string>
+    <string id="30115">Stream Perferences</string>
+    <string id="30116">Cache</string>
+    <string id="30117">Listings</string>
+    <string id="30121">Always cache for playback</string>
+    <string id="30122">Never transcode</string>
+    <string id="30123">Play original</string>
+	<string id="30124">Play + cache</string>
+	<string id="30125">Play offline</string>
+	<string id="30126">Slideshow</string>
+
+	<string id="30127">encfs</string>
+	<string id="30128">encfs source</string>
+	<string id="30129">encfs target</string>
+	<string id="30130">Save to encfs</string>
+	<string id="30131">Decrypted Drive</string>
+	<string id="30132">Force cache into single file</string>
+	<string id="30133">Use integrated player</string>
+	<string id="30134">Advance</string>
+	<string id="30135">Subtitle cache folder</string>
+	<string id="30136">Select a subtitle cache folder</string>
+	<string id="30137">Do you want to create the subtitles files in the path</string>
+	<string id="30138">Play with subtitles</string>
+	<string id="30139">Select a subtitle</string>
+	<string id="30140">Visit www.dmdsoftware.net and select Google Apps sign-in method.</string>
+	<string id="30141">When signup is complete, click OK</string>
+	<string id="30142">Account activiated successfully</string>
+	<string id="30143">Microsoft code found.  Click OK to continue activation.</string>
+	<string id="30144">Microsoft code not found.</string>
+	<string id="30145">Passcode</string>
+	<string id="30146">Play with captions</string>
+	<string id="30147">Play with seek</string>
+	<string id="30148">Play with resume</string>
+	<string id="30149">Enable closed-captions tracks</string>
+	<string id="30150">Enable SRT tracks</string>
+
+    <string id="30153">ClientLogin type has been retired.</string>
+	<string id="30154">Please reconfigure account in settings.</string>
+
+    <string id="30118">The following account was enrolled:</string>
+    <string id="30119">The following login error was encountered:</string>
+    <string id="30120">Select an account:</string>
+
+	<string id="30164">Ignore case / force download</string>
+
+
+    <string id="30201">OAUTH2 code</string>
+    <string id="30202">OAUTH2 client id</string>
+    <string id="30203">OAUTH2 client secret</string>
+    <string id="30204">OAUTH2 URL</string>
+    <string id="30205">Visit www.dmdsoftware.net for help setting up OAUTH2</string>
+
+    <string id="30221">Something went wrong with login setup.</string>
+    <string id="30222">Login information is incorrect or permission is denied</string>
+    <string id="30223">Due to bug in Microsoft OneDrive, to access this feature</string>
+    <string id="30224">requires a read&write OAUTH2.  See http://dmdsoftware.net</string>
+	<string id="30225">Camera Roll</string>
+	<string id="30226">Documents</string>
+	<string id="30227">Photos</string>
+	<string id="30228">Music</string>
+
+
+</strings>
