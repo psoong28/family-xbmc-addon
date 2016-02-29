@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.family.addons" name="MD Ramdan's Family Addon Repository" version="1.0.0">
+	<extension point="xbmc.addon.repository" name="MD Ramdan's Family Addon Repository">
+		<info compressed="false">https://raw.githubusercontent.com/azumimuo/family-xbmc-addon/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/azumimuo/family-xbmc-addon/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/azumimuo/family-xbmc-addon/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Non Official Customized XBMC Addon Repository.</summary>
+		<description>Add-ons for XBMC, for MD Ramdan's family members. Credit goes to all xbmc/kodi addon dev</description>
+		<disclaimer>Show your support.</disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
