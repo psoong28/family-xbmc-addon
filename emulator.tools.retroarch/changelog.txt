@@ -1,0 +1,39 @@
+v1.0.3
+- added libretro-pcsx-rearmed for psx
+- added libretro-scummvm for scummvm
+
+v1.0.2
+- fixed startscript
+
+v1.0.1
+- added libretro-stella for atari2600
+
+v1.0.0
+- updated retroarch to raspberry optimized version
+- few improvements
+
+v0.0.8
+- removed added libretro-pcsx, because of performance 
+- small improvements
+
+v0.0.7
+- added libretro-imame4all for mame
+
+v0.0.6
+- added libretro-pcsx core for testing
+- small improvements
+
+v0.0.5
+- small improvements
+
+v0.0.4
+- improved addon
+
+v0.0.3
+- added libretro-picodrive for megadrive / genesis / sega cd / mega cd support
+
+v0.0.2
+- added libretro-fceu to fix savestate crash
+
+v0.0.1
+- Initial version
