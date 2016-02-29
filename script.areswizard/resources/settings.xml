@@ -1,0 +1,25 @@
+<settings>
+    <category label="30001">
+		<setting id="firstrun" type="bool" label="firstrun" default="true" visible="false"/>
+		<setting id="runonce" type="text" label="runonce" default="1" visible="false"/>
+		<setting id="username" type="text" label="Username" default=""/>
+		<setting id="deviceid" type="text" label="30008"  enable="false"/>
+		<setting id="accountstatus" type="text" label="30004"  default="not registered" enable="false"/>
+		<setting id="Subends" type="text" label="30005"  enable="false"/>
+		<setting id="activationsleft" type="text" label="30007"  enable="false"/>
+	</category>
+	<category label="Stats">
+		<setting id="lastclearedthumbnails" type="text" label="Last time thumbnails were cleared: "  default="Never" enable="false"/>
+		<setting id="lastclearedpackages" type="text" label="Last time packages were cleared: "  default="Never" enable="false"/>
+		<setting id="lastclearedcache" type="text" label="Last time temp\cache was cleared: "  default="Never" enable="false"/>
+		<setting id="totaltempfiles" type="text" label="Number of temp files cleared: "  default="0" enable="false"/>
+		<setting id="totalspacegained" type="text" label="Total Space regained (MB): "  default="0" enable="false"/>
+	</category>
+	<category label="Show\Hide">
+	<setting id="showadult" type="bool" label="Show Adult Content" default="false"/>
+	</category>
+	<category label="30002">
+		<setting id="autoupdate" type="bool" label="30000" default="true"/>
+		<setting id="versionoverride" type="text" label="30003"/>
+	</category>
+</settings>

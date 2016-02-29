@@ -1,0 +1,141 @@
+###########
+     v0.0.23:
+###########
+
+          fixed issue for tvmc\spmc users
+
+          fixed problem where build list would duplicate
+
+          fixed build stats from scraped wizards
+
+
+
+###########
+     v0.0.22:
+###########
+
+          NEW SERVER!!! Sorry for all the recent problems, Ares is much more popular than I ever thought I would be and outgrew the basic server it was on, I'm glad to say we're back (although we never really went anywhere, lol)  - better than ever and on a much better server!
+
+
+          NEW FEATURE:  Build Repair. When you install a build at the end of the process you will be given a choice to make a backup of key files which make up the visuals of of the build.. then if for some reason the build didn't work the first time or you load kodi one day to find you're back to default confluence skin for some reason then go back into browse builds, select your build and hit repair.. this should work out a lot quicker than doing a reinstall.  The data can only be collected during a full install so the repair option will only enable once you've installed the build [through Ares]
+
+          MAJOR UPDATE: Build section given another major boost via scraping of other wizards [with their consent] now, you have the tradional 'featured' list and you are also able to view entire collections of builds from people by clicking on their name (information is automatically generated from that persons own wizard)
+
+          Layout Change: Repositories can now be found in with the other addons.. this has free'd up a button for the backup options I always had planned to include.. unfortunately the backup page isn't finished yet.. infact I've barely even started..
+
+
+          Ares title height increased to improve balance ;)
+
+          Clause added to download\unzip routines, if download is corrupt or zip fails basic integrity check it is deleted.
+
+          added a bit more error handling on build installs.. it's handy to know what went wrong whenever possible. Continuing after an extraction error should kick in now - thanks to NJM for supplying me with a means to replicate the problem & test solutions ;)
+
+          tweaked maintenance popup, hopefully now won't come up after updates unless maintenance reminders are turned on
+
+          tweaked unzip error handling routine.. wasn't catching some errors.. it should now ;)
+
+          fresh start now available inside browse builds.. saves having to go to two different places.
+
+          tweaked maintenance popup - now automatically closes after 10 seconds every time
+
+          fixed cache tweak routine - upper limit sometimes wasn't applying on PC's\Laptops
+
+          you can now get the size of a build before you start downloading it.. press on the build name and the size label will change after a second or two telling you how big the build (zip) is.
+
+          and thanks to the rescent problems, more code has been added in order to allow Ares to still function should it not be able to get data from the server
+
+
+###########
+     v0.0.21:
+###########
+
+          another unplanned update: further fixes to address more 'script errors' - I suspect due to changes ISP's have made. very minor tweak to addon install routine, when checking dependancies it will now report the module name rather than the addon name it's being installed for.
+
+
+###########
+     v0.0.20:
+###########
+
+          unplanned update: fixed error that has cropped up in the past couple of days causing 'script error' on startup for some people.. turns out this may have been due to changes made by certain ISP's.. anyways, problem solved and a few minor adjustments added to avoid problems such as this in the future.. stay tuned for more features coming soon though ;)
+
+          hopefully now also fixed the problem where the maintenance reminders were coming up more than expected.
+
+
+
+###########
+     v0.0.19:
+###########
+
+          unplanned update: fix clear thumbnails (schoolboy path error - doh!)
+
+###########
+     v0.0.18:
+###########
+
+          tweaked build extraction routines, added a few more clauses to improve efficiency\reduce the chance of errors
+
+
+          removed fresh start option during build install. The idea was to prevent the need for a restart after fresh start but it's causing too many issues so have to seperate the processes (will be a prompt to advise fresh start on going into browse builds)
+
+
+          fixed slight issue when responding no to fresh start prompt (would previously close kodi although no need)
+	
+
+          added a limit to the number of retries whilst measuring upload speed - a couple of people reported being stuck in a loop
+
+
+
+###########
+     v0.0.17:
+###########
+
+          NEW FEATURE:  internet speed test availble via 'more' menu
+
+          NEW FEATURE: log upload available via 'more' menu
+
+
+          few tweaks to build instllation routine:
+		
+          - avoids unzipping log files which build makers have forgot to remove 		
+	
+          - avoids extracting ares wizard from build (no need) 
+		
+          - should resume when errors occur (errors should be logged)
+
+
+          muhassive tweak to build installs, android users should no longer need to force close/power reset/kill kodi
+
+          fixed problem for users in Turkey (etc) where pastebin is blocked causing wizard not to function at all
+
+          added a couple of stat's to maintenance section.. total files deleted and total space regained
+
+          fixed bug in addon download routine meaning required modules weren't being installed (oops, sorry)
+
+
+
+###########
+     v0.0.16:
+###########
+
+          disbaled close button after build install on android.. (needs to be killed not closed)
+
+          filenames are displayed during extraction process.. gives a better indication things are working..
+
+          adjusted build install routine.. builds are downloaded and checked to make sure downloaded okay before fresh start is 	offered\performed
+
+
+
+###########
+     v0.0.15:
+###########
+
+          disabled registrations - not required and slight issues
+
+          added fresh start option to build installs
+
+          replaced donate button with close button, not really ready to take donations (technically or morally) - and there's a greater need 	for a close button for users with touchscreens.
+
+
+
+
+
