@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.lwsbuild" name="LwS Wizard" version="1.0.6" provider-name="LwS">
+  <requires>
+    <import addon="xbmc.python" version="2.19.0"/>
+	<import addon="script.module.addon.common" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">LwS Wizard</summary>
+    <description lang="en">install LwS builds wizard</description>
+    <platform>all</platform>
+  </extension>
+</addon>
