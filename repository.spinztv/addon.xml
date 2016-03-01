@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.spinztv" version="1.0.0" name=" [COLOR dodgerblue][B]S[/COLOR][COLOR white]pinzTV Repository[/B][/COLOR]" provider-name=" [COLOR dodgerblue]S[/COLOR][COLOR white]pinzTV Wizard[/COLOR]">
+  <extension point="xbmc.addon.repository" name="SpinzTV Repository">
+    <info compressed="false">https://github.com/spinztv/Repo/raw/master/zips/addons.xml</info>
+    <checksum>https://github.com/spinztv/Repo/raw/master/zips/addons.xml.md5</checksum>
+    <datadir zip="true">https://raw.github.com/spinztv/Repo/master/zips</datadir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>SpinzTV System Tools</summary>
+    <description>SpinzTV Wizard Tools</description>
+    <platform>all</platform>
+  </extension>
+</addon>

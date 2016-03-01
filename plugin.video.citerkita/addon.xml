@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.citerkita"
+	   name="Citer Kita"
+	   version="1.0.0"
+	   provider-name="2uk3y-Kodim-Ares-Streams">
+  <requires>
+    <import addon="script.module.requests" version="1.0.0" />
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+			 library="citerkita.py">
+    	<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Watch Malaysian Movies</summary>
+    <description>Watch Malaysian Movies</description>
+    <platform>all</platform>
+  </extension>
+</addon>
