@@ -765,6 +765,26 @@ Turns your XBMC into an instant free on-demand media-center. Stream and download
   </extension>
 </addon>
 
+<addon id="plugin.video.LwSLive" name="LwS Live" version="2.0.7" provider-name="LwSRepo">
+    <requires>
+        <import addon="script.module.simplejson" version="3.3.0"/>
+        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.t0mm0.common" version="2.0.0"/>
+        <import addon="plugin.video.youtube" version="3.0.0"/>
+        <import addon="script.module.urlresolver"  version="2.1.2"/>
+        <import addon="script.common.plugin.cache" version="2.5.2"/>
+        <import addon="script.module.metahandler" version="2.5.1"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">We aim to bring the best streams found on the Internet/Pastebin and place them here.</summary>
+        <description lang="en">Videos found in this addon are not hosted or uploaded nor are we affiliated with the video content in any way. All video content is hosted by third party websites. In the case of possible copyright infringement please contact the responsible parties. Users who upload to these websites agree not to upload illegal content when creating their user accounts. We do not take responsibility for the content hosted on such third party websites.</description>
+        <platform>all</platform>
+    </extension>
+</addon>
+
 <addon id="plugin.video.malaysia.live"
        name="Malaysia FTA"
        version="1.0.0"
@@ -1698,6 +1718,26 @@ http://www.hometheater.co.il</description>
     </extension>
 </addon>
 
+<addon id="repository.shani" name="Shanis Addon Repository" version="2.8" provider-name="Shani">
+	<extension point="xbmc.addon.repository" name="Shanis Addon Repository">
+    <dir>
+            <info compressed="false">https://raw.github.com/Shani-08/ShaniXBMCWork2/master/addons.xml</info>
+            <checksum>https://raw.github.com/Shani-08/ShaniXBMCWork2/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.github.com/Shani-08/ShaniXBMCWork2/master/zips</datadir>
+    </dir>
+
+    <info compressed="false">https://offshoregit.com/Shani-08/main/addons.xml</info>
+    <checksum>https://offshoregit.com/Shani-08/main/addons.xml.md5</checksum>
+    <datadir zip="true">https://offshoregit.com/Shani-08/main/zips</datadir>
+
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Addons related to XBMC for Zemtv etc</summary>
+		<description>Go though the plugins and see what you like</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="repository.spinztv" version="1.0.0" name=" [COLOR dodgerblue][B]S[/COLOR][COLOR white]pinzTV Repository[/B][/COLOR]" provider-name=" [COLOR dodgerblue]S[/COLOR][COLOR white]pinzTV Wizard[/COLOR]">
   <extension point="xbmc.addon.repository" name="SpinzTV Repository">
     <info compressed="false">https://github.com/spinztv/Repo/raw/master/zips/addons.xml</info>
@@ -1893,6 +1933,24 @@ Addons Included
   </extension>
 </addon>
 
+<addon id="script.video.newparentalcontrols" name="Parental Controls" version="1.5.4" provider-name="killdash9">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.script" library="resources/lib/parentalcontrols/settings.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.service" library="resources/lib/parentalcontrols/service.py" start="login">
+  </extension>
+  <extension point="xbmc.python.module"
+             library="resources/lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Parental Controls</summary>
+    <description lang="en">A parental controls addon.  Works only with sources that provide ratings such as HULU.</description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
 <addon
   id="service.rom.collection.browser"
   version="1.0.0"
@@ -1909,5 +1967,51 @@ Addons Included
     <license>GPL 2.0</license>
     <platform>all</platform>
   </extension>
+</addon>
+
+<addon id="service.subtitles.podnapisi"
+       name="Podnapisi.net"
+       version="5.4.0"
+       provider-name="amet">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.subtitle.module"
+             library="service.py" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Podnapisi.net</summary>
+    <description lang="en">Search and download subtitles from Podnapisi.net</description>
+    <disclaimer lang="en"></disclaimer>
+    <platform>all</platform>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <forum></forum>
+    <website></website>
+    <email></email>
+    <source>https://github.com/amet/service.subtitles.podnapisi</source>
+  </extension>
+</addon>
+
+<addon id="service.subtitles.subscene"
+       name="Subscene.com"
+       version="1.7.0"
+       provider-name="CrowleyAJ">
+    <requires>
+        <import addon="xbmc.python" version="2.14.0"/>
+    </requires>
+    <extension point="xbmc.subtitle.module"
+               library="service.py"/>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Get subtitles from Subscene.com</summary>
+        <description lang="en">Subscene.com provides subtitles in more than 50 languages, mainly in English, Arabic, Brazilian Portuguese, Farsi, Indonesian and Vietnamese.
+Other languages with a great number of subtitles are: Danish, French, Swedish, Dutch, Italian, Norwegian and Spanish.</description>
+        <disclaimer lang="en"/>
+        <platform>all</platform>
+        <language/>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+        <forum>http://forum.xbmc.org/showthread.php?tid=184854</forum>
+        <website/>
+        <email/>
+        <source>https://github.com/manacker/service.subtitles.subscene</source>
+    </extension>
 </addon>
 </addons>

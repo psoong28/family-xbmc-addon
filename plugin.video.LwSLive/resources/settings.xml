@@ -1,0 +1,10 @@
+<settings>
+	<category label="30715">
+		<setting type="lsep" label="30716" />
+		<setting id="meta" type="bool" label="30717" default="false" />
+		<setting type="lsep" label="30718" />
+		<setting label="30719" type="action" action="RunPlugin(plugin://plugin.video.LwSLive/?action=clearCache)" />
+		<setting label="bufferFix Beta" id="advancedsettings" type="bool" default="true" action="RunPlugin(plugin://plugin.video.LwSLive/resources/advancedsettings.xml)" />
+	</category>
+</settings>
+
