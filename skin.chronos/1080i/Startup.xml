@@ -1,0 +1,4 @@
+<!--XunityChronos -->
+<window>
+	<onload>ReplaceWindow(Home)</onload>
+</window>

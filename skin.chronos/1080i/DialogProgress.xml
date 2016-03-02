@@ -1,0 +1,124 @@
+<!--XunityChronos -->
+<window>
+	<defaultcontrol always="true">10</defaultcontrol>
+	<allowoverlay>yes</allowoverlay>
+	<controls>
+
+		<!-- Dialog Progress -->
+		<control type="group">
+			<include>animation_dialog</include>
+			<control type="group">
+				<posx>590</posx>
+				<posy>490</posy>
+				<animation effect="slide" end="0,-25" time="0" condition="IsEmpty(Control.GetLabel(2))">Conditional</animation>
+				<animation effect="slide" end="0,-25" time="0" condition="IsEmpty(Control.GetLabel(3))">Conditional</animation>
+				<animation effect="slide" end="0,-25" time="0" condition="IsEmpty(Control.GetLabel(4))">Conditional</animation>
+				<control type="progress">
+					<description>Progressbar</description>
+					<posx>207</posx>
+					<posy>54</posy>
+					<width>325</width>
+					<height>1</height>
+					<info>System.Progressbar</info>
+				</control>
+				<control type="image">
+					<posx>-35</posx>
+					<posy>-215</posy>
+					<width>800</width>
+					<height>260</height>
+					<texture border="39">dialogs/default/bg.png</texture>
+				</control>
+				<control type="image">
+					<posx>-20</posx>
+					<posy>-205</posy>
+					<width>770</width>
+					<height>240</height>
+					<texture border="39">dialogs/default/bg-white.png</texture>
+				</control>
+				<control type="image">
+					<posx>330</posx>
+					<posy>13</posy>
+					<width>80</width>
+					<height>60</height>
+					<texture>dialogs/default/arrow.png</texture>
+				</control>
+				<control type="image">
+					<posx>178</posx>
+					<posy>46</posy>
+					<width>384</width>
+					<height>154</height>
+					<texture border="39">dialogs/default/bg.png</texture>
+				</control>
+				<control type="button" id="301">
+					<description>Cancel button</description>
+					<posx>221</posx>
+					<posy>78</posy>
+					<width>300</width>
+					<height>90</height>
+					<align>center</align>
+					<font>Light34</font>
+					<label>$LOCALIZE[222]</label>
+					<texturefocus border="20">dialogs/keyboard/donefocus.png</texturefocus>
+					<texturenofocus border="20">dialogs/keyboard/key-nf.png</texturenofocus>
+					<textcolor>midgrey</textcolor>
+					<focusedcolor>eewhite</focusedcolor>
+					<selectedcolor>eewhite</selectedcolor>
+					<onclick>back</onclick>
+				</control>
+			</control>
+			<control type="label" id="1">
+				<description>Dialog Header</description>
+				<posx>460</posx>
+				<posy>220</posy>
+				<width>1000</width>
+				<height>22</height>
+				<font>Light34</font>
+				<align>center</align>
+				<wrapmultiline>true</wrapmultiline>
+				<textcolor>midgrey</textcolor>
+				<animation effect="slide" end="0,25" time="0" condition="IsEmpty(Control.GetLabel(2))">Conditional</animation>
+				<animation effect="slide" end="0,25" time="0" condition="IsEmpty(Control.GetLabel(3))">Conditional</animation>
+				<animation effect="slide" end="0,25" time="0" condition="IsEmpty(Control.GetLabel(4))">Conditional</animation>
+			</control>
+			<control type="label" id="2">
+				<description>Line 1</description>
+				<posx>600</posx>
+				<posy>300</posy>
+				<width>700</width>
+				<font>Light34</font>
+				<align>center</align>
+				<label>-</label>
+				<textcolor>midgrey</textcolor>
+				<animation effect="slide" end="0,25" time="0" condition="IsEmpty(Control.GetLabel(3))">Conditional</animation>
+				<animation effect="slide" end="0,25" time="0" condition="IsEmpty(Control.GetLabel(4))">Conditional</animation>
+			</control>
+			<control type="label" id="3">
+				<description>Line 2</description>
+				<posx>600</posx>
+				<posy>350</posy>
+				<width>700</width>
+				<font>Light34</font>
+				<align>center</align>
+				<label>-</label>
+				<wrapmultiline>true</wrapmultiline>
+				<textcolor>midgrey</textcolor>
+				<animation effect="slide" end="0,-25" time="0" condition="IsEmpty(Control.GetLabel(2))">Conditional</animation>
+				<animation effect="slide" end="0,25" time="0" condition="IsEmpty(Control.GetLabel(4))">Conditional</animation>
+			</control>
+			<control type="label" id="4">
+				<description>Line 3</description>
+				<posx>600</posx>
+				<posy>400</posy>
+				<width>700</width>
+				<font>Light34</font>
+				<align>center</align>
+				<label>-</label>
+				<wrapmultiline>true</wrapmultiline>
+				<textcolor>midgrey</textcolor>
+				<animation effect="slide" end="0,-25" time="0" condition="IsEmpty(Control.GetLabel(2))">Conditional</animation>
+				<animation effect="slide" end="0,-25" time="0" condition="IsEmpty(Control.GetLabel(3))">Conditional</animation>
+			</control>
+		</control>
+
+	</controls>
+</window>

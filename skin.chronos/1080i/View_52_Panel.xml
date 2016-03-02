@@ -1,0 +1,176 @@
+<!--XunityChronos -->
+<includes>
+	  <include name="View_52_Panel">
+	    <control type="group">
+			<include>animation_view_change</include>	
+			<include>animation_list</include>
+		  <visible>Control.IsVisible(52)</visible>
+		</control>
+		<control type="group">
+		    <include>ViewsAnimation</include>
+			<visible>Control.IsVisible(52)</visible>
+			<posx>0</posx>
+			<posy>0</posy>
+			<control type="panel" id="52">
+				<visible>Container.Content(Movies) | Container.Content(TVShows)|Container.Content(episodes)</visible>
+				<posx>50</posx>
+				<posy>130</posy>
+				<width>1800</width>
+				<height>740</height>
+				<onleft>9000</onleft>
+				<ondown>113</ondown>
+				<onup>113</onup>
+				<onright>113</onright>
+				<pagecontrol>60</pagecontrol>
+				<viewtype label="Wall">Wall</viewtype>
+				<scrolltime tween="quadratic" easing="out">500</scrolltime>
+				<focusposition>0</focusposition>
+				<orientation>vertical</orientation>
+				<itemlayout height="368" width="290">
+				<control type="group">
+				   <posx>0</posx>
+				   <posy>0</posy>
+				<control type="image">
+				  <posx>12</posx>
+				  <posy>2</posy>
+				  <width>175</width>
+				  <height>245</height>
+				  <aspectratio>stretch</aspectratio>
+				  <texture background="true">Views/dvd_overlay3.png</texture>
+				</control>
+				<control type="image">
+				  <posx>20</posx>
+				  <posy>10</posy>
+				  <width>260</width>
+				  <height>345</height>
+				  <aspectratio>stretch</aspectratio>
+				  <texture background="true" fallback="poster_default.png" diffuse="poster_matte.png">$INFO[ListItem.Icon]</texture>
+				</control>
+			  </control>
+			</itemlayout>
+			<focusedlayout height="368" width="290">
+			<control type="group">
+				<posx>0</posx>
+				<posy>0</posy>
+				<control type="image">
+				  <posx>3</posx>
+				  <posy>-5</posy>
+				  <width>194</width>
+				  <height>265</height>
+				  <aspectratio>stretch</aspectratio>
+				  <texture background="true">Views/dvd_overlay3.png</texture>
+				  <animation effect="zoom" start="100" end="115" center="auto" time="300">Focus</animation>
+				</control>
+				<control type="image">
+				  <posx>20</posx>
+				  <posy>16</posy>
+				  <width>260</width>
+				  <height>345</height>
+				  <aspectratio>stretch</aspectratio>
+				  <texture background="true" fallback="poster_default.png" diffuse="poster_matte.png">$INFO[ListItem.Icon]</texture>
+				  <animation effect="zoom" start="100" end="130" center="auto" time="200">Focus</animation>
+				</control>		
+			</control>
+			</focusedlayout>
+		  </control>
+		</control>
+		<control type="textbox">	<!--Info Plot: Movies, TV-Shows, Music-Videos -->
+			<visible>Control.IsVisible(52)</visible>	
+			<visible>!Window.IsActive(DialogVideoInfo.xml)</visible>	
+			<visible>Container.Content(MusicVideos) | Container.Content(movies) | container.content(tvshows)</visible>
+			<include>animation_view_change</include>			
+			<include>animation_list</include>
+			<posx>65</posx>
+			<posy>890</posy>	
+			<width>1800</width>
+			<height>100</height>
+			<font>Light32</font>				
+			<textcolor>white</textcolor>	
+			<shadowcolor>black</shadowcolor> 
+			<label>$INFO[ListItem.Plot]</label>				
+		</control>
+		<control type="textbox">	<!--Info Plot: Episodes -->
+			<visible>Control.IsVisible(52)</visible>	
+			<visible>!Window.IsActive(DialogVideoInfo.xml)</visible>	
+			<visible>Container.Content(episodes)</visible>
+			<include>animation_view_change</include>			
+			<include>animation_list</include>
+			<posx>65</posx>
+			<posy>890</posy>	
+			<width>1800</width>
+			<height>100</height>
+			<font>Light32</font>				
+			<textcolor>white</textcolor>	
+			<shadowcolor>black</shadowcolor> 
+			<label>$INFO[ListItem.Plot]</label>				
+		</control>
+		<control type="group">	<!-- RSS -->	
+			<visible>Control.IsVisible(52)</visible>	
+			<visible>!Window.IsActive(DialogVideoInfo.xml)</visible>	
+			<include>animation_view_change</include>			
+			<include>animation_list</include>
+			<control type="image">	<!--RSS Background -->
+				<posx>50</posx>
+				<posy>960</posy>
+				<width>1820</width>
+				<height>84</height>
+				<texture>home/home_rss.png</texture>				
+			</control>			
+		</control>
+		<control type="group">	<!-- Rating -->	
+			<visible>Control.IsVisible(52)</visible>	
+			<visible>!Window.IsActive(DialogVideoInfo.xml)</visible>	
+			<include>animation_view_change</include>			
+			<include>animation_list</include>
+			<posy>990</posy>
+			<control type="image">							
+				<posx>130</posx>
+				<posy>13</posy>
+				<width>270</width>
+				<height>25</height>	
+				<texture fallback="rating/stars/NA.png">$INFO[ListItem.Rating,rating/10stars_black/,.png]</texture>											
+			</control>
+			<control type="label">				
+				<posx>420</posx>
+				<posy>0</posy> 		
+				<width>100</width>
+				<font>Bold30Big</font>			
+				<textcolor>black</textcolor>
+				<label>$INFO[ListItem.Rating]</label>	
+			</control>			
+		</control>
+		
+		<control type="group">	<!-- Title -->	
+			<visible>Control.IsVisible(52)</visible>	
+			<visible>!Window.IsActive(DialogVideoInfo.xml)</visible>	
+			<include>animation_view_change</include>			
+			<include>animation_list</include>
+			<posy>990</posy>					
+			<control type="label">					
+				<posx>560</posx>
+				<posy>0</posy> 		
+				<width>800</width>
+				<align>center</align>
+				<font>Bold34Big</font>			
+				<textcolor>black</textcolor>
+				<label>$INFO[ListItem.Label]</label>	
+			</control>			
+		</control>
+		<control type="group">	<!-- Page Control -->	
+			<visible>Control.IsVisible(52)</visible>	
+			<visible>!Window.IsActive(DialogVideoInfo.xml)</visible>	
+			<include>animation_view_change</include>			
+			<include>animation_list</include>
+			<posy>990</posy>					
+			<control type="label">					
+				<posx>1780</posx>
+				<posy>0</posy> 		
+				<width>400</width>
+				<align>right</align>
+				<font>Bold30Big</font>			
+				<textcolor>black</textcolor>
+				<label>$INFO[Container.CurrentPage]/$INFO[Container.NumPages]</label>
+			</control>			
+		</control>	
+	</include>
+</includes>

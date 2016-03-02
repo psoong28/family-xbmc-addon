@@ -1,0 +1,958 @@
+# XBMC Media Center language file
+# Addon Name: Avalon
+# Addon id: skin.avalon
+# Addon Provider: reazorFX
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC-Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2013-08-13 08:36+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+
+msgctxt "#31000"
+msgid "Finishes at"
+msgstr "finitions au"
+
+msgctxt "#31001"
+msgid "Files Mode"
+msgstr "mode Fichiers"
+
+msgctxt "#31002"
+msgid "PROGRAMS"
+msgstr "PROGRAMMES"
+
+msgctxt "#31003"
+msgid "VIDEOS"
+msgstr "VIDOS"
+
+msgctxt "#31004"
+msgid "MUSIC"
+msgstr "MUSIQUE"
+
+msgctxt "#31005"
+msgid "PICTURES"
+msgstr "PHOTOS"
+
+msgctxt "#31006"
+msgid "MOVIES"
+msgstr "FILMS"
+
+msgctxt "#31007"
+msgid "TV SHOWS"
+msgstr "MISSIONS DE TV"
+
+msgctxt "#31008"
+msgid "FAVOURITES"
+msgstr "FAVORIS"
+
+msgctxt "#31009"
+msgid "PROFILES"
+msgstr "PROFILS"
+
+msgctxt "#31010"
+msgid "WEATHER"
+msgstr "MTO"
+
+msgctxt "#31011"
+msgid "FILE MANAGER"
+msgstr "GESTIONNAIRE DE FICHIERS"
+
+msgctxt "#31012"
+msgid "SETTINGS"
+msgstr "REGLAGES"
+
+msgctxt "#31013"
+msgid "SHUTDOWN"
+msgstr "FERMER"
+
+msgctxt "#31014"
+msgid "PLAY DISC"
+msgstr "LIRE DISQUE"
+
+msgctxt "#31015"
+msgid "Player Controls"
+msgstr "Commandes du lecteur"
+
+msgctxt "#31016"
+msgid "Background Visuals"
+msgstr "Visuels de fond"
+
+msgctxt "#31017"
+msgid "Lyrics/Subtitles"
+msgstr "Paroles de chansons / Sous-titres"
+
+msgctxt "#31018"
+msgid "Current Selected"
+msgstr "actuellement slectionn"
+
+msgctxt "#31019"
+msgid "Open playlist"
+msgstr "Ouvrir playlist"
+
+msgctxt "#31020"
+msgid "Save playlist"
+msgstr "Sauvegarder playlist"
+
+msgctxt "#31021"
+msgid "Close playlist"
+msgstr "Fermer playlist"
+
+msgctxt "#31022"
+msgid "System music files"
+msgstr "Fichiers musicaux du systme"
+
+msgctxt "#31023"
+msgid "Disable Background Visualiser"
+msgstr "Disable Background Visualiser"
+
+msgctxt "#31024"
+msgid "Disable Background Video"
+msgstr "Contexte dsactiver la vido"
+
+msgctxt "#31025"
+msgid "Click to change default Lyrics script"
+msgstr "Cliquez pour changer dfaut de script Lyrics"
+
+msgctxt "#31026"
+msgid "Click to change default Subtitles script"
+msgstr "Cliquez pour changer script de sous-titres par dfaut"
+
+msgctxt "#31027"
+msgid "Items"
+msgstr "articles"
+
+msgctxt "#31028"
+msgid "Page"
+msgstr "page"
+
+msgctxt "#31029"
+msgid "Current playlist"
+msgstr "playlist actuelle"
+
+msgctxt "#31030"
+msgid "Memory Used"
+msgstr "Mmoire utilise"
+
+msgctxt "#31031"
+msgid "Karaoke Song Selector"
+msgstr "Karaoke Slecteur Chanson"
+
+msgctxt "#31032"
+msgid "Visualization Presets"
+msgstr "Presets de visualisation"
+
+msgctxt "#31033"
+msgid "Debug"
+msgstr "dboguer"
+
+msgctxt "#31034"
+msgid "Enable Debug Grid"
+msgstr "Activer Debug Grille"
+
+msgctxt "#31035"
+msgid "Disable Debug Info"
+msgstr "Dsactiver les informations de dbogage"
+
+msgctxt "#31036"
+msgid "Rewind"
+msgstr "rembobiner"
+
+msgctxt "#31037"
+msgid "Pause"
+msgstr "Pause"
+
+msgctxt "#31038"
+msgid "Stop"
+msgstr "Arrtez"
+
+msgctxt "#31039"
+msgid "Fast Forward"
+msgstr "Avance rapide"
+
+msgctxt "#31040"
+msgid "Visualisation Presets"
+msgstr "Visualisation Presets"
+
+msgctxt "#31041"
+msgid "DVD Menu"
+msgstr "Menu DVD"
+
+msgctxt "#31404"
+msgid "[B]CONFIGURE WEATHER SETTINGS[/B][CR][CR][COLOR=midgrey]Set three cities to collect weather information[/COLOR]"
+msgstr "[B]CONFIGURATION REGLAGES TEMPS[/ B][CR][CR][COLOR=midgrey]Rglez trois villes pour recueillir des informations mto[/COLOR]"
+
+msgctxt "#31421"
+msgid "[B]SELECT YOUR XBMC USER PROFILE[/B][CR][CR][COLOR=midgrey]to login and continue[/COLOR]"
+msgstr "[B]CHOISISSEZ VOTRE PROFIL UTILISATEUR XBMC[/ B][CR][CR][COLOR=midgrey]pour identifier et continuer[/COLOR]"
+
+msgctxt "#31422"
+msgid "[B]CONFIGURE WIFI[/B][CR][CR][COLOR=midgrey]Manage your Internet Using The Xunity Wifi Tool[/COLOR]"
+msgstr "[B]CONFIGURATION WIFI[/ B][CR][CR][COLOR=midgrey]Grez votre Internet en utilisant le Wifi outil Xunity[/COLOR]"
+
+msgctxt "#41000"
+msgid "Pictures"
+msgstr "photos"
+
+msgctxt "#41001"
+msgid "Music"
+msgstr "musique"
+
+msgctxt "#41002"
+msgid "Movies"
+msgstr "films"
+
+msgctxt "#41003"
+msgid "TV Shows"
+msgstr "Sries TV"
+
+msgctxt "#41004"
+msgid "Video-Addons"
+msgstr "Vido -Addons"
+
+msgctxt "#41005"
+msgid "Weather"
+msgstr "temps"
+
+msgctxt "#41006"
+msgid "Settings"
+msgstr "paramtres"
+
+msgctxt "#41007"
+msgid "Shutdown"
+msgstr "Fermer"
+
+msgctxt "#41008"
+msgid "Videos"
+msgstr "vidos"
+
+msgctxt "#41009"
+msgid "Today"
+msgstr "aujourd'hui"
+
+msgctxt "#41010"
+msgid "Recently Added"
+msgstr "rcemment Ajout"
+
+msgctxt "#41011"
+msgid "New Movies"
+msgstr "nouveaux Films"
+
+msgctxt "#41012"
+msgid "Genre"
+msgstr "Genre"
+
+msgctxt "#41013"
+msgid "Year"
+msgstr "anne"
+
+msgctxt "#41014"
+msgid "Actors"
+msgstr "acteurs"
+
+msgctxt "#41015"
+msgid "Director"
+msgstr "directeur"
+
+msgctxt "#41016"
+msgid "Playlist"
+msgstr "playlist"
+
+msgctxt "#41017"
+msgid "Music Videos"
+msgstr "Clips"
+
+msgctxt "#41018"
+msgid "New Episodes"
+msgstr "nouveaux pisodes"
+
+msgctxt "#41019"
+msgid "Music-Addons"
+msgstr "Musique -Addons"
+
+msgctxt "#41020"
+msgid "New Albums"
+msgstr "nouveaux albums"
+
+msgctxt "#41021"
+msgid "Artist"
+msgstr "artiste"
+
+msgctxt "#41022"
+msgid "Songs"
+msgstr "chansons"
+
+msgctxt "#41023"
+msgid "Library"
+msgstr "bibliothque"
+
+msgctxt "#41024"
+msgid "Live TV"
+msgstr "live TV"
+
+msgctxt "#41025"
+msgid "File manager"
+msgstr "Gestionnaire de fichiers"
+
+msgctxt "#41026"
+msgid "Addons"
+msgstr "Extensions"
+
+msgctxt "#41027"
+msgid "Programs"
+msgstr "programmes"
+
+msgctxt "#41028"
+msgid "Favourites"
+msgstr "favoris"
+
+msgctxt "#41030"
+msgid "Premiere"
+msgstr "premire"
+
+msgctxt "#41031"
+msgid "Duration"
+msgstr "dure"
+
+msgctxt "#41032"
+msgid "Rating"
+msgstr "valuation"
+
+msgctxt "#41033"
+msgid "Unwatched Episodes"
+msgstr "Episodes visionns"
+
+msgctxt "#41034"
+msgid "Premiere"
+msgstr "premire"
+
+msgctxt "#41035"
+msgid "Wind"
+msgstr "vent"
+
+msgctxt "#41037"
+msgid "UV-Index"
+msgstr "UV - Index"
+
+msgctxt "#41038"
+msgid "Dew Point"
+msgstr "Point de rose"
+
+msgctxt "#41039"
+msgid "Unwatched"
+msgstr "sans surveillance"
+
+msgctxt "#41070"
+msgid "Single Image"
+msgstr "une seule image"
+
+msgctxt "#41071"
+msgid "Multi Image"
+msgstr "multi Image"
+
+msgctxt "#41072"
+msgid "Default"
+msgstr "Par dfaut"
+
+msgctxt "#41073"
+msgid "Change Background"
+msgstr "Changer de fond"
+
+msgctxt "#41080"
+msgid "Change Background"
+msgstr "Changer de fond"
+
+msgctxt "#41081"
+msgid "Disable Menu"
+msgstr "Dsactiver Menu"
+
+msgctxt "#41090"
+msgid "Menu"
+msgstr "menu"
+
+msgctxt "#41091"
+msgid "Scroll Info-Plot"
+msgstr "Scroll Info- Terrain"
+
+msgctxt "#41092"
+msgid "Youtube Trailer"
+msgstr "Youtube Remorque"
+
+msgctxt "#41100"
+msgid "Movie Widget"
+msgstr "film Widget"
+
+msgctxt "#41101"
+msgid "TV Show Widget"
+msgstr "TV Show Widget"
+
+msgctxt "#41102"
+msgid "Album Widget"
+msgstr "album Widget"
+
+msgctxt "#41103"
+msgid "Qlock Widget"
+msgstr "Qlock Widget"
+
+msgctxt "#41110"
+msgid "New on XBMC ..."
+msgstr "Nouveau sur XBMC ..."
+
+msgctxt "#41111"
+msgid "XBMC recommended ..."
+msgstr "XBMC recommand ..."
+
+msgctxt "#41136"
+msgid "Custom home menu"
+msgstr "Menu d'accueil personnalise"
+
+msgctxt "#41137"
+msgid "Custom"
+msgstr "coutume"
+
+msgctxt "#41138"
+msgid "Name"
+msgstr "nom"
+
+msgctxt "#41139"
+msgid "Fanart"
+msgstr "fanart"
+
+msgctxt "#41140"
+msgid "Dim icon"
+msgstr "icne Dim"
+
+msgctxt "#41141"
+msgid "Type"
+msgstr "type"
+
+msgctxt "#41142"
+msgid "Path"
+msgstr "chemin"
+
+msgctxt "#41143"
+msgid "Recommended size 1920x1080px"
+msgstr "1920x1080px taille recommande"
+
+msgctxt "#41144"
+msgid "Show overlay"
+msgstr "Afficher superposition"
+
+msgctxt "#41145"
+msgid "Video add-on"
+msgstr "Vido add-on"
+
+msgctxt "#41146"
+msgid "Music add-on"
+msgstr "Musique add-on"
+
+msgctxt "#41147"
+msgid "Picture add-on"
+msgstr "Photo add-on"
+
+msgctxt "#41148"
+msgid "Program add-on"
+msgstr "Programme add-on"
+
+msgctxt "#41149"
+msgid "Video Playlist"
+msgstr "Vido playlist"
+
+msgctxt "#41150"
+msgid "Music Playlist"
+msgstr "music Playlist"
+
+msgctxt "#41151"
+msgid "Custom"
+msgstr "coutume"
+
+msgctxt "#41152"
+msgid "Music panel opens"
+msgstr "Panneau de Musique se ouvre"
+
+msgctxt "#41153"
+msgid "Favourite"
+msgstr "favori"
+
+msgctxt "#41154"
+msgid "Close"
+msgstr "prs"
+
+msgctxt "#42000"
+msgid "Search Youtube"
+msgstr "Rechercher Youtube"
+
+msgctxt "#50000"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50001"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50002"
+msgid "L"
+msgstr "L"
+
+msgctxt "#50003"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50004"
+msgid "S"
+msgstr "S"
+
+msgctxt "#50005"
+msgid "A"
+msgstr "A"
+
+msgctxt "#50006"
+msgid "S"
+msgstr "S"
+
+msgctxt "#50007"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50008"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50009"
+msgid "M"
+msgstr "M"
+
+msgctxt "#50010"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50011"
+msgid "A"
+msgstr "A"
+
+msgctxt "#50012"
+msgid "C"
+msgstr "C"
+
+msgctxt "#50013"
+msgid "Q"
+msgstr "Q"
+
+msgctxt "#50014"
+msgid "U"
+msgstr "U"
+
+msgctxt "#50015"
+msgid "A"
+msgstr "A"
+
+msgctxt "#50016"
+msgid "R"
+msgstr "R"
+
+msgctxt "#50017"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50018"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50019"
+msgid "R"
+msgstr "R"
+
+msgctxt "#50020"
+msgid "D"
+msgstr "D"
+
+msgctxt "#50021"
+msgid "C"
+msgstr "C"
+
+msgctxt "#50022"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50023"
+msgid "W"
+msgstr "W"
+
+msgctxt "#50024"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50025"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50026"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50027"
+msgid "Y"
+msgstr "Y"
+
+msgctxt "#50028"
+msgid "F"
+msgstr "F"
+
+msgctxt "#50029"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50030"
+msgid "V"
+msgstr "V"
+
+msgctxt "#50031"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50032"
+msgid "X"
+msgstr "X"
+
+msgctxt "#50033"
+msgid "H"
+msgstr "H"
+
+msgctxt "#50034"
+msgid "A"
+msgstr "A"
+
+msgctxt "#50035"
+msgid "L"
+msgstr "L"
+
+msgctxt "#50036"
+msgid "F"
+msgstr "F"
+
+msgctxt "#50037"
+msgid "B"
+msgstr "B"
+
+msgctxt "#50038"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50039"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50040"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50041"
+msgid "F"
+msgstr "F"
+
+msgctxt "#50042"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50043"
+msgid "O"
+msgstr "O"
+
+msgctxt "#50044"
+msgid "P"
+msgstr "P"
+
+msgctxt "#50045"
+msgid "A"
+msgstr "A"
+
+msgctxt "#50046"
+msgid "S"
+msgstr "S"
+
+msgctxt "#50047"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50048"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50049"
+msgid "R"
+msgstr "R"
+
+msgctxt "#50050"
+msgid "U"
+msgstr "U"
+
+msgctxt "#50051"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50052"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50053"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50054"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50055"
+msgid "O"
+msgstr "O"
+
+msgctxt "#50056"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50057"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50058"
+msgid "S"
+msgstr "S"
+
+msgctxt "#50059"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50060"
+msgid "X"
+msgstr "X"
+
+msgctxt "#50061"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50062"
+msgid "H"
+msgstr "H"
+
+msgctxt "#50063"
+msgid "R"
+msgstr "R"
+
+msgctxt "#50064"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50065"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50066"
+msgid "F"
+msgstr "F"
+
+msgctxt "#50067"
+msgid "O"
+msgstr "O"
+
+msgctxt "#50068"
+msgid "U"
+msgstr "U"
+
+msgctxt "#50069"
+msgid "R"
+msgstr "R"
+
+msgctxt "#50070"
+msgid "F"
+msgstr "F"
+
+msgctxt "#50071"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50072"
+msgid "V"
+msgstr "V"
+
+msgctxt "#50073"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50074"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50075"
+msgid "W"
+msgstr "W"
+
+msgctxt "#50076"
+msgid "O"
+msgstr "O"
+
+msgctxt "#50077"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50078"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50079"
+msgid "G"
+msgstr "G"
+
+msgctxt "#50080"
+msgid "H"
+msgstr "H"
+
+msgctxt "#50081"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50082"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50083"
+msgid "L"
+msgstr "L"
+
+msgctxt "#50084"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50085"
+msgid "V"
+msgstr "V"
+
+msgctxt "#50086"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50087"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50088"
+msgid "S"
+msgstr "S"
+
+msgctxt "#50089"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50090"
+msgid "V"
+msgstr "V"
+
+msgctxt "#50091"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50092"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50093"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50094"
+msgid "W"
+msgstr "W"
+
+msgctxt "#50095"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50096"
+msgid "L"
+msgstr "L"
+
+msgctxt "#50097"
+msgid "V"
+msgstr "V"
+
+msgctxt "#50098"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50099"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50100"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50101"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50102"
+msgid "S"
+msgstr "S"
+
+msgctxt "#50103"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50104"
+msgid "O"
+msgstr "O"
+
+msgctxt "#50105"
+msgid "C"
+msgstr "C"
+
+msgctxt "#50106"
+msgid "L"
+msgstr "L"
+
+msgctxt "#50107"
+msgid "O"
+msgstr "O"
+
+msgctxt "#50108"
+msgid "C"
+msgstr "C"
+
+msgctxt "#50109"
+msgid "K"
+msgstr "K"
+
+msgctxt "#50110"
+msgid "Home Weather"
+msgstr "Accueil Mto"
+
+msgctxt "#50111"
+msgid "Custom Home Icons"
+msgstr "Accueil personnalis Icnes"
+
+msgctxt "#50112"
+msgid "[COLOR midgrey]Custom Home Icons[/COLOR]"
+msgstr "[Gris-moyen COLOR]Accueil personnalis Icnes[/COLOR]"
+
+msgctxt "#50113"
+msgid "Content Installer"
+msgstr "Installer contenu"
+
+msgctxt "#50114"
+msgid "CU Lyrics"
+msgstr "CU Lyrics"
+
+msgctxt "#50115"
+msgid "XBMC Subtitles"
+msgstr "XBMC Sous-titres"
+
+msgctxt "#50116"
+msgid "Enable Home Weather Icons"
+msgstr "Activer Accueil Mto Icnes"

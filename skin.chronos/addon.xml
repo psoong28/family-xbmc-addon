@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="skin.chronos" version="0.2.2" name="Chronos" provider-name="Xuntitytalk">
+	<requires>
+		<import version="5.0.1" addon="xbmc.gui"/>
+		<import version="0.0.1" addon="service.skin.widgets"/>	
+		<import addon="script.artwork.downloader" version="0.0.1"/>
+	</requires>
+	<extension point="xbmc.gui.skin" defaultthemename="textures.xbt" debugging="false" effectslowdown="0.75">		
+		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080i"/>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary>All Thanks go To reazorFX For Starting This Project</summary>
+		<description>All Thanks go To reazorFX For Starting This Project</description>
+	</extension>
+</addon>

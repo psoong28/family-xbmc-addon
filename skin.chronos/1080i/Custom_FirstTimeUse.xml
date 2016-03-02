@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1111">
+	<defaultcontrol always="true">200</defaultcontrol>
+	<allowoverlay>yes</allowoverlay>
+  <onload>RunScript(script.xunity.systemsettings,refresh)</onload>
+  <onunload>ReplaceWindow(Home)</onunload>
+  <onload>Control.SetFocus(901)</onload>
+	<controls>
+    <include>DialogOverlay</include>
+  	<control type="group">
+	        <left>90</left>
+            <top>30</top>
+            <animation type="WindowOpen" reversible="false">
+                <effect type="zoom" start="80" end="100" center="640,360" easing="out" tween="back" time="300" />
+                <effect type="fade" start="0" end="100" time="300" />
+            </animation>
+            <animation type="WindowClose" reversible="false">
+                <effect type="zoom" start="100" end="80" center="640,360" easing="in" tween="back" time="300" />
+                <effect type="fade" start="100" end="0" time="300" />
+            </animation>
+            <control type="image">
+                <left>265</left>
+                <top>5</top>
+                <width>1130</width>
+                <height>630</height>
+                <texture border="15">firstrun/ContentPanel.png</texture>
+            </control>
+            
+        <control type="image">
+  			<description>Heading Label</description>
+  			<left>800</left>
+  			<top>20</top>
+  			<width>270</width>
+			<height>135</height>
+            <texture>firstrun/Xunity_Logo.png</texture>
+  			<font>font16caps</font>
+  			<textcolor>white</textcolor>
+  			<align>center</align>
+  			<scroll>true</scroll>
+  			<scrollspeed>20</scrollspeed>
+  		</control>
+  
+  		<control type="grouplist" id="900">
+  			<left>663</left>
+  			<top>168</top>
+  			<width>553</width>
+			  <height>404</height>
+  		  <itemgap>4</itemgap>
+  			<onleft>10000</onleft>
+			  <onright>10000</onright>
+			  <onup>10000</onup>
+			  <ondown>10000</ondown>
+  			<scrolltime>250</scrolltime>
+  			<control type="button" id="901">
+  				<description>Language Button</description>
+  		    <width>553</width>
+          <include>DialogsButton</include>
+  				<label>[COLOR white]$LOCALIZE[309][/COLOR]</label>
+  				<label2>[COLOR=ff00b7ff]$INFO[Skin.String(locale.language)][/COLOR]</label2>
+  				<onclick>RunScript(script.xunity.systemsettings,setLanguage)</onclick>
+  			</control>
+  			<control type="button" id="902">
+  				<description>Subtitles Language Button</description>
+  		    <width>553</width>
+          <include>DialogsButton</include>
+  				<label>[COLOR white]$LOCALIZE[21448][/COLOR]</label>
+    			<label2>[COLOR=ff00b7ff]$INFO[Skin.String(subtitles.languages)][/COLOR]</label2>
+  				<onclick>RunScript(script.xunity.systemsettings,SetSubtitleDownload)</onclick>
+  			</control>
+			  <control type="button" id="908">
+  				<description>Character Set (Subtitles)</description>
+  		    <width>553</width>
+          <include>DialogsButton</include>
+  				<label>[COLOR white]Charset[/COLOR]</label>
+			    <label2>[COLOR=ff00b7ff]$INFO[Skin.String(subtitles.charset)][/COLOR]</label2>
+			    <onclick>RunScript(script.xunity.systemsettings,SetSubtitleCharset)</onclick>
+  			</control>
+  			<control type="button" id="903">
+  				<description>Region Button</description>
+  		    <width>553</width>
+          <include>DialogsButton</include>
+  				<label>[COLOR white]$LOCALIZE[20026][/COLOR]</label>
+    			<label2>[COLOR=ff00b7ff]$INFO[Skin.String(locale.country)][/COLOR]</label2>
+  				<onclick>RunScript(script.xunity.systemsettings,SetRegion)</onclick>
+  			</control>
+  			<control type="button" id="904">
+				  <description>Timezone Button</description>
+  		    <width>553</width>
+          <include>DialogsButton</include>
+			    <label>[COLOR white]$LOCALIZE[14080][/COLOR]</label>
+			    <label2>[COLOR=ff00b7ff]$INFO[Skin.String(locale.timezonecountry)][/COLOR]</label2>
+			    <onclick>RunScript(script.xunity.systemsettings,setTimezoneCountry)</onclick>
+  			</control>
+  			<control type="button" id="905">
+				  <description>Weather Button</description>
+  		    <width>553</width>
+          <include>DialogsButton</include>
+			    <label>[COLOR white]$LOCALIZE[8][/COLOR]</label>
+			    <label2>[COLOR=ff00b7ff]$INFO[Window(Weather).Property(Current.Location)][/COLOR]</label2>
+  				<onclick>Skin.SetBool(HomeWeather)</onclick>
+			    <onclick>RunScript(weather.yahoo,Location1)</onclick>
+			    <onunfocus>XBMC.RunScript(weather.yahoo,start)</onunfocus>
+  			</control>
+			  <control type="button" id="906">
+  				<description>Network Button</description>
+  		        <width>553</width>
+                <include>DialogsButton</include>
+  				<label>[COLOR white]$LOCALIZE[705][/COLOR]</label>
+  				<label2>[COLOR=ff00b7ff]$INFO[Network.LinkState]$INFO[Network.IPAddress, (,)][/COLOR]</label2>
+  			</control>
+  		</control>
+  
+  
+      <!-- Buttons -->
+  		<control type="group" id="10000">
+  			<left>600</left>
+			<top>610</top>
+            <animation effect="slide" start="0,0" end="0,-47" time="0">Conditional</animation>
+			<control type="image">
+				<posx>330</posx>
+				<posy>13</posy>
+				<width>80</width>
+				<height>60</height>
+				<texture>dialogs/default/arrow.png</texture>
+			</control>
+			<control type="image">
+				<posx>178</posx>
+				<posy>33</posy>
+				<width>384</width>
+				<height>154</height>
+				<texture border="39">dialogs/default/bg.png</texture>
+			</control>
+			<control type="button" id="10">
+				<description>Ok button</description>
+				<posx>221</posx>
+				<posy>65</posy>
+				<width>300</width>
+				<height>90</height>
+				<align>center</align>
+				<font>Light34</font>
+	  			<onup>900</onup>
+	  			<ondown>901</ondown>
+  			    <label>[B][UPPERCASE]$LOCALIZE[20177][/UPPERCASE][/B]</label>
+				<texturefocus border="20">dialogs/keyboard/key-fo.png</texturefocus>
+				<texturenofocus border="20">dialogs/keyboard/key-nf.png</texturenofocus>
+				<textcolor>midgrey</textcolor>
+				<focusedcolor>eewhite</focusedcolor>
+				<selectedcolor>eewhite</selectedcolor>
+  				<onclick>Skin.Setbool(FirstTimeRun)</onclick>
+  		        <onclick>Action(back)</onclick>
+  		        <onclick>XBMC.RunScript(special://skin/scripts/firstplay.py)</onclick>
+			</control>
+  		</control>
+  	</control>
+	</controls>
+</window>

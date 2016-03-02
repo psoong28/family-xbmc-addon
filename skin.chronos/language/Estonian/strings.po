@@ -1,0 +1,958 @@
+# XBMC Media Center language file
+# Addon Name: Avalon
+# Addon id: skin.avalon
+# Addon Provider: reazorFX
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC-Addons\n"
+"Report-Msgid-Bugs-To: alanwww1@xbmc.org\n"
+"POT-Creation-Date: 2013-08-13 08:36+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+
+msgctxt "#31000"
+msgid "Finishes at"
+msgstr "lpeb"
+
+msgctxt "#31001"
+msgid "Files Mode"
+msgstr "Failide esitus"
+
+msgctxt "#31002"
+msgid "PROGRAMS"
+msgstr "PROGRAMMID"
+
+msgctxt "#31003"
+msgid "VIDEOS"
+msgstr "VIDEOD"
+
+msgctxt "#31004"
+msgid "MUSIC"
+msgstr "MUUSIKA"
+
+msgctxt "#31005"
+msgid "PICTURES"
+msgstr "PILDID"
+
+msgctxt "#31006"
+msgid "MOVIES"
+msgstr "filme"
+
+msgctxt "#31007"
+msgid "TV SHOWS"
+msgstr "telesaateid"
+
+msgctxt "#31008"
+msgid "FAVOURITES"
+msgstr "LEMMIKUD"
+
+msgctxt "#31009"
+msgid "PROFILES"
+msgstr "profiilid"
+
+msgctxt "#31010"
+msgid "WEATHER"
+msgstr "ILM"
+
+msgctxt "#31011"
+msgid "FILE MANAGER"
+msgstr "Failihaldur"
+
+msgctxt "#31012"
+msgid "SETTINGS"
+msgstr "SETTINGS"
+
+msgctxt "#31013"
+msgid "SHUTDOWN"
+msgstr "SHUTDOWN"
+
+msgctxt "#31014"
+msgid "PLAY DISC"
+msgstr "PLAY DISC"
+
+msgctxt "#31015"
+msgid "Player Controls"
+msgstr "Player Controls"
+
+msgctxt "#31016"
+msgid "Background Visuals"
+msgstr "Taust Visuaalid"
+
+msgctxt "#31017"
+msgid "Lyrics/Subtitles"
+msgstr "Lyrics / Subtiitrid"
+
+msgctxt "#31018"
+msgid "Current Selected"
+msgstr "Praegune valitud"
+
+msgctxt "#31019"
+msgid "Open playlist"
+msgstr "Open playlist"
+
+msgctxt "#31020"
+msgid "Save playlist"
+msgstr "Salvesta loend"
+
+msgctxt "#31021"
+msgid "Close playlist"
+msgstr "Sulge playlist"
+
+msgctxt "#31022"
+msgid "System music files"
+msgstr "Ssteem muusikafaile"
+
+msgctxt "#31023"
+msgid "Disable Background Visualiser"
+msgstr "Keela Background Vaata"
+
+msgctxt "#31024"
+msgid "Disable Background Video"
+msgstr "Keela Background Video"
+
+msgctxt "#31025"
+msgid "Click to change default Lyrics script"
+msgstr "Klpsa, et muuta vaikimisi Lyrics script"
+
+msgctxt "#31026"
+msgid "Click to change default Subtitles script"
+msgstr "Klpsa, et muuta vaikimisi Subtiitrid script"
+
+msgctxt "#31027"
+msgid "Items"
+msgstr "esemed"
+
+msgctxt "#31028"
+msgid "Page"
+msgstr "leheklg"
+
+msgctxt "#31029"
+msgid "Current playlist"
+msgstr "Praegune playlist"
+
+msgctxt "#31030"
+msgid "Memory Used"
+msgstr "Mlu Kasutatud"
+
+msgctxt "#31031"
+msgid "Karaoke Song Selector"
+msgstr "Karaoke Song valija"
+
+msgctxt "#31032"
+msgid "Visualization Presets"
+msgstr "visualiseerimine Eelseaded"
+
+msgctxt "#31033"
+msgid "Debug"
+msgstr "Debug"
+
+msgctxt "#31034"
+msgid "Enable Debug Grid"
+msgstr "Luba Debug Grid"
+
+msgctxt "#31035"
+msgid "Disable Debug Info"
+msgstr "Keela Debug Info"
+
+msgctxt "#31036"
+msgid "Rewind"
+msgstr "Rewind"
+
+msgctxt "#31037"
+msgid "Pause"
+msgstr "paus"
+
+msgctxt "#31038"
+msgid "Stop"
+msgstr "Peatuge"
+
+msgctxt "#31039"
+msgid "Fast Forward"
+msgstr "Fast Forward"
+
+msgctxt "#31040"
+msgid "Visualisation Presets"
+msgstr "visualiseerimine Eelseaded"
+
+msgctxt "#31041"
+msgid "DVD Menu"
+msgstr "DVD Menu"
+
+msgctxt "#31404"
+msgid "[B]CONFIGURE WEATHER SETTINGS[/B][CR][CR][COLOR=midgrey]Set three cities to collect weather information[/COLOR]"
+msgstr "[B]CONFIGURE ILM SETTINGS[/ B][CR][CR][COLOR=midgrey]Seadke kolme linna koguda ilmateate[/COLOR]"
+
+msgctxt "#31421"
+msgid "[B]SELECT YOUR XBMC USER PROFILE[/B][CR][CR][COLOR=midgrey]to login and continue[/COLOR]"
+msgstr "[B]Sisestage oma XBMC Kasutaja info[/ B][CR][CR][COLOR=midgrey]login ja jtkata[/COLOR]"
+
+msgctxt "#31422"
+msgid "[B]CONFIGURE WIFI[/B][CR][CR][COLOR=midgrey]Manage your Internet Using The Xunity Wifi Tool[/COLOR]"
+msgstr "[B]CONFIGURE WIFI[/ B][CR][CR][COLOR=midgrey]hallata oma Interneti kasutamineXunity Wifi Tool[/COLOR]"
+
+msgctxt "#41000"
+msgid "Pictures"
+msgstr "Pildid"
+
+msgctxt "#41001"
+msgid "Music"
+msgstr "muusika"
+
+msgctxt "#41002"
+msgid "Movies"
+msgstr "Filmid"
+
+msgctxt "#41003"
+msgid "TV Shows"
+msgstr "TV Shows"
+
+msgctxt "#41004"
+msgid "Video-Addons"
+msgstr "Video - Lisavarustus"
+
+msgctxt "#41005"
+msgid "Weather"
+msgstr "ilm"
+
+msgctxt "#41006"
+msgid "Settings"
+msgstr "Seaded"
+
+msgctxt "#41007"
+msgid "Shutdown"
+msgstr "seiskamine"
+
+msgctxt "#41008"
+msgid "Videos"
+msgstr "Videod"
+
+msgctxt "#41009"
+msgid "Today"
+msgstr "tna"
+
+msgctxt "#41010"
+msgid "Recently Added"
+msgstr "hiljuti lisatud"
+
+msgctxt "#41011"
+msgid "New Movies"
+msgstr "New Filmid"
+
+msgctxt "#41012"
+msgid "Genre"
+msgstr "lahke"
+
+msgctxt "#41013"
+msgid "Year"
+msgstr "aasta"
+
+msgctxt "#41014"
+msgid "Actors"
+msgstr "Nitlejad"
+
+msgctxt "#41015"
+msgid "Director"
+msgstr "direktor"
+
+msgctxt "#41016"
+msgid "Playlist"
+msgstr "Playlist"
+
+msgctxt "#41017"
+msgid "Music Videos"
+msgstr "Music Videos"
+
+msgctxt "#41018"
+msgid "New Episodes"
+msgstr "New episoodidest"
+
+msgctxt "#41019"
+msgid "Music-Addons"
+msgstr "Muusika - Lisavarustus"
+
+msgctxt "#41020"
+msgid "New Albums"
+msgstr "New Albums"
+
+msgctxt "#41021"
+msgid "Artist"
+msgstr "kunstnik"
+
+msgctxt "#41022"
+msgid "Songs"
+msgstr "laulud"
+
+msgctxt "#41023"
+msgid "Library"
+msgstr "raamatukogu"
+
+msgctxt "#41024"
+msgid "Live TV"
+msgstr "Live TV"
+
+msgctxt "#41025"
+msgid "File manager"
+msgstr "Failihaldur"
+
+msgctxt "#41026"
+msgid "Addons"
+msgstr "Lisavarustus"
+
+msgctxt "#41027"
+msgid "Programs"
+msgstr "programmid"
+
+msgctxt "#41028"
+msgid "Favourites"
+msgstr "Lemmikud"
+
+msgctxt "#41030"
+msgid "Premiere"
+msgstr "esietendus"
+
+msgctxt "#41031"
+msgid "Duration"
+msgstr "kestus"
+
+msgctxt "#41032"
+msgid "Rating"
+msgstr "hinnang"
+
+msgctxt "#41033"
+msgid "Unwatched Episodes"
+msgstr "Jlgimata episoodid"
+
+msgctxt "#41034"
+msgid "Premiere"
+msgstr "esietendus"
+
+msgctxt "#41035"
+msgid "Wind"
+msgstr "tuul"
+
+msgctxt "#41037"
+msgid "UV-Index"
+msgstr "UV - indeks"
+
+msgctxt "#41038"
+msgid "Dew Point"
+msgstr "Kastepunkt"
+
+msgctxt "#41039"
+msgid "Unwatched"
+msgstr "Jlgimata"
+
+msgctxt "#41070"
+msgid "Single Image"
+msgstr "Single Image"
+
+msgctxt "#41071"
+msgid "Multi Image"
+msgstr "Multi Image"
+
+msgctxt "#41072"
+msgid "Default"
+msgstr "Vaikimisi"
+
+msgctxt "#41073"
+msgid "Change Background"
+msgstr "Change Background"
+
+msgctxt "#41080"
+msgid "Change Background"
+msgstr "Change Background"
+
+msgctxt "#41081"
+msgid "Disable Menu"
+msgstr "Keela Menu"
+
+msgctxt "#41090"
+msgid "Menu"
+msgstr "men"
+
+msgctxt "#41091"
+msgid "Scroll Info-Plot"
+msgstr "Leidke Info- Plot"
+
+msgctxt "#41092"
+msgid "Youtube Trailer"
+msgstr "Youtube Trailer"
+
+msgctxt "#41100"
+msgid "Movie Widget"
+msgstr "movie Widget"
+
+msgctxt "#41101"
+msgid "TV Show Widget"
+msgstr "TV Show Widget"
+
+msgctxt "#41102"
+msgid "Album Widget"
+msgstr "Album Widget"
+
+msgctxt "#41103"
+msgid "Qlock Widget"
+msgstr "Qlock Widget"
+
+msgctxt "#41110"
+msgid "New on XBMC ..."
+msgstr "Uus aasta XBMC ..."
+
+msgctxt "#41111"
+msgid "XBMC recommended ..."
+msgstr "XBMC soovitas ..."
+
+msgctxt "#41136"
+msgid "Custom home menu"
+msgstr "Custom Avamenst"
+
+msgctxt "#41137"
+msgid "Custom"
+msgstr "tava"
+
+msgctxt "#41138"
+msgid "Name"
+msgstr "nimi"
+
+msgctxt "#41139"
+msgid "Fanart"
+msgstr "Fanart"
+
+msgctxt "#41140"
+msgid "Dim icon"
+msgstr "Dim ikooni"
+
+msgctxt "#41141"
+msgid "Type"
+msgstr "tp"
+
+msgctxt "#41142"
+msgid "Path"
+msgstr "tee"
+
+msgctxt "#41143"
+msgid "Recommended size 1920x1080px"
+msgstr "Soovitatav suurus 1920x1080px"
+
+msgctxt "#41144"
+msgid "Show overlay"
+msgstr "Nita overlay"
+
+msgctxt "#41145"
+msgid "Video add-on"
+msgstr "Video add-"
+
+msgctxt "#41146"
+msgid "Music add-on"
+msgstr "Muusika add-"
+
+msgctxt "#41147"
+msgid "Picture add-on"
+msgstr "Pilt add-"
+
+msgctxt "#41148"
+msgid "Program add-on"
+msgstr "Program add-"
+
+msgctxt "#41149"
+msgid "Video Playlist"
+msgstr "Video Playlist"
+
+msgctxt "#41150"
+msgid "Music Playlist"
+msgstr "Music Playlist"
+
+msgctxt "#41151"
+msgid "Custom"
+msgstr "tava"
+
+msgctxt "#41152"
+msgid "Music panel opens"
+msgstr "Muusika avaneb paneel"
+
+msgctxt "#41153"
+msgid "Favourite"
+msgstr "Lemmik"
+
+msgctxt "#41154"
+msgid "Close"
+msgstr "lhedal"
+
+msgctxt "#42000"
+msgid "Search Youtube"
+msgstr "Otsing Youtube"
+
+msgctxt "#50000"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50001"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50002"
+msgid "L"
+msgstr "L"
+
+msgctxt "#50003"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50004"
+msgid "S"
+msgstr "S"
+
+msgctxt "#50005"
+msgid "A"
+msgstr "A"
+
+msgctxt "#50006"
+msgid "S"
+msgstr "S"
+
+msgctxt "#50007"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50008"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50009"
+msgid "M"
+msgstr "M"
+
+msgctxt "#50010"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50011"
+msgid "A"
+msgstr "A"
+
+msgctxt "#50012"
+msgid "C"
+msgstr "C"
+
+msgctxt "#50013"
+msgid "Q"
+msgstr "Q"
+
+msgctxt "#50014"
+msgid "U"
+msgstr "U"
+
+msgctxt "#50015"
+msgid "A"
+msgstr "A"
+
+msgctxt "#50016"
+msgid "R"
+msgstr "R"
+
+msgctxt "#50017"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50018"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50019"
+msgid "R"
+msgstr "R"
+
+msgctxt "#50020"
+msgid "D"
+msgstr "D"
+
+msgctxt "#50021"
+msgid "C"
+msgstr "C"
+
+msgctxt "#50022"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50023"
+msgid "W"
+msgstr "W"
+
+msgctxt "#50024"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50025"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50026"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50027"
+msgid "Y"
+msgstr "Y"
+
+msgctxt "#50028"
+msgid "F"
+msgstr "F"
+
+msgctxt "#50029"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50030"
+msgid "V"
+msgstr "V"
+
+msgctxt "#50031"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50032"
+msgid "X"
+msgstr "X"
+
+msgctxt "#50033"
+msgid "H"
+msgstr "H"
+
+msgctxt "#50034"
+msgid "A"
+msgstr "A"
+
+msgctxt "#50035"
+msgid "L"
+msgstr "L"
+
+msgctxt "#50036"
+msgid "F"
+msgstr "F"
+
+msgctxt "#50037"
+msgid "B"
+msgstr "B"
+
+msgctxt "#50038"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50039"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50040"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50041"
+msgid "F"
+msgstr "F"
+
+msgctxt "#50042"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50043"
+msgid "O"
+msgstr "O"
+
+msgctxt "#50044"
+msgid "P"
+msgstr "P"
+
+msgctxt "#50045"
+msgid "A"
+msgstr "A"
+
+msgctxt "#50046"
+msgid "S"
+msgstr "S"
+
+msgctxt "#50047"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50048"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50049"
+msgid "R"
+msgstr "R"
+
+msgctxt "#50050"
+msgid "U"
+msgstr "U"
+
+msgctxt "#50051"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50052"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50053"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50054"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50055"
+msgid "O"
+msgstr "O"
+
+msgctxt "#50056"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50057"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50058"
+msgid "S"
+msgstr "S"
+
+msgctxt "#50059"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50060"
+msgid "X"
+msgstr "X"
+
+msgctxt "#50061"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50062"
+msgid "H"
+msgstr "H"
+
+msgctxt "#50063"
+msgid "R"
+msgstr "R"
+
+msgctxt "#50064"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50065"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50066"
+msgid "F"
+msgstr "F"
+
+msgctxt "#50067"
+msgid "O"
+msgstr "O"
+
+msgctxt "#50068"
+msgid "U"
+msgstr "U"
+
+msgctxt "#50069"
+msgid "R"
+msgstr "R"
+
+msgctxt "#50070"
+msgid "F"
+msgstr "F"
+
+msgctxt "#50071"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50072"
+msgid "V"
+msgstr "V"
+
+msgctxt "#50073"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50074"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50075"
+msgid "W"
+msgstr "W"
+
+msgctxt "#50076"
+msgid "O"
+msgstr "O"
+
+msgctxt "#50077"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50078"
+msgid "I"
+msgstr "I"
+
+msgctxt "#50079"
+msgid "G"
+msgstr "G"
+
+msgctxt "#50080"
+msgid "H"
+msgstr "H"
+
+msgctxt "#50081"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50082"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50083"
+msgid "L"
+msgstr "L"
+
+msgctxt "#50084"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50085"
+msgid "V"
+msgstr "V"
+
+msgctxt "#50086"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50087"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50088"
+msgid "S"
+msgstr "S"
+
+msgctxt "#50089"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50090"
+msgid "V"
+msgstr "V"
+
+msgctxt "#50091"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50092"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50093"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50094"
+msgid "W"
+msgstr "W"
+
+msgctxt "#50095"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50096"
+msgid "L"
+msgstr "L"
+
+msgctxt "#50097"
+msgid "V"
+msgstr "V"
+
+msgctxt "#50098"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50099"
+msgid "T"
+msgstr "T"
+
+msgctxt "#50100"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50101"
+msgid "N"
+msgstr "N"
+
+msgctxt "#50102"
+msgid "S"
+msgstr "S"
+
+msgctxt "#50103"
+msgid "E"
+msgstr "E"
+
+msgctxt "#50104"
+msgid "O"
+msgstr "O"
+
+msgctxt "#50105"
+msgid "C"
+msgstr "C"
+
+msgctxt "#50106"
+msgid "L"
+msgstr "L"
+
+msgctxt "#50107"
+msgid "O"
+msgstr "O"
+
+msgctxt "#50108"
+msgid "C"
+msgstr "C"
+
+msgctxt "#50109"
+msgid "K"
+msgstr "K"
+
+msgctxt "#50110"
+msgid "Home Weather"
+msgstr "Kodu ilm"
+
+msgctxt "#50111"
+msgid "Custom Home Icons"
+msgstr "Custom Home Ikoonid"
+
+msgctxt "#50112"
+msgid "[COLOR midgrey]Custom Home Icons[/COLOR]"
+msgstr "[COLOR midgrey]Custom Home Icons[/COLOR]"
+
+msgctxt "#50113"
+msgid "Content Installer"
+msgstr "Sisu Installer"
+
+msgctxt "#50114"
+msgid "CU Lyrics"
+msgstr "CU Lyrics"
+
+msgctxt "#50115"
+msgid "XBMC Subtitles"
+msgstr "XBMC Subtiitrid"
+
+msgctxt "#50116"
+msgid "Enable Home Weather Icons"
+msgstr "Luba Kodu ilmaikoonid"

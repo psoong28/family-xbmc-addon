@@ -1,0 +1,19 @@
+<window id="115">
+	<allowoverlay>yes</allowoverlay>
+	<visible>!Window.IsVisible(fullscreeninfo) + [VideoPlayer.IsFullscreen | Window.IsVisible(visualisation)] + [Player.Seeking | Player.DisplayAfterSeek | Player.Paused | Player.Forwarding | Player.Rewinding] | Window.IsVisible(script-XBMC-Subtitles-main.xml)</visible>
+
+	<controls>
+
+		<!--OSD Panel -->
+		<control type="group">		
+			<include>animation_fade_visible_hidden</include>
+			<include>animation_fade_open_close</include>
+
+			<visible>!Window.IsActive(filebrowser)</visible>
+			<visible>!Window.IsActive(videoosd)</visible>	
+
+			<include>OSDPanel</include>			
+		</control>
+
+	</controls>
+</window>
