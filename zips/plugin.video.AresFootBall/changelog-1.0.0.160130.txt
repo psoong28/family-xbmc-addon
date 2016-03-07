@@ -1,0 +1,7 @@
+[COLOR FF00FFFF]NOTE: Visit [COLOR orange]http://ares-project.com[/COLOR] for support.[/COLOR]
+
+----------------------------
+Version 1.0.0.160129
+----------------------------
+- Initial release
+- License GPL Version 2
