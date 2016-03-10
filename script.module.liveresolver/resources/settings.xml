@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<setting id="streamlive_user" type="text" visible="true" label="Username" default=""/>
+    <setting id="streamlive_pass" type="text" visible="true" option="hidden" label="Password" default=""/>
+</settings>
