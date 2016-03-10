@@ -45,6 +45,31 @@
 	</extension>
 </addon>
 
+<addon id="plugin.image.kissmanga"
+       name="KissManga"
+       version="0.3.6"
+       provider-name="The[COLOR tan]Highway[/COLOR]">
+  <requires>
+  	<import addon="xbmc.python" version="2.1.0" />
+  	<import addon="script.module.urlresolver"   />
+  	<import addon="script.module.t0mm0.common"  />
+  	<import addon="script.module.metahandler"   />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+  	<provides>image</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+  	<summary>Handles Mangas for kissmanga.com</summary>
+  	<description>Play Mangas from kissmanga.com.</description>
+  	<disclaimer>By using this, you take reponsibility for anything that happens.  By using this, you also take resposibility for being older enough, and legal, to view any possible content.  Some parts of this addon may not be legal in your country of residence - please check with your local laws before installing. I take no responsibility for any problems this plugin might in any way, form, shape or size cause. This is project is for a LEARNING EXPERIANCE.</disclaimer>
+  	<language>en</language>
+  	<platform>all</platform>
+  	<forum></forum>
+  	<website></website>
+  	<source></source>
+  </extension>
+</addon>
+
     <addon id="plugin.program.addoninstaller" version="1.2.5"
     	name="Addon Installer" provider-name="tvaddons.ag, Blazetamer">
     <requires>
@@ -329,7 +354,7 @@
 
 <addon id="plugin.video.dfmalaystream"
        name="Malay Video Online"
-       version="3.0.3"
+       version="3.0.5"
        provider-name="TheOne">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -2138,6 +2163,50 @@ Addons Included
     <summary lang="en">Common caching api for xbmc plugins.</summary>
   </extension>
   <extension library="lib" point="xbmc.python.module" />
+</addon>
+
+<addon id="script.module.googleapi"
+       name="googleapi"
+       version="1.4.2"
+       provider-name="Google">
+  <requires>
+    <import addon="xbmc.python" version="2.14.0"/>
+	<import addon="script.module.httplib2" version="0.8.0" />
+	<import addon="script.module.uritemplate" version="0.6" />
+	<import addon="script.module.six" version="1.9.0" />
+	<import addon="script.module.oauth2client" version="1.4.7" />
+  </requires>
+  <extension point="xbmc.python.module"
+             library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <language></language>
+    <summary lang="en">Google API python classes and dependencies</summary>
+    <description lang="en">A packaged version of all the libraries needed for Google API access via python.</description>
+    <disclaimer lang="en">Source code for the Google API from https://developers.google.com/api-client-library/python/start/installation</disclaimer>
+    <license>Apache 2.0</license>
+    <website>https://developers.google.com/api-client-library/python/start/installation</website>
+    <source>https://github.com/google/google-api-python-client</source>
+  </extension>
+</addon>
+
+<addon id="script.module.liveresolver"
+     name="LiveResolver"
+     version="0.1.25"
+     provider-name="natko1412">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0" />
+    <import addon="script.module.beautifulsoup" version="3.2.1"/>
+    <import addon="script.module.requests"/>
+    <import addon="script.module.addon.common" version="2.0.0" />
+
+  </requires>
+  <extension point="xbmc.python.module" library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">Resolve common live video host URL's to be playable in XBMC/Kodi + find links embeded in sites.</summary>
+    <description lang="en"></description>
+  </extension>
 </addon>
 
 <addon id="script.module.metahandler"
