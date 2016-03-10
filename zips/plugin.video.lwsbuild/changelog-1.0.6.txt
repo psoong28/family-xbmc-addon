@@ -1,0 +1,9 @@
+Version 1.0.4 - Both builds updated and now stable
+
+Version 1.0.3 - Added touch beta
+
+Version 1.0.2 - Added content
+
+Version 1.0.1 - Stable release
+
+Version 1.0.0 - Beta
