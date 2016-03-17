@@ -2454,10 +2454,16 @@ def addLink(url,name,iconimage,fanart,description,genre,date,showcontext,playlis
                      %(sys.argv[0], urllib.quote_plus(name)))
                      )
             elif not name in FAV:
-                fav_params = (
-                    '%s?mode=5&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=0'
-                    %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), urllib.quote_plus(fanart))
-                    )
+                try:
+                    fav_params = (
+                        '%s?mode=5&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=0'
+                        %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage), urllib.quote_plus(fanart))
+                        )
+                except:
+                    fav_params = (
+                        '%s?mode=5&name=%s&url=%s&iconimage=%s&fanart=%s&fav_mode=0'
+                        %(sys.argv[0], urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(iconimage.encode("utf-8")), urllib.quote_plus(fanart.encode("utf-8")))
+                        )
                 if playlist:
                     fav_params += 'playlist='+urllib.quote_plus(str(playlist).replace(',','||'))
                 if regexs:
@@ -2805,23 +2811,21 @@ elif mode==17 or mode==117:
                                         else:
                                             val=None
                                             if isinstance(obj,tuple):
-                                                val=None
-                                                if isinstance(obj,tuple):
-                                                    try:
-                                                         val=obj[i].decode('utf-8') 
-                                                    except:
-                                                        val=obj[i] 
-                                                else:
-                                                    try:
-                                                        val= obj.decode('utf-8') 
-                                                    except:
-                                                        val= obj
-                                                if '[' + regexname+'.param'+str(i+1) + '][DE]' in the_value:
-                                                    #print 'found DE',the_value.replace('[' + regexname+'.param'+str(i+1) + '][DE]', unescape(val))
-                                                    the_value=the_value.replace('[' + regexname+'.param'+str(i+1) + '][DE]', unescape(val))
+                                                try:
+                                                     val=obj[i].decode('utf-8') 
+                                                except:
+                                                    val=obj[i] 
+                                            else:
+                                                try:
+                                                    val= obj.decode('utf-8') 
+                                                except:
+                                                    val= obj
+                                            if '[' + regexname+'.param'+str(i+1) + '][DE]' in the_value:
+                                                #print 'found DE',the_value.replace('[' + regexname+'.param'+str(i+1) + '][DE]', unescape(val))
+                                                the_value=the_value.replace('[' + regexname+'.param'+str(i+1) + '][DE]', unescape(val))
 
-                                                the_valueO[the_key]=the_value.replace('[' + regexname+'.param'+str(i+1) + ']', val)
-                                                #print 'second sec val',the_valueO[the_key]
+                                            the_valueO[the_key]=the_value.replace('[' + regexname+'.param'+str(i+1) + ']', val)
+                                            #print 'second sec val',the_valueO[the_key]
 
                     val=None
                     if isinstance(obj,tuple):
