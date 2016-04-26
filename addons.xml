@@ -2421,7 +2421,7 @@ http://www.hometheater.co.il</description>
 	</extension>
 </addon>
 
-<addon id="plugin.video.youtube" name="YouTube" version="5.1.20.1" provider-name="bromix">
+<addon id="plugin.video.youtube" name="YouTube" version="5.1.20.6" provider-name="bromix">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0"/>
 	</requires>
@@ -2430,13 +2430,13 @@ http://www.hometheater.co.il</description>
 	</extension>
 	<extension point="xbmc.addon.metadata">
         <summary lang="en">Plugin for YouTube</summary>
-        <description lang="en">YouTube is a one of the biggest video-sharing websites of the world.</description>
+        <description lang="en">YouTube is one of the biggest video-sharing websites of the world.</description>
 		<summary lang="de">Plugin für YouTube</summary>
-        <description lang="de">YouTube ist ein eines der größten Video-Sharing-Websites der Welt.</description>
+        <description lang="de">YouTube ist eines der größten Video-Sharing-Websites der Welt.</description>
         <summary lang="pl">Wtyczka YouTube</summary>
         <description lang="pl">YouTube jest jednym z największych na świecie serwisów udostępniania wideo.</description>
 		<summary lang="hu">Kiegészítő  a YouTube-hoz</summary>
-        <description lang="hu">A YouTube a világ egyik legnagyobb videómegosztó weboldala.</description>
+        <description lang="hu">A YouTube világ egyik legnagyobb videómegosztó weboldala.</description>
         <summary lang="es">Plugin para YouTube</summary>
         <description lang="es">YouTube es un uno de los mayores sitios web de intercambio de vídeos del mundo.</description>
         <summary lang="ru">Видеодополнение YouTube</summary>
@@ -2447,6 +2447,8 @@ http://www.hometheater.co.il</description>
         <description lang="zh">「Youtube」是全世界最大的影片分享網站</description>
         <summary lang="bg">Добавка за YouTube</summary>
         <description lang="bg">YouTube е един от най-големите уеб сайтове за споделяне на видео в целия свят.</description>
+		<summary lang="el">Πρόσθετο YouTube</summary>
+        <description lang="el">Το YouTube είναι μία από τις μεγαλύτερες ιστοσελίδες διαμοιρασμού βίντεο στον κόσμο.</description>
 		<disclaimer lang="en"></disclaimer>
 		<language></language>
 		<platform>all</platform>
@@ -3281,6 +3283,42 @@ Addons Included
 		<summary>The Best Third Party Addons for XBMC, .[COLOR blue]X[/COLOR]unity[COLOR blue]T[/COLOR]alk</summary>
 		<description>The Best Third Party Addons for XBMC, .[COLOR blue]X[/COLOR]unity[COLOR blue]T[/COLOR]alk</description>
 		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.ytplugin" name="Youtube Addon Repo" version="1.0" provider-name="Jeffrey Frasure">
+	<extension point="xbmc.addon.repository" name="Youtube Addon Repository">
+		<info compressed="false">https://github.com/jdf76/repository/raw/master/addons.xml</info>
+		<checksum>https://github.com/jdf76/repository/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://github.com/jdf76/repository/raw/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Install Kodis Youtube Addons</summary>
+                <description>Download and install addons from the Kodi Youtube group. This plugin is not official from Google.</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="repository.zonkuliah.addons"
+       name="[COLOR red][B]Zon Kuliah Agama[/B][/COLOR] [COLOR blue][B]Addon[/B][/COLOR] [COLOR yellow][B]Repository[/B][/COLOR]"
+       version="1.0.0"
+       provider-name="Team A">
+
+	<extension point="xbmc.addon.repository" name="[COLOR red][B]Zon Kuliah Agama[/B][/COLOR] [COLOR blue][B]Addon[/B][/COLOR] [COLOR yellow][B]Repository[/B][/COLOR]">
+		<info compressed="false">https://raw.githubusercontent.com/azumimuo/Zon-Kuliah/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/azumimuo/Zon-Kuliah/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/azumimuo/Zon-Kuliah/master/zips</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Zon Kuliah Agama Addon Repository.</summary>
+		<description>Feedback at Malaysian Video Streamers (Haluan Kiri) FB Group.This add-on is not for sale and it's meant for education purposes only.</description>
+		<disclaimer>Show your support.</disclaimer>
+		<language>en</language>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+		<forum>https://www.facebook.com/groups/mvshaluankiri/</forum>
+		<website></website>
+		<email></email>
+		<source></source>
 	</extension>
 </addon>
 
