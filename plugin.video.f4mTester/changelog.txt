@@ -48,3 +48,21 @@ Introduced settings for BBC birate
 added swf parameter for hds
 [B]Version 2.2.4[/B]
 play command
+[B]Version 2.2.5[/B]
+Fixed bbc links
+[B]Version 2.5.6[/B]
+version bump
+[B]Version 2.5.7[/B]
+version bump for TSDownloaders
+[B]Version 2.6.1[/B]
+callback params
+[B]Version 2.6.2[/B]
+iconImage support
+[B]Version 2.6.6[/B]
+bump version
+[B]Version 2.6.8[/B]
+bump version
+[B]Version 2.6.9[/B]
+removed extension
+[B]Version 2.7.1[/B]
+bump version

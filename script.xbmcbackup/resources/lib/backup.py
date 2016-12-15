@@ -4,8 +4,10 @@ import xbmcvfs
 import utils as utils
 import time
 import json
-from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem
+from vfs import XBMCFileSystem,DropboxFileSystem,ZipFileSystem,GoogleDriveFilesystem
+from progressbar import BackupProgressBar
 from resources.lib.guisettings import GuiSettingsManager
+from resources.lib.extractor import ZipExtractor
 
 def folderSort(aKey):
     result = aKey[0]
@@ -55,6 +57,9 @@ class XbmcBackup:
         elif(utils.getSetting('remote_selection') == '2'):
             self.remote_base_path = "/"
             self.remote_vfs = DropboxFileSystem("/")
+        elif(utils.getSetting('remote_selection') == '3'):
+            self.remote_base_path = '/Kodi Backup/'
+            self.remote_vfs = GoogleDriveFilesystem('/Kodi Backup/')
 
     def remoteConfigured(self):
         result = True
@@ -69,7 +74,7 @@ class XbmcBackup:
 
         #get all the folders in the current root path
         dirs,files = self.remote_vfs.listdir(self.remote_base_path)
-       
+    
         for aDir in dirs:
             if(self.remote_vfs.exists(self.remote_base_path + aDir + "/xbmcbackup.val")):
 
@@ -118,7 +123,10 @@ class XbmcBackup:
             if(utils.getSetting("compress_backups") == 'true'):
                 #delete old temp file
                 if(self.xbmc_vfs.exists(xbmc.translatePath('special://temp/xbmc_backup_temp.zip'))):
-                    self.xbmc_vfs.rmfile(xbmc.translatePath('special://temp/xbmc_backup_temp.zip'))
+                    if(not self.xbmc_vfs.rmfile(xbmc.translatePath('special://temp/xbmc_backup_temp.zip'))):
+                        #we had some kind of error deleting the old file
+                        xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30096),utils.getString(30097))
+                        return
                     
                 #save the remote file system and use the zip vfs
                 self.saved_remote_vfs = self.remote_vfs
@@ -301,13 +309,22 @@ class XbmcBackup:
                 
                 #extract the zip file
                 zip_vfs = ZipFileSystem(xbmc.translatePath("special://temp/"+ self.restore_point),'r')
-                zip_vfs.extract(xbmc.translatePath("special://temp/"))
+                extractor = ZipExtractor()
+                
+                if(not extractor.extract(zip_vfs, xbmc.translatePath("special://temp/"), self.progressBar)):
+                    #we had a problem extracting the archive, delete everything
+                    zip_vfs.cleanup()
+                    self.xbmc_vfs.rmfile(xbmc.translatePath("special://temp/" + self.restore_point))
+                    
+                    xbmcgui.Dialog.ok(utils.getSetting(30010),utils.getString(30101))
+                    return
+                    
                 zip_vfs.cleanup()
                 
+                self.progressBar.updateProgress(0,utils.getString(30049) + "......")
                 #set the new remote vfs and fix xbmc path
                 self.remote_vfs = XBMCFileSystem(xbmc.translatePath("special://temp/" + self.restore_point.split(".")[0] + "/"))
                 self.xbmc_vfs.set_root(xbmc.translatePath("special://home/"))
-                
             
             #for restores remote path must exist
             if(not self.remote_vfs.exists(self.remote_vfs.root_path)):
@@ -392,23 +409,25 @@ class XbmcBackup:
             if(utils.getSetting('custom_dir_1_enable') == 'true' and utils.getSetting('backup_custom_dir_1') != ''):
 
                 self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir_1'))
-                if(self.remote_vfs.exists(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))):
+                if(self.remote_vfs.exists(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path) + "/")):
                     #index files to restore
                     fileManager.walkTree(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))
                     self.filesTotal = self.filesTotal + fileManager.size()
                     allFiles.append({"source":self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path),"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()})
                 else:
+                    utils.log("error path not found: " + self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))
                     xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path + "custom_" + self._createCRC(utils.getSetting('backup_custom_dir_1')))
 
             if(utils.getSetting('custom_dir_2_enable') == 'true' and utils.getSetting('backup_custom_dir_2') != ''):
 
                 self.xbmc_vfs.set_root(utils.getSetting('backup_custom_dir_2'))
-                if(self.remote_vfs.exists(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))):
+                if(self.remote_vfs.exists(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path) + "/")):
                     #index files to restore
                     fileManager.walkTree(self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))
                     self.filesTotal = self.filesTotal + fileManager.size()
                     allFiles.append({"source":self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path),"dest":self.xbmc_vfs.root_path,"files":fileManager.getFiles()})
                 else:
+                    utils.log("error path not found: " + self.remote_vfs.root_path + "custom_" + self._createCRC(self.xbmc_vfs.root_path))
                     xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30045),self.remote_vfs.root_path + "custom_" + self._createCRC(utils.getSetting('backup_custom_dir_2')))
 
 
@@ -418,6 +437,8 @@ class XbmcBackup:
                 self.remote_vfs.set_root(fileGroup['source'])
                 self.xbmc_vfs.set_root(fileGroup['dest'])
                 self.backupFiles(fileGroup['files'],self.remote_vfs,self.xbmc_vfs)
+
+            self.progressBar.updateProgress(99,"Clean up operations .....")
 
             if(self.restore_point.split('.')[-1] == 'zip'):
                 #delete the zip file and the extracted directory
@@ -453,8 +474,8 @@ class XbmcBackup:
                 else:
                     self._updateProgress()
                     wroteFile = True
-                    if(isinstance(source,DropboxFileSystem)):
-                        #if copying from dropbox we need the file handle, use get_file
+                    if(isinstance(source,DropboxFileSystem) or isinstance(source,GoogleDriveFilesystem)):
+                        #if copying from cloud storage we need the file handle, use get_file
                         wroteFile = source.get_file(aFile,dest.root_path + aFile[len(source.root_path):])
                     else:
                         #copy using normal method
@@ -520,17 +541,23 @@ class XbmcBackup:
 
         success = self.remote_vfs.put(xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"),self.remote_vfs.root_path + "xbmcbackup.val")
         
+        #remove the validation file
+        xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"))
+        
         return success
 
     def _checkValidationFile(self,path):
         result = False
         
         #copy the file and open it
-        self.xbmc_vfs.put(path + "xbmcbackup.val",xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"))
+        self.xbmc_vfs.put(path + "xbmcbackup.val",xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
 
-        vFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "xbmcbackup.val"),'r')
+        vFile = xbmcvfs.File(xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"),'r')
         jsonString = vFile.read()
         vFile.close()
+
+        #delete after checking
+        xbmcvfs.delete(xbmc.translatePath(utils.data_dir() + "xbmcbackup_restore.val"))
 
         try:
             json_dict = json.loads(jsonString)
@@ -552,14 +579,16 @@ class XbmcBackup:
         rFile.close()
 
 class FileManager:
-    fileArray = []
     not_dir = ['.zip','.xsp','.rar']
-    vfs = None
 
     def __init__(self,vfs):
         self.vfs = vfs
+        self.fileArray = []
 
     def walkTree(self,directory):
+        
+        if(directory[-1:] == '/'):
+            directory = directory[:-1]
        
         if(self.vfs.exists(directory + "/")):
             dirs,files = self.vfs.listdir(directory)
@@ -603,54 +632,3 @@ class FileManager:
 
     def size(self):
         return len(self.fileArray)
-
-class BackupProgressBar:
-    NONE = 2
-    DIALOG = 0
-    BACKGROUND = 1
-
-    mode = 2
-    progressBar = None
-    override = False
-    
-    def __init__(self,progressOverride):
-        self.override = progressOverride
-        
-        #check if we should use the progress bar
-        if(int(utils.getSetting('progress_mode')) != 2):
-            #check if background or normal
-            if(int(utils.getSetting('progress_mode')) == 0 and not self.override):
-                self.mode = self.DIALOG
-                self.progressBar = xbmcgui.DialogProgress()
-            else:
-                self.mode = self.BACKGROUND
-                self.progressBar = xbmcgui.DialogProgressBG()
-
-    def create(self,heading,message):
-        if(self.mode != self.NONE):
-            self.progressBar.create(heading,message)
-
-    def updateProgress(self,percent,message=None):
-        
-        #update the progress bar
-        if(self.mode != self.NONE):
-            if(message != None):
-                #need different calls for dialog and background bars
-                if(self.mode == self.DIALOG):
-                    self.progressBar.update(percent,message)
-                else:
-                    self.progressBar.update(percent,message=message)
-            else:
-                self.progressBar.update(percent)
-
-    def checkCancel(self):
-        result = False
-
-        if(self.mode == self.DIALOG):
-            result = self.progressBar.iscanceled()
-
-        return result
-
-    def close(self):
-        if(self.mode != self.NONE):
-            self.progressBar.close()
