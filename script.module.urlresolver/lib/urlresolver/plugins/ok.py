@@ -2,7 +2,7 @@
 OK urlresolver XBMC Addon
 Copyright (C) 2016 Seberoth
 
-Version 0.0.1
+Version 0.0.2
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,18 +17,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
-import re
 import json
-import urllib
-from t0mm0.common.net import Net
 from urlresolver import common
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
-import xbmcgui
+from lib import helpers
+from urlresolver.resolver import UrlResolver, ResolverError
 
-class OKResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
+class OKResolver(UrlResolver):
     name = "ok.ru"
     domains = ['ok.ru', 'odnoklassniki.ru']
     pattern = '(?://|\.)(ok.ru|odnoklassniki.ru)/(?:videoembed|video)/(.+)'
@@ -36,37 +30,20 @@ class OKResolver(Plugin, UrlResolver, PluginSettings):
     qual_map = {'full': '1080', 'hd': '720', 'sd': '480', 'low': '360', 'lowest': '240', 'mobile': '144'}
 
     def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
+        self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         vids = self.__get_Metadata(media_id)
-
-        purged_jsonvars = {}
-        lines = []
-        best = '0'
-
+        sources = []
         for entry in vids['urls']:
             quality = self.__replaceQuality(entry['name'])
-            lines.append(quality)
-            purged_jsonvars[quality] = entry['url'] + '|' + urllib.urlencode(self.header)
-            if int(quality) > int(best): best = quality
+            sources.append((quality, entry['url']))
 
-        if len(lines) == 1:
-            return purged_jsonvars[lines[0]].encode('utf-8')
-        else:
-            if self.get_setting('auto_pick') == 'true':
-                return purged_jsonvars[str(best)].encode('utf-8')
-            else:
-                result = xbmcgui.Dialog().select('Choose the link', lines)
-
-        if result != -1:
-            return purged_jsonvars[lines[result]].encode('utf-8')
-        else:
-            raise UrlResolver.ResolverError('No link selected')
-
-        raise UrlResolver.ResolverError('No video found')
+        try: sources.sort(key=lambda x: int(x[0]), reverse=True)
+        except: pass
+        source = helpers.pick_source(sources)
+        source = source.encode('utf-8') + helpers.append_headers(self.header)
+        return source
 
     def __replaceQuality(self, qual):
         return self.qual_map.get(qual.lower(), '000')
@@ -75,6 +52,10 @@ class OKResolver(Plugin, UrlResolver, PluginSettings):
         url = "http://www.ok.ru/dk?cmd=videoPlayerMetadata&mid=" + media_id
         html = self.net.http_GET(url, headers=self.header).content
         json_data = json.loads(html)
+
+        if 'error' in json_data:
+            raise ResolverError('File Not Found or removed')
+
         info = dict()
         info['urls'] = []
         for entry in json_data['videos']:
@@ -82,19 +63,4 @@ class OKResolver(Plugin, UrlResolver, PluginSettings):
         return info
 
     def get_url(self, host, media_id):
-        return 'http://%s/videoembed/%s' % (host, media_id)
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-    
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
-
-    def get_settings_xml(self):
-        xml = PluginSettings.get_settings_xml(self)
-        xml += '<setting id="%s_auto_pick" type="bool" label="Automatically pick best quality" default="false" visible="true"/>' % (self.__class__.__name__)
-        return xml
+        return self._default_get_url(host, media_id, 'http://{host}/videoembed/{media_id}')

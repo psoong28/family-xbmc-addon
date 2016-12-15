@@ -16,41 +16,17 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
-import re
-from t0mm0.common.net import Net
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
+from lib import helpers
+from urlresolver.resolver import UrlResolver, ResolverError
 
-class CloudZillaResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
+
+class CloudZillaResolver(UrlResolver):
     name = "cloudzilla"
     domains = ['cloudzilla.to', 'neodrive.co']
     pattern = '(?://|\.)(cloudzilla.to|neodrive.co)/(?:share/file|embed)/([A-Za-z0-9]+)'
 
-    def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
-
     def get_media_url(self, host, media_id):
-        web_url = self.get_url(host, media_id)
-        html = self.net.http_GET(web_url).content
-        match = re.search('vurl\s*=\s*"([^"]+)', html)
-        if match:
-            return match.group(1)
-        else:
-            raise UrlResolver.ResolverError('Unable to resolve cloudtime link. Filelink not found.')
-        
-    def get_url(self, host, media_id):
-            return 'http://%s/embed/%s' % (host, media_id)
+        return helpers.get_media_url(self.get_url(host, media_id))
 
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-    
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
+    def get_url(self, host, media_id):
+        return self._default_get_url(host, media_id, 'http://{host}/embed/{media_id}')

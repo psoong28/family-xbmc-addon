@@ -17,52 +17,32 @@
 """
 
 import re
-from lib import jsunpack
-from t0mm0.common.net import Net
+from lib import helpers
 from urlresolver import common
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
+from urlresolver.resolver import UrlResolver, ResolverError
 
-class AllVidResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
+
+class AllVidResolver(UrlResolver):
     name = "allvid"
     domains = ["allvid.ch"]
     pattern = '(?://|\.)(allvid\.ch)/(?:embed-)?([0-9a-zA-Z]+)'
 
     def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
-        self.user_agent = common.IE_USER_AGENT
-        self.net.set_user_agent(self.user_agent)
-        self.headers = {'User-Agent': self.user_agent}
+        self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
-        self.headers['Referer'] = web_url
-        html = self.net.http_GET(web_url, headers=self.headers).content
+        headers = {'User-Agent': common.IE_USER_AGENT,
+                   'Referer': web_url}
+        html = self.net.http_GET(web_url, headers=headers).content
 
-        for match in re.finditer('(eval\(function.*?)</script>', html, re.DOTALL):
-            js_data = jsunpack.unpack(match.group(1))
-            js_data = js_data.replace('\\\'', '\'')
+        iframe = re.findall('<iframe\s+src\s*=\s*"([^"]+)', html, re.DOTALL)[0]
+        if iframe:
+            html = self.net.http_GET(iframe, headers=headers).content
 
-            r = re.search('sources\s*:\s*\[\s*\{\s*file\s*:\s*["\'](.+?)["\']', js_data)
-
-            if r:
-                return r.group(1)
-        else:
-            raise UrlResolver.ResolverError('File not found')
+        html = helpers.add_packed_data(html)
+        sources = helpers.scrape_sources(html, result_blacklist=['dl'])
+        return helpers.pick_source(sources) + helpers.append_headers(headers)
 
     def get_url(self, host, media_id):
-        return 'http://%s/embed-%s.html' % (host, media_id)
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-    
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
+        return self._default_get_url(host, media_id)

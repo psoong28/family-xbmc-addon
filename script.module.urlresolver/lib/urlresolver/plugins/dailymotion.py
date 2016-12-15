@@ -16,92 +16,60 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import re
-import json
-import urllib2
-from t0mm0.common.net import Net
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
+import re,urllib
+from lib import helpers
+from urlresolver import common
+from urlresolver.resolver import UrlResolver, ResolverError
 
-class DailymotionResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
-    name = "dailymotion"
-    domains = [ "dailymotion.com" ]
+class DailymotionResolver(UrlResolver):
+    name = 'dailymotion'
+    domains = ['dailymotion.com']
     pattern = '(?://|\.)(dailymotion\.com)/(?:video|embed|sequence|swf)(?:/video)?/([0-9a-zA-Z]+)'
 
     def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
+        self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
         html = self.net.http_GET(web_url).content
+        if '"reason":"video attribute|explicit"' in html:
+            headers = {'User-Agent': common.FF_USER_AGENT, 'Referer': web_url}
+            url_back = '/embed/video/%s' % media_id
+            web_url = 'http://www.dailymotion.com/family_filter?enable=false&urlback=%s' % urllib.quote_plus(url_back)
+            html = self.net.http_GET(url=web_url, headers=headers).content
+            
+        html = html.replace('\\', '')
 
-        html = re.search('({"context".+?)\);\n',html, re.DOTALL)
-        if html:
-            html = json.loads(html.group(1))
-            if 'metadata' in html: html = html['metadata']
-            else: return
+        livesource = re.findall('"auto"\s*:\s*.+?"url"\s*:\s*"(.+?)"', html)
 
-        if 'error' in html:
-            err_title = html['error']
-            if 'title' in err_title:
-                err_title = err_title['title']
-            else:
-                err_title = 'Content not available.'
-            raise UrlResolver.ResolverError(err_title)
+        sources = re.findall('"(\d+)"\s*:.+?"url"\s*:\s*"([^"]+)', html)
+        
+        if not sources and not livesource:
+            raise ResolverError('File not found')
 
-        if 'qualities' in html:
-            html = html['qualities']
+        if livesource and not sources:
+            return self.net.http_HEAD(livesource[0]).get_url()
 
-        videoUrl = []
-        try: videoUrl.append(html['1080'][0]['url'])
-        except: pass
-        try: videoUrl.append(html['720'][0]['url'])
-        except: pass
-        try: videoUrl.append(html['480'][0]['url'])
-        except: pass
-        try: videoUrl.append(html['380'][0]['url'])
-        except: pass
-        try: videoUrl.append(html['240'][0]['url'])
-        except: pass
-        try: videoUrl.append(html['auto'][0]['url'])
-        except: pass
+        sources = sorted(sources, key=lambda x: x[0])[::-1]
 
-        vUrl = ''
-        vUrlsCount = len(videoUrl)
-        if vUrlsCount > 0:
-            q = self.get_setting('quality')
-            if q == '0':
-                # Highest Quality
-                vUrl = videoUrl[0]
-            elif q == '1':
-                # Medium Quality
-                vUrl = videoUrl[(int)(vUrlsCount / 2)]
-            elif q == '2':
-                # Lowest Quality
-                vUrl = videoUrl[vUrlsCount - 1]
-
-        vUrl = urllib2.urlopen(urllib2.Request(vUrl)).geturl()
-        return vUrl
-
+        source = helpers.pick_source(sources)
+        
+        if not '.m3u8' in source:
+            raise ResolverError('File not found')
+        
+        vUrl = self.net.http_GET(source).content
+        vUrl = re.search('(http.+?m3u8)', vUrl)
+        
+        if vUrl:
+            return vUrl.group(1)
+        
+        raise ResolverError('File not found')
+    
     def get_url(self, host, media_id):
         return 'http://www.dailymotion.com/embed/video/%s' % media_id
 
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-    
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
-
-    def get_settings_xml(self):
-        xml = PluginSettings.get_settings_xml(self)
-        xml += '<setting label="Video Quality" id="%s_quality" ' % self.__class__.__name__
-        xml += 'type="enum" values="High|Medium|Low" default="0" />\n'
+    @classmethod
+    def get_settings_xml(cls):
+        xml = super(cls, cls).get_settings_xml()
+        xml.append('<setting id="%s_auto_pick" type="bool" label="Automatically pick best quality" default="false" visible="true"/>' % (cls.__name__))
         return xml

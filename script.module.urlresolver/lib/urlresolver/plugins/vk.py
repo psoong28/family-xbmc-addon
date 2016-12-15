@@ -21,23 +21,17 @@ import re
 import json
 import urllib
 import urlparse
-from t0mm0.common.net import Net
+from lib import helpers
 from urlresolver import common
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
-import xbmcgui
+from urlresolver.resolver import UrlResolver, ResolverError
 
-class VKResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
+class VKResolver(UrlResolver):
     name = "VK.com"
     domains = ["vk.com"]
     pattern = '(?://|\.)(vk\.com)/(?:video_ext\.php\?|video)(.+)'
 
     def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
+        self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         headers = {
@@ -46,78 +40,29 @@ class VKResolver(Plugin, UrlResolver, PluginSettings):
 
         query = urlparse.parse_qs(media_id)
 
-        try: oid, video_id = query['oid'][0] , query['id'][0]
+        try: oid, video_id = query['oid'][0], query['id'][0]
         except: oid, video_id = re.findall('(.*)_(.*)', media_id)[0]
 
-        try: hash = query['hash'][0]
-        except: hash = self.__get_hash(oid, video_id)
+        sources = self.__get_sources(oid, video_id)
+        sources.sort(key=lambda x: int(x[0]), reverse=True)
 
-        api_url = 'http://api.vk.com/method/video.getEmbed?oid=%s&video_id=%s&embed_hash=%s' % (oid, video_id, hash)
+        source = helpers.pick_source(sources)
+        return source + helpers.append_headers(headers)
+        raise ResolverError('No video found')
 
-        html = self.net.http_GET(api_url).content
+    def __get_sources(self, oid, video_id):
+        sources_url = 'http://vk.com/al_video.php?act=show_inline&al=1&video=%s_%s' % (oid, video_id)
+        html = self.net.http_GET(sources_url).content
         html = re.sub(r'[^\x00-\x7F]+', ' ', html)
 
-        try: result = json.loads(html)['response']
-        except: result = self.__get_private(oid, video_id)
+        sources = re.findall('(\d+)x\d+.+?(http.+?\.m3u8.+?)n', html)
 
-        quality_list = []
-        link_list = []
-        best_link = ''
-        for quality in ['url240', 'url360', 'url480', 'url540', 'url720']:
-            if quality in result:
-                quality_list.append(quality[3:])
-                link_list.append(result[quality])
-                best_link = result[quality]
-        
-        if self.get_setting('auto_pick') == 'true' and best_link:
-            return best_link + '|' + urllib.urlencode(headers)
-        else:
-            if quality_list:
-                if len(quality_list) > 1:
-                    result = xbmcgui.Dialog().select('Choose the link', quality_list)
-                    if result == -1:
-                        raise UrlResolver.ResolverError('No link selected')
-                    else:
-                        return link_list[result] + '|' + urllib.urlencode(headers)
-                else:
-                    return link_list[0] + '|' + urllib.urlencode(headers)
-        
-        raise UrlResolver.ResolverError('No video found')
+        if not sources:
+            sources = re.findall('"url(\d+)"\s*:\s*"(.+?)"', html)
 
-    def __get_private(self, oid, video_id):
-        private_url = 'http://vk.com/al_video.php?act=show_inline&al=1&video=%s_%s' % (oid, video_id)
-        html = self.net.http_GET(private_url).content
-        html = re.sub(r'[^\x00-\x7F]+', ' ', html)
-        match = re.search('var\s+vars\s*=\s*({.+?});', html)
-        try: return json.loads(match.group(1))
-        except: return {}
-        return {}
+        sources = [(i[0], i[1].replace('\\', '')) for i in sources]
 
-    def __get_hash(self, oid, video_id):
-        hash_url = 'http://vk.com/al_video.php?act=show_inline&al=1&video=%s_%s' % (oid, video_id)
-        html = self.net.http_GET(hash_url).content
-        html = html.replace('\'', '"').replace(' ', '')
-        html = re.sub(r'[^\x00-\x7F]+', ' ', html)
-        match = re.search('"hash2"\s*:\s*"(.+?)"', html)
-        if match: return match.group(1)
-        match = re.search('"hash"\s*:\s*"(.+?)"', html)
-        if match: return match.group(1)
-        return ''
-    
+        return sources
+
     def get_url(self, host, media_id):
-        return 'http://vk.com/video_ext.php?%s' % media_id
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
-
-    def get_settings_xml(self):
-        xml = PluginSettings.get_settings_xml(self)
-        xml += '<setting id="%s_auto_pick" type="bool" label="Automatically pick best quality" default="false" visible="true"/>' % (self.__class__.__name__)
-        return xml
+        return 'http://vk.com/video_ext.php?%s' % (media_id)

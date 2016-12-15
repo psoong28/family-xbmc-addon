@@ -17,32 +17,29 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import re
-from t0mm0.common.net import Net
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
+from urlresolver import common
+from urlresolver.resolver import UrlResolver, ResolverError
 
-class TunePkResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
+class TunePkResolver(UrlResolver):
     name = "tune.pk"
     domains = ["tune.pk"]
     pattern = '(?://|\.)(tune\.pk)/(?:player|video|play)/(?:[\w\.\?]+=)?(\d+)'
 
     def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
+        self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
         link = repr(self.net.http_GET(web_url).content)
         if link.find('404 Not Found') >= 0:
-            raise UrlResolver.ResolverError('The requested video was not found.')
+            raise ResolverError('The requested video was not found.')
 
         videoUrl = []
-        # borrowed from AJ's turtle-x
+
         html = link.replace('\n\r', '').replace('\r', '').replace('\n', '').replace('\\', '')
-        sources = re.compile("{(.+?)}").findall(re.compile("sources (.+?)]").findall(html)[0])
+        sources = re.compile('"sources"\s*:\s*\[(.+?)\]').findall(html)[0]
+        sources = re.compile("{(.+?)}").findall(sources)
+
         for source in sources:
             video_link = str(re.compile('"file":"(.*?)"').findall(source)[0])
             videoUrl.append(video_link)
@@ -63,23 +60,13 @@ class TunePkResolver(Plugin, UrlResolver, PluginSettings):
 
             return vUrl
         else:
-            raise UrlResolver.ResolverError('No playable video found.')
+            raise ResolverError('No playable video found.')
 
     def get_url(self, host, media_id):
-        return 'http://embed.tune.pk/play/%s' % media_id
+        return 'http://embed.tune.pk/play/%s?autoplay=&ssl=no&inline=true' % media_id
 
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
-
-    def get_settings_xml(self):
-        xml = PluginSettings.get_settings_xml(self)
-        xml += '<setting label="Video Quality" id="%s_quality" ' % self.__class__.__name__
-        xml += 'type="enum" values="High|Medium|Low" default="0" />\n'
+    @classmethod
+    def get_settings_xml(cls):
+        xml = super(cls, cls).get_settings_xml()
+        xml.append('<setting label="Video Quality" id="%s_quality" type="enum" values="High|Medium|Low" default="0" />' % (cls.__name__))
         return xml

@@ -1,6 +1,7 @@
 """
     urlresolver XBMC Addon
     Copyright (C) 2011 t0mm0
+    Updated by alifrezser (c) 2016
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,56 +18,46 @@
 """
 
 import re
-from t0mm0.common.net import Net
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
+from lib import helpers
+from urlresolver import common
+from urlresolver.resolver import UrlResolver, ResolverError
 
-class NovamovResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
+class NovamovResolver(UrlResolver):
     name = "novamov"
-    domains = [ 'novamov.com', 'auroravid.to' ]
-    pattern = '(?://|\.)(novamov.com|auroravid.to)/(?:video/|embed/\?v=)([A-Za-z0-9]+)'
+    domains = ['novamov.com', 'auroravid.to']
+    pattern = '(?://|\.)(novamov.com|auroravid.to)/(?:video/|embed/\?v=|embed\.php\?v=)([A-Za-z0-9]+)'
 
     def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
+        self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
 
         html = self.net.http_GET(web_url).content
 
-        r = re.search('flashvars.filekey=(.+?);', html)
-        if r:
-            r = r.group(1)
+        try:
+            r = re.search('flashvars.filekey=(.+?);', html)
+            if r is None: raise Exception()
 
+            r = r.group(1)
+    
             try: filekey = re.compile('\s+%s="(.+?)"' % r).findall(html)[-1]
             except: filekey = r
-
+    
             player_url = 'http://www.auroravid.to/api/player.api.php?key=%s&file=%s' % (filekey, media_id)
-
+    
             html = self.net.http_GET(player_url).content
-
+    
             r = re.search('url=(.+?)&', html)
-
             if r:
                 stream_url = r.group(1)
-            else:
-                raise UrlResolver.ResolverError('File Not Found or removed')
+                return stream_url
+        except:
+            sources = helpers.parse_html5_source_list(html)
+            source = helpers.pick_source(sources)
+            return source + helpers.append_headers({'User-Agent': common.FF_USER_AGENT})
 
-        return stream_url
+        raise ResolverError('File Not Found or removed')
 
     def get_url(self, host, media_id):
         return 'http://www.auroravid.to/embed/?v=%s' % media_id
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-    
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host

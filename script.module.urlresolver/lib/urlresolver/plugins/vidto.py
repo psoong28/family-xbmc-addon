@@ -16,52 +16,33 @@
 """
 
 import re
-from t0mm0.common.net import Net
-from lib import jsunpack
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
+from lib import helpers
+from urlresolver import common
+from urlresolver.resolver import UrlResolver, ResolverError
 
-class VidtoResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
+
+class VidtoResolver(UrlResolver):
     name = "vidto"
     domains = ["vidto.me"]
     pattern = '(?://|\.)(vidto\.me)/(?:embed-)?([0-9a-zA-Z]+)'
 
     def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
+        self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
+        headers = {'User-Agent': common.FF_USER_AGENT}
+        html = self.net.http_GET(web_url, headers=headers).content
+        html = helpers.add_packed_data(html)
+        sources = []
+        for match in re.finditer('label:\s*"([^"]+)"\s*,\s*file:\s*"([^"]+)', html):
+            label, stream_url = match.groups()
+            sources.append((label, stream_url))
 
-        html = self.net.http_GET(web_url).content
+        sources = sorted(sources, key=lambda x: x[0])[::-1]
+        return helpers.pick_source(sources) + helpers.append_headers(headers)
 
-        if jsunpack.detect(html):
-            js_data = jsunpack.unpack(html)
+        raise ResolverError("File Link Not Found")
 
-            max_label = 0
-            stream_url = ''
-            for match in re.finditer('label:\s*"(\d+)p"\s*,\s*file:\s*"([^"]+)', js_data):
-                label, link = match.groups()
-                if int(label) > max_label:
-                    stream_url = link
-                    max_label = int(label)
-            if stream_url:
-                return stream_url
-            else:
-                raise UrlResolver.ResolverError("File Link Not Found")
-        
     def get_url(self, host, media_id):
-        return 'http://vidto.me/embed-%s.html' % media_id
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
+        return self._default_get_url(host, media_id)

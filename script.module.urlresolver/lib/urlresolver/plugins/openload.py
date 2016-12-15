@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 openload.io urlresolver plugin
 Copyright (C) 2015 tknorris
@@ -15,63 +16,85 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
-
-import re
+import os
 import json
-import urllib
-from t0mm0.common.net import Net
-from lib import captcha_lib
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
 from urlresolver import common
-import xbmc
+from urlresolver.common import i18n
+from urlresolver.resolver import UrlResolver, ResolverError
 
-class OpenLoadResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
+API_BASE_URL = 'https://api.openload.co/1'
+INFO_URL = API_BASE_URL + '/streaming/info'
+GET_URL = API_BASE_URL + '/streaming/get?file={media_id}'
+OL_PATH = os.path.join(common.plugins_path, 'ol_gmu.py')
+
+class OpenLoadResolver(UrlResolver):
     name = "openload"
     domains = ["openload.io", "openload.co"]
     pattern = '(?://|\.)(openload\.(?:io|co))/(?:embed|f)/([0-9a-zA-Z-_]+)'
 
     def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
+        self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         try:
-            ticket_url = 'https://api.openload.io/1/file/dlticket?file=%s' % (media_id)
-            result = self.net.http_GET(ticket_url).content
-            js_result = json.loads(result)
-            if js_result['status'] != 200:
-                raise UrlResolver.ResolverError(js_result['msg'])
-            video_url = 'https://api.openload.io/1/file/dl?file=%s&ticket=%s' % (media_id, js_result['result']['ticket'])
-            captcha_url = js_result['result'].get('captcha_url', None)
-            if captcha_url:
-                captcha_response = captcha_lib.get_response(captcha_url)
-                if captcha_response:
-                    video_url += '&captcha_response=%s' % urllib.quote(captcha_response)
-            xbmc.sleep(js_result['result']['wait_time'] * 1000)
-            result = self.net.http_GET(video_url).content
-            js_result = json.loads(result)
-            if js_result['status'] != 200:
-                raise UrlResolver.ResolverError(js_result['msg'])
-            
-            return js_result['result']['url'] + '?mime=true'
+            self._auto_update(self.get_setting('url'), OL_PATH, self.get_setting('key'))
+            common.log_file_hash(OL_PATH)
+            import ol_gmu
+            return ol_gmu.get_media_url(self.get_url(host, media_id))
         except Exception as e:
-            raise UrlResolver.ResolverError('Exception in openload: %s' % (e))
-        
-        raise UrlResolver.ResolverError('Unable to resolve openload.io link. Filelink not found.')
+            common.log_utils.log_debug('Exception during openload resolve parse: %s' % (e))
+            try:
+                video_url = self.__check_auth(media_id)
+                if not video_url:
+                    video_url = self.__auth_ip(media_id)
+            except ResolverError:
+                raise
+            
+            if video_url:
+                return video_url
+            else:
+                raise ResolverError(i18n('no_ol_auth'))
 
     def get_url(self, host, media_id):
-            return 'http://openload.io/embed/%s' % (media_id)
+        return 'http://openload.co/embed/%s' % (media_id)
 
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
+    def __auth_ip(self, media_id):
+        js_data = self.__get_json(INFO_URL)
+        pair_url = js_data.get('result', {}).get('auth_url', '')
+        if pair_url:
+            pair_url = pair_url.replace('\/', '/')
+            header = i18n('ol_auth_header')
+            line1 = i18n('auth_required')
+            line2 = i18n('visit_link')
+            line3 = i18n('click_pair') % (pair_url)
+            with common.kodi.CountdownDialog(header, line1, line2, line3) as cd:
+                return cd.start(self.__check_auth, [media_id])
+        
+    def __check_auth(self, media_id):
+        try:
+            js_data = self.__get_json(GET_URL.format(media_id=media_id))
+        except ResolverError as e:
+            status, msg = e
+            if status == 403:
+                return
+            else:
+                raise ResolverError(msg)
+        
+        return js_data.get('result', {}).get('url')
     
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
+    def __get_json(self, url):
+        result = self.net.http_GET(url).content
+        js_result = json.loads(result)
+        common.log_utils.log_debug(js_result)
+        if js_result['status'] != 200:
+            raise ResolverError(js_result['status'], js_result['msg'])
+        return js_result
+
+    @classmethod
+    def get_settings_xml(cls):
+        xml = super(cls, cls).get_settings_xml()
+        xml.append('<setting id="%s_auto_update" type="bool" label="%s" default="true"/>' % (cls.__name__, i18n('auto_update')))
+        xml.append('<setting id="%s_url" type="text" label="    %s" default="" visible="eq(-1,true)"/>' % (cls.__name__, i18n('update_url')))
+        xml.append('<setting id="%s_key" type="text" label="    %s" default="" option="hidden" visible="eq(-2,true)"/>' % (cls.__name__, i18n('decrypt_key')))
+        xml.append('<setting id="%s_etag" type="text" default="" visible="false"/>' % (cls.__name__))
+        return xml

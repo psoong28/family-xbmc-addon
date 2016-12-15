@@ -17,21 +17,17 @@
 """
 
 import re
-from t0mm0.common.net import Net
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
+from lib import helpers
+from urlresolver import common
+from urlresolver.resolver import UrlResolver, ResolverError
 
-class DaclipsResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
+class DaclipsResolver(UrlResolver):
     name = "daclips"
-    domains = [ "daclips.in", "daclips.com" ]
+    domains = ["daclips.in", "daclips.com"]
     pattern = '(?://|\.)(daclips\.(?:in|com))/(?:embed-)?([0-9a-zA-Z]+)'
 
     def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
+        self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
@@ -40,27 +36,15 @@ class DaclipsResolver(Plugin, UrlResolver, PluginSettings):
         html = resp.content
         r = re.findall(r'<span class="t" id="head_title">404 - File Not Found</span>', html)
         if r:
-            raise UrlResolver.ResolverError('File Not Found or removed')
+            raise ResolverError('File Not Found or removed')
         post_url = resp.get_url()
-        form_values = {}
-        for i in re.finditer('<input type="hidden" name="(.+?)" value="(.+?)">', html):
-            form_values[i.group(1)] = i.group(2)
+        form_values = helpers.get_hidden(html)
         html = self.net.http_POST(post_url, form_data=form_values).content
         r = re.search('file: "http(.+?)"', html)
         if r:
             return "http" + r.group(1)
         else:
-            raise UrlResolver.ResolverError('Unable to resolve Daclips link')
-        
+            raise ResolverError('Unable to resolve Daclips link')
+
     def get_url(self, host, media_id):
         return 'http://daclips.in/%s' % (media_id)
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-    
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host

@@ -16,46 +16,17 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+from lib import helpers
+from urlresolver.resolver import UrlResolver, ResolverError
 
-import re
-from t0mm0.common.net import Net
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
 
-class ZstreamResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
+class ZstreamResolver(UrlResolver):
     name = 'zstream.to'
-    domains = [ 'zstream.to' ]
+    domains = ['zstream.to']
     pattern = '(?://|\.)(zstream\.to)/(?:embed-)?([0-9a-zA-Z]+)'
 
-    def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
-
     def get_media_url(self, host, media_id):
-        web_url = self.get_url(host, media_id)
-
-        html = self.net.http_GET(web_url).content
-
-        stream_url = re.compile('file *: *"(http.+?)"').findall(html)
-        stream_url = [i for i in stream_url if not i.endswith('.srt')]
-
-        if stream_url:
-            return stream_url[-1]
-            
-        raise UrlResolver.ResolverError('File Not Found or removed')
+        return helpers.get_media_url(self.get_url(host, media_id))
 
     def get_url(self, host, media_id):
         return 'http://zstream.to/embed-%s.html' % media_id
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host

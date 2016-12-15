@@ -16,44 +16,17 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-import re
-from t0mm0.common.net import Net
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
+from lib import helpers
+from urlresolver.resolver import UrlResolver, ResolverError
 
-class VshareResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
+
+class VshareResolver(UrlResolver):
     name = "vshare"
     domains = ['vshare.io']
     pattern = '(?://|\.)(vshare\.io)/\w?/(\w+)'
 
-    def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
-
     def get_media_url(self, host, media_id):
-        web_url = self.get_url(host, media_id)
-        link = self.net.http_GET(web_url).content
-        if link.find('404 - Error') >= 0:
-            raise UrlResolver.ResolverError('The requested video was not found.')
-
-        video_link = str(re.compile("url[: ]*'(.+?)'").findall(link)[0])
-        if len(video_link) > 0:
-            return video_link
-        else:
-            raise UrlResolver.ResolverError('No playable video found.')
+        return helpers.get_media_url(self.get_url(host, media_id))
 
     def get_url(self, host, media_id):
         return 'http://vshare.io/v/%s/width-620/height-280/' % media_id
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host

@@ -17,52 +17,38 @@
 """
 
 import re
-import urllib2
-from t0mm0.common.net import Net
+import urlparse
+from lib import helpers
 from urlresolver import common
-from urlresolver.plugnplay.interfaces import UrlResolver
-from urlresolver.plugnplay.interfaces import PluginSettings
-from urlresolver.plugnplay import Plugin
+from urlresolver.resolver import UrlResolver, ResolverError
 
-class YourUploadResolver(Plugin, UrlResolver, PluginSettings):
-    implements = [UrlResolver, PluginSettings]
+
+class YourUploadResolver(UrlResolver):
     name = "yourupload.com"
-    domains = [ "yourupload.com" ]
-    pattern = '(?://|\.)(yourupload\.com)/(?:watch|embed)/?([0-9A-Za-z]+)'
+    domains = ["yourupload.com", "yucache.net"]
+    pattern = '(?://|\.)(yourupload\.com|yucache\.net)/(?:watch|embed)?/?([0-9A-Za-z]+)'
 
     def __init__(self):
-        p = self.get_setting('priority') or 100
-        self.priority = int(p)
-        self.net = Net()
+        self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
 
-        headers = {
-            'User-Agent': common.IE_USER_AGENT,
-            'Referer': web_url
-        }
+        html = self.net.http_GET(web_url).content
+        url = re.findall('file\s*:\s*(?:\'|\")(.+?)(?:\'|\")', html)
 
-        html = self.net.http_GET(web_url, headers=headers).content
+        if not url: raise ResolverError('No video found')
 
-        r = re.search("file\s*:\s*'(.+?)'", html)
-        if r:
-            stream_url = r.group(1)
-            stream_url = urllib2.urlopen(urllib2.Request(stream_url, headers=headers)).geturl()
+        headers = {'User-Agent': common.FF_USER_AGENT,
+                'Referer': web_url}
 
-            return stream_url 
-        else:
-            raise UrlResolver.ResolverError('no file located')
+        url = urlparse.urljoin(web_url, url[0])
+        url = self.net.http_HEAD(url, headers=headers).get_url()
+
+        url = url + helpers.append_headers(headers)
+        return url
+
+        raise ResolverError('No video found')
 
     def get_url(self, host, media_id):
-            return 'http://www.yourupload.com/embed/%s' % media_id
-
-    def get_host_and_id(self, url):
-        r = re.search(self.pattern, url)
-        if r:
-            return r.groups()
-        else:
-            return False
-
-    def valid_url(self, url, host):
-        return re.search(self.pattern, url) or self.name in host
+        return 'http://www.yourupload.com/embed/%s' % media_id
