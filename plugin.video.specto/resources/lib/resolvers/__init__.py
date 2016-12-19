@@ -22,17 +22,27 @@
 import re,urllib,urlparse
 
 from resources.lib.libraries import client
+from resources.lib.libraries import control
 from resources.lib.resolvers import realdebrid
 from resources.lib.resolvers import premiumize
+try:
+    import urlresolver9 as urlresolver
+except:
+    pass
 
 
 def request(url):
     try:
+        control.log("#RESOLVER#  my url 1 ************ %s " % url)
+
         if '</regex>' in url:
             import regex ; url = regex.resolve(url)
 
         rd = realdebrid.resolve(url)
+        #control.log("#RESOLVER#  my rd 2 ************ %s url: %s" % (rd,url))
+
         if not rd == None: return rd
+
         pz = premiumize.resolve(url)
         if not pz == None: return pz
 
@@ -40,26 +50,22 @@ def request(url):
             if len(re.compile('\s*timeout=(\d*)').findall(url)) == 0: url += ' timeout=10'
             return url
 
-        u = urlparse.urlparse(url).netloc
-        u = u.replace('www.', '').replace('embed.', '')
-        u = u.lower()
+        try:
+            z=False
+            hmf = urlresolver.HostedMediaFile(url,include_disabled=False, include_universal=False)
+            if hmf:
+                print 'yay! we can resolve this one'
+                z = hmf.resolve()
+            else:
+                print 'sorry :( no resolvers available to handle this one.'
 
-        r = [i['class'] for i in info() if u in i['netloc']][0]
-        r = __import__(r, globals(), locals(), [], -1)
-        r = r.resolve(url)
+            control.log("!!!!!!!!! OK #urlresolver2#  URL %s " % z)
 
-        if r == None: return r
-        elif type(r) == list: return r
-        elif not r.startswith('http'): return r
-
-        try: h = dict(urlparse.parse_qsl(r.rsplit('|', 1)[1]))
-        except: h = dict('')
-
-        if not 'User-Agent' in h: h['User-Agent'] = client.agent()
-        if not 'Referer' in h: h['Referer'] = url
-
-        r = '%s|%s' % (r.split('|')[0], urllib.urlencode(h))
-        return r
+            if z !=False : return z
+        except Exception as e:
+            control.log("!!!!!!!!! ERROR #urlresolver2#  URL %s " % e)
+            pass
+        return None
     except:
         return url
 
@@ -73,6 +79,16 @@ def info():
         'captcha': False,
         'a/c': True
     }, {
+        'class': 'okru',
+        'netloc': ['ok.ru']
+    }, {
+        'class': '',
+        'netloc': ['youwatch.com','www.flashx.tv', 'thevideobee.to','auroravid.to', 'vshare.eu','shared.sx'],
+        'host': ['youwatch', 'flashx', 'thevideobee','auroravid','vshare', 'shared'],
+        'quality': 'Low',
+        'captcha': False,
+        'a/c': False
+    }, {
         'class': '_180upload',
         'netloc': ['180upload.com'],
         'host': ['180upload'],
@@ -81,8 +97,8 @@ def info():
         'a/c': False
     }, {
         'class': 'allmyvideos',
-        'netloc': ['allmyvideos.net'],
-        'host': ['Allmyvideos'],
+        'netloc': ['allmyvideos.net', 'nosvideo.com','www.divxstage.to','noslocker.com'],
+        'host': ['Allmyvideos','nosvideo', 'divxstage','noslocker'],
         'quality': 'Medium',
         'captcha': False,
         'a/c': False
@@ -102,7 +118,7 @@ def info():
         'a/c': False
     }, {
         'class': 'clicknupload',
-        'netloc': ['clicknupload.com'],
+        'netloc': ['clicknupload.com', 'clicknupload.link'],
         'host': ['Clicknupload'],
         'quality': 'High',
         'captcha': False,
@@ -135,6 +151,9 @@ def info():
         'quality': 'Low',
         'captcha': False,
         'a/c': False
+    }, {
+        'class': 'yadisk',
+        'netloc': ['yadi.sk']
     }, {
         'class': 'dailymotion',
         'netloc': ['dailymotion.com']
@@ -182,6 +201,9 @@ def info():
     }, {
         'class': 'filepup',
         'netloc': ['filepup.net']
+    }, {
+        'class': 'googledocs',
+        'netloc': ['google.com']
     }, {
         'class': 'googledocs',
         'netloc': ['docs.google.com', 'drive.google.com']
@@ -250,6 +272,9 @@ def info():
         'class': 'mailru',
         'netloc': ['mail.ru', 'my.mail.ru', 'videoapi.my.mail.ru', 'api.video.mail.ru']
     }, {
+        'class': 'cloudmailru',
+        'netloc': ['cloud.mail.ru']
+    }, {
         'class': 'mightyupload',
         'netloc': ['mightyupload.com'],
         'host': ['Mightyupload'],
@@ -313,7 +338,7 @@ def info():
         'netloc': ['openload.io', 'openload.co'],
         'host': ['Openload'],
         'quality': 'High',
-        'captcha': True,
+        'captcha': False,
         'a/c': False
     }, {
         'class': 'p2pcast',
@@ -426,7 +451,7 @@ def info():
         'class': 'uploadc',
         'netloc': ['uploadc.com', 'uploadc.ch', 'zalaa.com'],
         'host': ['Uploadc', 'Zalaa'],
-        'quality': 'High',
+        'quality': 'Medium',
         'captcha': False,
         'a/c': False
     }, {
@@ -517,13 +542,13 @@ def info():
     }, {
         'class': 'vk',
         'netloc': ['vk.com']
-    }, {
-        'class': 'vodlocker',
-        'netloc': ['vodlocker.com'],
-        'host': ['Vodlocker'],
-        'quality': 'Low',
-        'captcha': False,
-        'a/c': False
+    #}, {
+    #    'class': 'vodlocker',
+    #    'netloc': ['vodlocker.com'],
+    #    'host': ['Vodlocker'],
+    #    'quality': 'Low',
+    #    'captcha': False,
+    #    'a/c': False
     }, {
         'class': 'xfileload',
         'netloc': ['xfileload.com'],
@@ -556,7 +581,7 @@ def info():
         'class': 'zstream',
         'netloc': ['zstream.to'],
         'host': ['zStream'],
-        'quality': 'High',
+        'quality': 'Medium',
         'captcha': False,
         'a/c': False
     }, {

@@ -21,13 +21,16 @@
 
 import re,urllib
 from resources.lib.libraries import client
+from resources.lib.libraries import control
 
+import xbmc
 
 def resolve(url):
     try:
         url = url.replace('/embed-', '/')
         url = re.compile('//.+?/([\w]+)').findall(url)[0]
         page = 'http://allmyvideos.net/%s' % url
+        control.log('AAA Page %s' % page)
 
         result = client.request(page, close=False)
 
@@ -39,8 +42,12 @@ def resolve(url):
 
         result = client.request(page, post=post)
 
-        url = re.compile('"file" *: *"(http.+?)"').findall(result)[-1]
+        url = re.compile('"file" *: *"(http.+?)"').findall(result)
+        #control.log('AAA Page %s' % url)
+        url = url[-1]
         url += '&direct=false&ua=false'
+        xbmc.sleep(2000)
+        #return url + '|' + urllib.urlencode({ 'User-Agent': client.IE_USER_AGENT })
         return url
     except:
         return

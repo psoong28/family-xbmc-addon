@@ -24,14 +24,24 @@ from resources.lib.libraries import client
 
 
 def resolve(url):
+    return
     try:
         url = url.replace('/embed-', '/')
         url = re.compile('//.+?/([\w]+)').findall(url)[0]
         url = 'http://streamin.to/embed-%s.html' % url
 
         result = client.request(url, mobile=True)
+        client.log(">>>>>>>>> %s" % result)
         url = re.compile("file *: *[\'|\"](http.+?)[\'|\"]").findall(result)[-1]
         return url
     except:
         return
 
+def check(url):
+    try:
+        result = client.request(url)
+        if result == None: return False
+        if 'File Deleted.' in result: return False
+        return True
+    except:
+        return False

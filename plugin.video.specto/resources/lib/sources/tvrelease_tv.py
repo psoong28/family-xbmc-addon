@@ -28,6 +28,7 @@ from resources.lib.libraries import client
 from resources.lib.resolvers import hugefiles
 from resources.lib.resolvers import uploadrocket
 from resources.lib.resolvers import uptobox
+from resources.lib.resolvers import control
 from resources.lib import resolvers
 
 
@@ -49,6 +50,7 @@ class source:
 
 
     def get_episode(self, url, imdb, tvdb, title, date, season, episode):
+
         try:
             if url == None: return
 
@@ -70,7 +72,8 @@ class source:
             query = re.sub('\s+',' ',query)
             query = self.base_link + self.search_link % urllib.quote_plus(query)
 
-            result = client.source(query)
+            result = client.request(query)
+            print result,query
 
             result = client.parseDOM(result, 'table', attrs = {'class': 'posts_table'})
 
@@ -127,13 +130,14 @@ class source:
 
 
             return self.sources
-        except:
+        except Exception as e:
+            control.log('ERROR tvre %s' % e)
             return self.sources
 
 
     def check(self, i):
         try:
-            result = client.source(i['url'])
+            result = client.request(i['url'])
             result = client.parseDOM(result, 'td', attrs = {'class': 'td_cols'})[0]
             result = result.split('"td_heads"')
             result = client.parseDOM(result, 'a', ret='href')
@@ -142,7 +146,7 @@ class source:
                 try:
                     if 'go4up.com' in url:
                         url = re.compile('//.+?/.+?/([\w]+)').findall(url)[0]
-                        url = client.source(self.go4up_link_2 % url)
+                        url = client.request(self.go4up_link_2 % url)
                         url = client.parseDOM(url, 'div', attrs = {'id': 'linklist'})[0]
                         url = client.parseDOM(url, 'a', ret='href')[0]
 

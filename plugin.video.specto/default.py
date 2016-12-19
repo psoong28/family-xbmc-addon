@@ -18,10 +18,29 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+#TODO ['notifications-on-startup', False, 'DoFromService', True]
+#TODO http://yify.tv
+
 
 import urlparse,sys
+from resources.lib.libraries import control
+
+import xbmcaddon, os, xbmc
+scriptID = 'plugin.video.specto'
+ptv = xbmcaddon.Addon(scriptID)
+datapath = xbmc.translatePath(ptv.getAddonInfo('profile'))
+
+BASE_RESOURCE_PATH = os.path.join( ptv.getAddonInfo('path'), "mylib" )
+sys.path.append( os.path.join( ptv.getAddonInfo('path'), "mylib" ) )
+
+#import pydevd
+#pydevd.settrace('localhost', port=34099, stdoutToServer=True, stderrToServer=True)
+
+
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?','')))
-print("PARAMS:",params)
+control.log("->----------                PARAMS: %s" % params)
+#control.log("->----------                PARAMS2: %s" % sys.argv[2])
+
 
 
 try:
@@ -118,6 +137,16 @@ except:
 if action == None:
     from resources.lib.indexers import navigator
     navigator.navigator().root()
+
+
+elif action == 'realdebridauth':
+    from resources.lib.resolvers.realdebrid import rdAuthorize
+    rdAuthorize()
+
+
+elif action == 'authTrakt':
+    from resources.lib.libraries import trakt
+    trakt.authTrakt()
 
 elif action == 'movieNavigator':
     from resources.lib.indexers import navigator
@@ -238,6 +267,8 @@ elif action == 'calendar':
 elif action == 'tvWidget':
     from resources.lib.indexers import episodes
     episodes.episodes().widget()
+    #episodes.episodes().calendar(url)
+
 
 elif action == 'episodeFavourites':
     from resources.lib.indexers import episodes
@@ -265,7 +296,7 @@ elif action == 'openSettings':
 
 elif action == 'moviePlaycount':
     from resources.lib.libraries import playcount
-    playcount.movies(title, year, imdb, query)
+    playcount.movies(imdb, query)
 
 elif action == 'episodePlaycount':
     from resources.lib.libraries import playcount
@@ -273,7 +304,7 @@ elif action == 'episodePlaycount':
 
 elif action == 'tvPlaycount':
     from resources.lib.libraries import playcount
-    playcount.tvshows(name, year, imdb, tvdb, season, query)
+    playcount.tvshows(name, imdb, tvdb, season, query)
 
 elif action == 'trailer':
     from resources.lib.libraries import trailer
@@ -356,4 +387,6 @@ elif action == 'clearSources':
     from resources.lib.sources import sources
     sources().clearSources()
 
-
+elif action == 'loguploader':
+    from resources.lib.libraries import loguploader
+    loguploader.Luguploader()

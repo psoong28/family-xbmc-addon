@@ -58,7 +58,7 @@ def resolve(url):
 def check(url):
     try:
         base = 'http://uploadrocket.net/?op=checkfiles'
-        post = urllib.urlencode({'op': 'checkfiles', 'process': 'Check URLs', 'list': url})
+        post = {'op': 'checkfiles', 'process': 'Check URLs', 'list': url}
 
         result = client.request(base, post=post)
         if result == None: return False

@@ -19,19 +19,29 @@
 '''
 
 
-import re,urllib,urllib2,urlparse
+import re,urllib,urllib2,urlparse,time
 
 from resources.lib.libraries import cleantitle
 from resources.lib.libraries import client
-from resources.lib import resolvers
+from resources.lib.libraries import control
 
+from resources.lib import resolvers
+from resources.lib.libraries import workers
+from resources.lib.libraries import control
+from resources.lib.resolvers import cloudzilla
+from resources.lib.resolvers import openload
+from resources.lib.resolvers import uptobox
+from resources.lib.resolvers import zstream
+from resources.lib.resolvers import streamin
+
+
+class NoRedirection(urllib2.HTTPErrorProcessor):
+    def http_response(self, request, response):
+        return response
 
 class source:
     def __init__(self):
-        self.base_link = 'http://watchseries.ag'
-        self.link_1 = 'http://watchseries.ag'
-        self.link_2 = 'http://translate.googleusercontent.com/translate_c?anno=2&hl=en&sl=mt&tl=en&u=http://watchseries.ag'
-        self.link_3 = 'https://watchseries.unblocked.pw'
+        self.base_link = 'http://watchseriesfree.to'
         self.search_link = '/AdvancedSearch/%s-%s/by_popularity/%s'
         self.episode_link = '/episode/%s_s%s_e%s.html'
         self.headers = {}
@@ -40,13 +50,10 @@ class source:
     def get_show(self, imdb, tvdb, tvshowtitle, year):
         try:
             query = self.search_link % (str(int(year)-1), str(int(year)+1), urllib.quote_plus(tvshowtitle))
+            print query
 
             result = ''
-            links = [self.link_1, self.link_2, self.link_3]
-            for base_link in links:
-                result = client.source(urlparse.urljoin(base_link, query), headers=self.headers)
-                if 'episode-summary' in str(result): break
-
+            result = client.request(urlparse.urljoin(self.base_link, query))
             result = result.decode('iso-8859-1').encode('utf-8')
             result = client.parseDOM(result, 'div', attrs = {'class': 'episode-summary'})[0]
             result = client.parseDOM(result, 'tr')
@@ -61,9 +68,10 @@ class source:
             try: result = [(urlparse.parse_qs(urlparse.urlparse(i[0]).query)['u'][0], i[1]) for i in result]
             except: pass
             result = [(urlparse.urlparse(i[0]).path, i[1]) for i in result]
+            #print result,tvshowtitle,cleantitle.tv(result[0][1])
 
-            match = [i[0] for i in result if tvshowtitle == cleantitle.tv(i[1])]
-
+            match = [i[0] for i in result if cleantitle.tv(i[1]) in tvshowtitle]
+            print match
             match2 = [i[0] for i in result]
             match2 = [x for y,x in enumerate(match2) if x not in match2[:y]]
             if match2 == []: return
@@ -73,7 +81,7 @@ class source:
                     if len(match) > 0:
                         url = match[0]
                         break
-                    result = client.source(base_link + i, headers=self.headers)
+                    result = client.request(self.base_link + i, headers=self.headers)
                     if str(imdb) in str(result):
                         url = i
                         break
@@ -82,8 +90,9 @@ class source:
 
             url = url.encode('utf-8')
             return url
-        except:
-            return
+        except Exception as e:
+            control.log('ERROR watchser GET %s' % e)
+            return None
 
 
     def get_episode(self, url, imdb, tvdb, title, date, season, episode):
@@ -97,18 +106,24 @@ class source:
 
 
     def get_sources(self, url, hosthdDict, hostDict, locDict):
-        try:
-            sources = []
 
-            if url == None: return sources
+        try:
+            self.sources =[]
+            mylinks = []
+            #hostDict = hostDict.sort()
+            #for i in hostDict:
+            #    control.log("WA HO %s" % i)
+            if url == None: return self.sources
 
             url = url.replace('/json/', '/')
 
             result = ''
-            links = [self.link_1, self.link_2, self.link_3]
-            for base_link in links:
-                result = client.source(urlparse.urljoin(base_link, url), headers=self.headers)
-                if 'lang_1' in str(result): break
+
+            result, headers, content, cookie  = client.request(urlparse.urljoin(self.base_link, url), output='extended')
+            #result, headers, content, cookie = client.request(url, limit='0', output='extended')
+
+            self.headers['Referer'] = urlparse.urljoin(self.base_link, url)
+            self.headers['Cookie'] = cookie
 
             result = result.replace('\n','')
             result = result.decode('iso-8859-1').encode('utf-8')
@@ -122,7 +137,7 @@ class source:
                     host = i[1]
                     host = host.split('.', 1)[0]
                     host = host.strip().lower()
-                    if not host in hostDict: raise Exception()
+                    #if not host in hostDict: raise Exception()
                     host = client.replaceHTMLCodes(host)
                     host = host.encode('utf-8')
 
@@ -134,45 +149,53 @@ class source:
                     if not '/cale/' in url: raise Exception()
                     url = url.encode('utf-8')
 
-                    sources.append({'source': host, 'quality': 'SD', 'provider': 'Watchseries', 'url': url})
+                    url = url.replace('/json/', '/')
+                    url = urlparse.urlparse(url).path
+                    mylinks.append([url, 'SD'])
                 except:
                     pass
 
-            return sources
-        except:
-            return sources
+            threads = []
+            for i in mylinks[:15]: threads.append(workers.Thread(self.check, i, hostDict))
+            [i.start() for i in threads]
+            for i in range(0, 10 * 2):
+                is_alive = [x.is_alive() for x in threads]
+                if all(x == False for x in is_alive): break
+                time.sleep(1)
+            return self.sources
+        except Exception as e:
+            control.log('ERROR watchseries %s' % e)
+            return self.sources
 
+
+    def check(self, i, hostDict):
+        try:
+            url = client.replaceHTMLCodes(i[0])
+            url = url.encode('utf-8')
+            result = ''
+            result = client.request(urlparse.urljoin(self.base_link, url), headers=self.headers)
+            url = re.compile('class=[\'|\"]*myButton.+?href=[\'|\"|\s|\<]*(.+?)[\'|\"|\s|\>]').findall(result)[0]
+            #print("URL2",url,i[1])
+            #control.log("WATCHSERIES CHECK %s | url: %s" % (url,i[0]))
+            url = client.replaceHTMLCodes(url)
+
+            host = urlparse.urlparse(url).netloc
+            host = host.replace('www.', '').replace('embed.', '')
+            host = host.lower()
+            if not host in hostDict:
+                #control.log("WATCHSERIES HOST %s" % host)
+                raise Exception()
+
+            host = host.rsplit('.', 1)[0]
+            host = client.replaceHTMLCodes(host)
+            host = host.encode('utf-8')
+
+            self.sources.append({'source': host, 'quality': i[1], 'provider': 'Watchseries', 'url': url})
+        except:
+            pass
 
     def resolve(self, url):
         try:
-            url = url.replace('/json/', '/')
-            url = urlparse.urlparse(url).path
-
-            class NoRedirection(urllib2.HTTPErrorProcessor):
-                def http_response(self, request, response):
-                    return response
-
-            result = ''
-            links = [self.link_1, self.link_2, self.link_3]
-            for base_link in links:
-                try:
-                    opener = urllib2.build_opener(NoRedirection)
-                    opener.addheaders = [('User-Agent', 'Apple-iPhone')]
-                    opener.addheaders = [('Referer', base_link + url)]
-                    response = opener.open(base_link + url)
-                    result = response.read()
-                    response.close()
-                except:
-                    result = ''
-                if 'myButton' in result: break
-
-            url = re.compile('class=[\'|\"]*myButton.+?href=[\'|\"|\s|\<]*(.+?)[\'|\"|\s|\>]').findall(result)[0]
-            url = client.replaceHTMLCodes(url)
-            try: url = urlparse.parse_qs(urlparse.urlparse(url).query)['u'][0]
-            except: pass
-            try: url = urlparse.parse_qs(urlparse.urlparse(url).query)['url'][0]
-            except: pass
-
             url = resolvers.request(url)
             return url
         except:

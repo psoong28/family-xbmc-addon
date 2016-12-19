@@ -23,6 +23,8 @@ import re,urllib,urlparse
 
 from resources.lib.libraries import cleantitle
 from resources.lib.libraries import client
+from resources.lib.libraries import control
+
 from resources.lib import resolvers
 
 
@@ -39,7 +41,7 @@ class source:
             query = self.moviesearch_link % (urllib.quote_plus(title))
             query = urlparse.urljoin(self.base_link, query)
 
-            result = client.source(query)
+            result = client.request(query)
             result = client.parseDOM(result, 'div', attrs = {'class': 'searchResult'})
 
             title = cleantitle.movie(title)
@@ -63,12 +65,14 @@ class source:
             query = self.tvsearch_link % (urllib.quote_plus(tvshowtitle))
             query = urlparse.urljoin(self.base_link, query)
 
-            result = client.source(query)
+            result = client.request(query)
             result = client.parseDOM(result, 'div', attrs = {'class': 'searchResult'})
 
             tvshowtitle = cleantitle.tv(tvshowtitle)
             years = ['%s' % str(year), '%s' % str(int(year)+1), '%s' % str(int(year)-1)]
             result = [(client.parseDOM(i, 'a', ret='href')[0], client.parseDOM(i, 'h2', ret='title')[0], client.parseDOM(i, 'span', attrs = {'itemprop': 'copyrightYear'})) for i in result]
+            print result
+
             result = [i for i in result if len(i[2]) > 0]
             result = [i for i in result if tvshowtitle == cleantitle.tv(i[1])]
             result = [i[0] for i in result if any(x in i[2][0] for x in years)][0]
@@ -77,6 +81,7 @@ class source:
             except: url = result
             url = client.replaceHTMLCodes(url)
             url = url.encode('utf-8')
+            print('Vidics',url)
             return url
         except:
             return
@@ -99,10 +104,11 @@ class source:
 
             url = urlparse.urljoin(self.base_link, url)
 
-            result = client.source(url)
+            result = client.request(url)
             result = result.decode('iso-8859-1').encode('utf-8')
             links = client.parseDOM(result, 'div', attrs = {'class': 'lang'})[0]
             links = client.parseDOM(links, 'div', attrs = {'class': 'movie_link.+?'})
+            print links
 
             fmt = [client.parseDOM(i, 'h4')[0] for i in links]
             fmt = [re.findall('\w+', i.lower()) for i in fmt]
@@ -115,9 +121,10 @@ class source:
             for i in links:
                 try:
                     host = client.parseDOM(i, 'a', attrs = {'target': '.+?'})[0]
-                    host = host.split('.', 1)[0]
                     host = host.strip().lower()
                     if not host in hostDict: raise Exception()
+                    host = host.split('.', 1)[0]
+                    #if not host in hostDict: raise Exception()
                     host = client.replaceHTMLCodes(host)
                     host = host.encode('utf-8')
 
@@ -131,7 +138,8 @@ class source:
                     pass
 
             return sources
-        except:
+        except Exception as e:
+            control.log('ERROR vidics %s' % e)
             return sources
 
 

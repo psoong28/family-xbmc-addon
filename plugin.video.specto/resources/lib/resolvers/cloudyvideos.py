@@ -40,7 +40,6 @@ def resolve(url):
         for i in k: post.update({i: client.parseDOM(f, 'input', ret='value', attrs = {'name': i})[0]})
         post = urllib.urlencode(post)
 
-
         for i in range(0, 5):
             try:
                 result = client.request(page, post=post, close=False)

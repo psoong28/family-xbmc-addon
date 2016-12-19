@@ -25,6 +25,9 @@ try: import xbmc
 except: pass
 
 try:
+    import urlresolver9 as urlresolver
+except: pass
+try:
     from sqlite3 import dbapi2 as database
 except:
     from pysqlite2 import dbapi2 as database
@@ -36,6 +39,9 @@ from resources.lib.libraries import client
 from resources.lib.libraries import workers
 from resources.lib.resolvers import realdebrid
 from resources.lib.resolvers import premiumize
+
+
+
 from resources.lib import resolvers
 
 
@@ -45,6 +51,7 @@ class sources:
 
 
     def play(self, name, title, year, imdb, tmdb, tvdb, tvrage, season, episode, tvshowtitle, alter, date, meta, url):
+        control.log('############# PLAY # %s' % url)
         try:
             if not control.infoLabel('Container.FolderPath').startswith('plugin://'):
                 control.playlist.clear()
@@ -166,7 +173,7 @@ class sources:
                     control.addItem(handle=int(sys.argv[1]), url='%s?%s' % (sysaddon, query), listitem=item, isFolder=False)
                 except:
                     pass
-
+            control.content(int(sys.argv[1]), 'files')
             control.directory(int(sys.argv[1]), cacheToDisc=True)
             try: self.progressDialog.close()
             except: pass
@@ -236,14 +243,14 @@ class sources:
                         k = control.condVisibility('Window.IsActive(virtualkeyboard)')
                         if k: m += '1'; m = m[-1]
                         if (w.is_alive() == False or x > 30) and not k: break
-                        time.sleep(0.5)
+                        time.sleep(1)
 
                     for x in range(30):
                         if m == '': break
                         if self.progressDialog.iscanceled(): return self.progressDialog.close()
                         if xbmc.abortRequested == True: return sys.exit()
                         if w.is_alive() == False: break
-                        time.sleep(0.5)
+                        time.sleep(1)
 
 
                     if w.is_alive() == True: block = items[i]['source']
@@ -335,19 +342,27 @@ class sources:
                 try: info = [sourceLabel[int(re.sub('[^0-9]', '', str(x.getName()))) - 1] for x in threads if x.is_alive() == True]
                 except: info = []
 
-                if len(info) > 5: info = len(info)
-
-                self.progressDialog.update(int((100 / float(len(threads))) * len([x for x in threads if x.is_alive() == False])), str('%s: %s %s' % (string1, int(i * 0.5), string2)), str('%s: %s' % (string3, str(info).translate(None, "[]'"))))
-
-                if self.progressDialog.iscanceled(): break
+                try:
+                    if self.progressDialog.iscanceled(): break
+                    string4 = string1 + ' %s' % str(int(i * 0.5))
+                    if len(info) > 5: string5 = string3 + ' %s' % str(len(info))
+                    else: string5 = string3 + ' %s'  % str(info).translate(None, "[]'")
+                    self.progressDialog.update(int((100 / float(len(threads))) * len([x for x in threads if x.is_alive() == False])), str(string4), str(string5))
+                except Exception as e:
+                    string4 = string2 + ' %s'  % str(int(i * 0.5))
+                    if len(info) > 5: string5 = string3 + ' %s'  % str(len(info))
+                    else: string5 = str(info).translate(None, "[]'")
+                    self.progressDialog.update(int((100 / float(len(threads))) * len([x for x in threads if x.is_alive() == False])), str(string4), str(string5))
 
                 is_alive = [x.is_alive() for x in threads]
                 if all(x == False for x in is_alive): break
                 time.sleep(0.5)
-            except:
+            except Exception as e:
+                control.log('ERROR SOURCES2 %s' % e)
                 pass
-
-        self.progressDialog.close()
+        try: self.progressDialog.close()
+        except: pass
+        time.sleep(0.5)
 
         return self.sources
 
@@ -382,7 +397,9 @@ class sources:
         else:
             tvshowtitle = cleantitle.normalize(tvshowtitle)
             season, episode = alterepisode.alterepisode().get(imdb, tmdb, tvdb, tvrage, season, episode, alter, title, date)
-            for source in sourceDict: threads.append(workers.Thread(self.getEpisodeSource, title, year, imdb, tvdb, season, episode, tvshowtitle, date, re.sub('_mv_tv$|_mv$|_tv$', '', source), __import__(source, globals(), locals(), [], -1).source()))
+            for source in sourceDict:
+                #control.log("SOURCE S2 %s" % source)
+                threads.append(workers.Thread(self.getEpisodeSource, title, year, imdb, tvdb, season, episode, tvshowtitle, date, re.sub('_mv_tv$|_mv$|_tv$', '', source), __import__(source, globals(), locals(), [], -1).source()))
 
 
         try: timeout = int(control.setting('sources_timeout_40'))
@@ -390,10 +407,10 @@ class sources:
 
         [i.start() for i in threads]
 
+
         for i in range(0, timeout * 2):
             try:
                 if xbmc.abortRequested == True: return sys.exit()
-
                 if len(self.sources) >= 10: break
 
                 is_alive = [x.is_alive() for x in threads]
@@ -402,7 +419,7 @@ class sources:
             except:
                 pass
 
-        if len(self.sources) >= 10: return True
+        if len(self.sources) >= 5: return True
         else: return False
 
 
@@ -448,6 +465,7 @@ class sources:
         try:
             sources = []
             sources = call.get_sources(url, self.hosthdfullDict, self.hostsdfullDict, self.hostlocDict)
+            #control.log('@######@ getMovieSource <%s>  url:%s  TAB:%s' % (call, url, sources))
             if sources == None: sources = []
             self.sources.extend(sources)
             dbcur.execute("DELETE FROM rel_src WHERE source = '%s' AND imdb_id = '%s' AND season = '%s' AND episode = '%s'" % (source, imdb, '', ''))
@@ -458,6 +476,7 @@ class sources:
 
 
     def getEpisodeSource(self, title, year, imdb, tvdb, season, episode, tvshowtitle, date, source, call):
+        #control.log('# UPDATE    2121 %s %s' % (source,call))
         try:
             dbcon = database.connect(self.sourceFile)
             dbcur = dbcon.cursor()
@@ -473,8 +492,11 @@ class sources:
             t1 = int(re.sub('[^0-9]', '', str(match[5])))
             t2 = int(datetime.datetime.now().strftime("%Y%m%d%H%M"))
             update = abs(t2 - t1) > 60
+            #control.log('# UPDATE 1002 %s ' % update)
+
             if update == False:
                 sources = json.loads(match[4])
+                #control.log('# UPDATE2121 %s' % match)
                 return self.sources.extend(sources)
         except:
             pass
@@ -484,11 +506,14 @@ class sources:
             dbcur.execute("SELECT * FROM rel_url WHERE source = '%s' AND imdb_id = '%s' AND season = '%s' AND episode = '%s'" % (source, imdb, '', ''))
             url = dbcur.fetchone()
             url = url[4]
+            #control.log('### SOURCES URL %s' % url)
         except:
             pass
 
         try:
             if url == None: url = call.get_show(imdb, tvdb, tvshowtitle, year)
+            #control.log('### SOURCES AFTER  URL %s | Call:%s' % (url,call))
+
             if url == None: raise Exception()
             dbcur.execute("DELETE FROM rel_url WHERE source = '%s' AND imdb_id = '%s' AND season = '%s' AND episode = '%s'" % (source, imdb, '', ''))
             dbcur.execute("INSERT INTO rel_url Values (?, ?, ?, ?, ?)", (source, imdb, '', '', url))
@@ -549,6 +574,9 @@ class sources:
             dbcur = dbcon.cursor()
             dbcur.execute("DROP TABLE IF EXISTS rel_src")
             dbcur.execute("VACUUM")
+            dbcur.execute("DROP TABLE IF EXISTS rel_url")
+            dbcur.execute("VACUUM")
+
             dbcon.commit()
 
             control.infoDialog(control.lang(30511).encode('utf-8'))
@@ -560,8 +588,6 @@ class sources:
         self.sourcesReset()
         try: customhdDict = [control.setting('hosthd50001'), control.setting('hosthd50002'), control.setting('hosthd50003'), control.setting('hosthd50004'), control.setting('hosthd50005'), control.setting('hosthd50006'), control.setting('hosthd50007'), control.setting('hosthd50008'), control.setting('hosthd50009'), control.setting('hosthd50010'), control.setting('hosthd50011'), control.setting('hosthd50012'), control.setting('hosthd50013'), control.setting('hosthd50014'), control.setting('hosthd50015'), control.setting('hosthd50016'), control.setting('hosthd50017'), control.setting('hosthd50018'), control.setting('hosthd50019'), control.setting('hosthd50020')]
         except: customhdDict = []
-        try: customsdDict = [control.setting('host50001'), control.setting('host50002'), control.setting('host50003'), control.setting('host50004'), control.setting('host50005'), control.setting('host50006'), control.setting('host50007'), control.setting('host50008'), control.setting('host50009'), control.setting('host50010'), control.setting('host50011'), control.setting('host50012'), control.setting('host50013'), control.setting('host50014'), control.setting('host50015'), control.setting('host50016'), control.setting('host50017'), control.setting('host50018'), control.setting('host50019'), control.setting('host50020')]
-        except: customsdDict = []
 
         hd_rank = []
         hd_rank += [i for i in self.rdDict if i in self.hostprDict + self.hosthdDict]
@@ -572,22 +598,29 @@ class sources:
         hd_rank = [i.lower() for i in hd_rank]
         hd_rank = [x for y,x in enumerate(hd_rank) if x not in hd_rank[:y]]
 
-        sd_rank = []
-        sd_rank += [i for i in self.rdDict if i in self.hostprDict + self.hosthqDict]
-        sd_rank += [i for i in self.pzDict if i in self.hostprDict + self.hosthqDict]
-        sd_rank += customsdDict
-        sd_rank += [i['source'] for i in self.sources if i['quality'] == 'SD' and not i['source'] in customsdDict + self.hostprDict + self.hosthqDict + self.hostmqDict + self.hostlqDict]
-        sd_rank += self.hosthqDict + self.hostmqDict + self.hostlqDict
-        sd_rank = [i.lower() for i in sd_rank]
-        sd_rank = [x for y,x in enumerate(sd_rank) if x not in sd_rank[:y]]
-
         for i in range(len(self.sources)): self.sources[i]['source'] = self.sources[i]['source'].lower()
         self.sources = sorted(self.sources, key=lambda k: k['source'])
 
+        #MRKNOW SORT
+        btable = [x['source'].lower() for x in self.sources]
+        btable = list(set(btable))
+        hd_rank = hd_rank + (list(set(btable) - set(hd_rank)))
+
+
+        #MRKNOW remove duplicate url's
+        dupes = []
         filter = []
-        for host in hd_rank: filter += [i for i in self.sources if i['quality'] == '1080p' and i['source'] == host]
-        for host in hd_rank: filter += [i for i in self.sources if i['quality'] == 'HD' and i['source'] == host]
-        for host in sd_rank: filter += [i for i in self.sources if i['quality'] == 'SD' and i['source'] == host]
+        for entry in self.sources:
+            if not entry['url'] in dupes:
+                filter.append(entry)
+                dupes.append(entry['url'])
+
+        self.sources = filter
+
+        filter = []
+        for host in hd_rank: filter += [i for i in self.sources if i['quality'] == '1080p' and i['source'].lower() == host]
+        for host in hd_rank: filter += [i for i in self.sources if i['quality'] == 'HD' and i['source'].lower() == host]
+        for host in hd_rank: filter += [i for i in self.sources if i['quality'] == 'SD' and i['source'].lower() == host]
         if len(filter) < 10: filter += [i for i in self.sources if i['quality'] == 'SCR']
         if len(filter) < 10: filter += [i for i in self.sources if i['quality'] == 'CAM']
         self.sources = filter
@@ -623,6 +656,7 @@ class sources:
             self.sources = [i for i in self.sources if not (i['quality'] == 'HD' and i['source'] in self.hosthdDict and not i['source'] in self.rdDict + self.pzDict)]
 
         for i in range(len(self.sources)):
+            #control.log("------------------------------ %s  | %s " % (self.sources[i]['source'], self.sources[i]))
             s = self.sources[i]['source'].lower()
             p = self.sources[i]['provider']
             p = re.sub('v\d*$', '', p)
@@ -631,22 +665,38 @@ class sources:
             if q == 'SD' and s in self.hostmqDict: q = 'MQ'
             elif q == 'SD' and s in self.hostlqDict: q = 'LQ'
             elif q == 'SD': q = 'HQ'
+            self.sources[i]['quality']=q
 
             try: d = self.sources[i]['info']
             except: d = ''
             if not d == '': d = ' | [I]%s [/I]' % d
 
-            if s in self.rdDict: label = '%02d | [B]realdebrid[/B] | ' % int(i+1)
-            elif s in self.pzDict: label = '%02d | [B]premiumize[/B] | ' % int(i+1)
-            else: label = '%02d | [B]%s[/B] | ' % (int(i+1), p)
+            #if s in self.rdDict: label = '%02d | [B]realdebrid[/B] | ' % int(i+1)
+            #elif s in self.pzDict: label = '%02d | [B]premiumize[/B] | ' % int(i+1)
+            #else: label = '%02d | [B]%s[/B] | ' % (int(i+1), p)
+            if s in self.rdDict: label = '| [B]realdebrid[/B] | '
+            elif s in self.pzDict: label = '| [B]premiumize[/B] | '
+            else: label = '| [B]%s[/B] | ' % (p)
 
             if q in ['1080p', 'HD']: label += '%s%s | [B][I]%s [/I][/B]' % (s, d, q)
             else: label += '%s%s | [I]%s [/I]' % (s, d, q)
 
             self.sources[i]['label'] = label.upper()
 
-        return self.sources
+        filter = []
+        filter += [i for i in self.sources if i['quality'] == '1080p']
+        filter += [i for i in self.sources if i['quality'] == 'HD']
+        filter += [i for i in self.sources if i['quality'] == 'HQ']
+        filter += [i for i in self.sources if i['quality'] == 'MQ']
+        filter += [i for i in self.sources if i['quality'] == 'LQ']
+        filter += [i for i in self.sources if i['quality'] == 'SCR']
+        filter += [i for i in self.sources if i['quality'] == 'CAM']
+        self.sources = filter
 
+        for i in range(len(self.sources)):
+            self.sources[i]['label'] = '%02d %s' % (int(i+1), self.sources[i]['label'])
+
+        return self.sources
 
     def sourcesReset(self):
         try:
@@ -680,12 +730,16 @@ class sources:
 
             source = __import__(provider, globals(), locals(), [], -1).source()
             url = source.resolve(url)
-
+            if url == False or url == None: raise Exception()
             try: headers = dict(urlparse.parse_qsl(url.rsplit('|', 1)[1]))
             except: headers = dict('')
-
-            result = client.request(url.split('|')[0], headers=headers, output='chunk', timeout='20')
-            if result == None: raise Exception()
+            if url.startswith('http') and '.m3u8' in url:
+                result = client.request(url.split('|')[0], headers=headers, output='geturl', timeout='20')
+                if result == None: raise Exception()
+            elif url.startswith('http'):
+                result = client.request(url.split('|')[0], headers=headers, output='chunk', timeout='20')
+                if result == None: raise Exception()
+            #control.log("!!!!!!!!!!!!!!!!!!!  %s prov: %s" % (url,provider))
             self.url = url
             return url
         except:
@@ -736,14 +790,14 @@ class sources:
                         k = control.condVisibility('Window.IsActive(virtualkeyboard)')
                         if k: m += '1'; m = m[-1]
                         if (w.is_alive() == False or x > 30) and not k: break
-                        time.sleep(0.5)
+                        time.sleep(1)
 
                     for x in range(30):
                         if m == '': break
                         if self.progressDialog.iscanceled(): return self.progressDialog.close()
                         if xbmc.abortRequested == True: return sys.exit()
                         if w.is_alive() == False: break
-                        time.sleep(0.5)
+                        time.sleep(1)
 
 
                     if w.is_alive() == True: block = items[i]['source']
@@ -850,8 +904,21 @@ class sources:
         try: self.hostlqDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hostlqDict)]
         except: pass
 
-        self.hostsdfullDict = self.hostprDict + self.hosthqDict + self.hostmqDict + self.hostlqDict
+        try:
+            self.hostDict = urlresolver.relevant_resolvers(order_matters=True)
+            self.hostDict = [i.domains for i in self.hostDict if not '*' in i.domains]
+            self.hostDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hostDict)]
+            self.hostDict = [x for y,x in enumerate(self.hostDict) if x not in self.hostDict[:y]]
+
+        except:
+            self.hostDict = []
+
+        #for i in self.hostDict:
+        #    control.log('##### SOURCES DICTY: %s' % i )
+
+        self.hostsdfullDict = self.hostprDict + self.hosthqDict + self.hostmqDict + self.hostlqDict + self.hostDict
+        #for i in self.hostsdfullDict:
+        #    control.log('##### SOURCES DICTY2: %s' % i )
+        #self.hostsdfullDict = self.hostDict
 
         self.hosthdfullDict = self.hostprDict + self.hosthdDict
-
-

@@ -19,12 +19,14 @@
 '''
 
 
-import urllib,time
+import urllib,time, re
 from resources.lib.libraries import client
+from resources.lib.libraries import control
 
 
 def resolve(url):
     try:
+        referer = url
         result = client.request(url)
 
         post = {}
@@ -35,10 +37,10 @@ def resolve(url):
 
         for i in range(0, 3):
             try:
-                result = client.request(url, post=post)
-                url = client.parseDOM(result, 'div', attrs = {'align': '.+?'})
-                url = [i for i in url if 'button_upload' in i][0]
-                url = client.parseDOM(url, 'a', ret='href')[0]
+                result = client.request(url, post=post,referer=referer)
+
+                url = re.search('<a\shref\s*=[\'"](.+?)[\'"]\s*>\s*<span\sclass\s*=\s*[\'"]button_upload green[\'"]\s*>', result).group(1)
+                control.log("UPTOBOX URL: %s" % url)
                 url = ['http' + i for i in url.split('http') if 'uptobox.com' in i][0]
                 return url
             except:
