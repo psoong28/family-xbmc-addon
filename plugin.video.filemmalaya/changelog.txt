@@ -1,0 +1,16 @@
+[B]Version 0.0.4[/B]
+
+- Add latest telefilm section
+- Add video music (Karaoke version) on Peti Nyanyi
+
+[B]Version 0.0.3[/B]
+
+- Add latest film section
+
+[B]Version 0.0.2[/B]
+
+- A few updates to support youtube link
+
+[B]Version 0.0.1[/B]
+
+- Initial beta release
