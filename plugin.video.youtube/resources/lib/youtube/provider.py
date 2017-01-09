@@ -1,5 +1,7 @@
+from tokenize import group
 __author__ = 'bromix'
 
+import os
 from resources.lib.youtube.helper import yt_subscriptions
 from resources.lib import kodion
 from resources.lib.kodion.utils import FunctionCache
@@ -8,6 +10,8 @@ from resources.lib.youtube.client import YouTube
 from .helper import v3, ResourceManager, yt_specials, yt_playlist, yt_login, yt_setup_wizard, yt_video, \
     yt_context_menu, yt_play, yt_old_actions, UrlResolver, UrlToItemConverter
 from .youtube_exceptions import LoginException
+import xbmcaddon
+import xbmcvfs
 
 
 class Provider(kodion.AbstractProvider):
@@ -26,6 +30,7 @@ class Provider(kodion.AbstractProvider):
                  'youtube.delete': 30118,
                  'youtube.browse_channels': 30512,
                  'youtube.popular_right_now': 30513,
+                 'youtube.recommendations': 30551,
                  'youtube.related_videos': 30514,
                  'youtube.setting.auto_remove_watch_later': 30515,
                  'youtube.subscribe_to': 30517,
@@ -103,7 +108,7 @@ class Provider(kodion.AbstractProvider):
             self._client = None
             pass
 
-        if not self._client:
+        if not self._client:          
             major_version = context.get_system_version().get_version()[0]
             youtube_config = YouTube.CONFIGS.get('youtube-for-kodi-%d' % major_version, None)
             if not youtube_config or youtube_config is None:
@@ -113,6 +118,7 @@ class Provider(kodion.AbstractProvider):
             context.log_debug('Selecting YouTube config "%s"' % youtube_config['system'])
 
             language = context.get_settings().get_string('youtube.language', 'en-US')
+            region = context.get_settings().get_string('youtube.region', 'US')
 
             # remove the old login.
             if access_manager.has_login_credentials():
@@ -177,11 +183,11 @@ class Provider(kodion.AbstractProvider):
                     access_tokens = ['', '']
                     pass
 
-                self._client = YouTube(language=language, items_per_page=items_per_page, access_token=access_tokens[1],
+                self._client = YouTube(language=language, region=region, items_per_page=items_per_page, access_token=access_tokens[1],
                                        access_token_tv=access_tokens[0], config=youtube_config)
                 self._client.set_log_error(context.log_error)
             else:
-                self._client = YouTube(items_per_page=items_per_page, language=language, config=youtube_config)
+                self._client = YouTube(items_per_page=items_per_page, language=language, region=region, config=youtube_config)
                 self._client.set_log_error(context.log_error)
 
                 # in debug log the login status
@@ -398,9 +404,11 @@ class Provider(kodion.AbstractProvider):
 
                 # second: remove video from 'Watch Later' playlist
                 if context.get_settings().get_bool('youtube.playlist.watchlater.autoremove', True):
-                    playlist_item_id = client.get_playlist_item_id_of_video_id(playlist_id='WL', video_id=video_id)
+                    cplid = context.get_settings().get_string('youtube.folder.watch_later.playlist', '').strip()
+                    playlist_id = cplid if cplid else 'WL'
+                    playlist_item_id = client.get_playlist_item_id_of_video_id(playlist_id=playlist_id, video_id=video_id)
                     if playlist_item_id:
-                        json_data = client.remove_video_from_playlist('WL', playlist_item_id)
+                        json_data = client.remove_video_from_playlist(playlist_id, playlist_item_id)
                         if not v3.handle_error(self, context, json_data):
                             return False
                         pass
@@ -414,7 +422,7 @@ class Provider(kodion.AbstractProvider):
 
     @kodion.RegisterProviderPath('^/sign/(?P<mode>.*)/$')
     def _on_sign(self, context, re_match):
-        mode = re_match.group('mode')
+        mode = re_match.group('mode')            
         yt_login.process(mode, self, context, re_match)
         return True
 
@@ -476,6 +484,34 @@ class Provider(kodion.AbstractProvider):
         result.extend(v3.response_to_items(self, context, json_data))
         return result
 
+    @kodion.RegisterProviderPath('^/config/mpd/$')
+    def configure_mpd_inputstream(self, context, query):
+        xbmcaddon.Addon(id='inputstream.mpd').openSettings()
+
+    @kodion.RegisterProviderPath('^/maintain/(?P<maint_type>.*)/(?P<action>.*)/$')
+    def maintenance_actions(self, context, re_match):
+        maint_type = re_match.group('maint_type')
+        action = re_match.group('action')
+        if action == 'clear':
+            if maint_type == 'function_cache':
+                if context.get_ui().on_remove_content(context.localize(30557)):
+                    context.get_function_cache().clear()
+            elif maint_type == 'search_cache':
+                if context.get_ui().on_remove_content(context.localize(30558)):
+                    context.get_search_history().clear()
+        elif action == 'delete':
+                _maint_files = {'function_cache': 'cache.sqlite',
+                                'search_cache': 'search.sqlite',
+                                'settings_xml': 'settings.xml'}
+                _file = _maint_files.get(maint_type, '')
+                if _file:
+                    if 'sqlite' in _file:
+                        _file_w_path = os.path.join(context._get_cache_path(), _file)
+                    else:
+                        _file_w_path = os.path.join(context._data_path, _file)
+                    if context.get_ui().on_delete_content(_file):
+                        xbmcvfs.delete(_file_w_path)
+
     def on_root(self, context, re_match):
         """
         Support old YouTube url calls, but also log a deprecation warnings.
@@ -484,12 +520,23 @@ class Provider(kodion.AbstractProvider):
         if old_action:
             return yt_old_actions.process_old_action(self, context, re_match)
 
+        settings = context.get_settings()
+        
+        if settings.get_string('youtube.api.autologin', '') == '':
+            settings.set_bool('youtube.api.autologin', False) 
+        
+        if settings.get_bool('youtube.api.autologin', True):
+            mode = 'in'
+            yt_login.process(mode, self, context, re_match, False)
+            pass
+
         self.get_client(context)
         resource_manager = self.get_resource_manager(context)
 
         result = []
 
-        settings = context.get_settings()
+        if settings.get_bool('youtube.api.enable', True) and settings.get_bool('youtube.api.autologin', True):
+            settings.set_bool('youtube.api.autologin', False)
 
         # sign in
         if not self.is_logged_in() and settings.get_bool('youtube.folder.sign.in.show', True):
@@ -510,6 +557,16 @@ class Provider(kodion.AbstractProvider):
             result.append(my_subscriptions_item)
             pass
 
+        # Recommendations
+        if self.is_logged_in() and settings.get_bool('youtube.folder.recommendations.show', True):
+            recommendations_item = DirectoryItem(
+                context.localize(self.LOCAL_MAP['youtube.recommendations']),
+                context.create_uri(['special', 'recommendations']),
+                context.create_resource_path('media', 'popular.png'))
+            recommendations_item.set_fanart(self.get_fanart(context))
+            result.append(recommendations_item)
+            pass
+
         # what to watch
         if settings.get_bool('youtube.folder.popular_right_now.show', True):
             what_to_watch_item = DirectoryItem(
@@ -528,6 +585,9 @@ class Provider(kodion.AbstractProvider):
         # subscriptions
         if self.is_logged_in():
             playlists = resource_manager.get_related_playlists(channel_id='mine')
+            if playlists.has_key('watchLater'):
+                cplid = settings.get_string('youtube.folder.watch_later.playlist', '').strip()
+                playlists['watchLater'] = ' %s' % cplid if cplid else ' WL'
 
             # my channel
             if settings.get_bool('youtube.folder.my_channel.show', True):
@@ -636,6 +696,8 @@ class Provider(kodion.AbstractProvider):
             context.set_content_type(content_type)
             context.add_sort_method(kodion.constants.sort_method.UNSORTED,
                                     kodion.constants.sort_method.VIDEO_RUNTIME,
+                                    kodion.constants.sort_method.DATE_ADDED,
+                                    kodion.constants.sort_method.TRACK_NUMBER,
                                     kodion.constants.sort_method.VIDEO_TITLE,
                                     kodion.constants.sort_method.DATE)
             pass

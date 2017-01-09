@@ -157,6 +157,12 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
 
         snippet = yt_item['snippet']  # crash if not conform
 
+        # set uses_dash
+        video_item.set_use_dash(context.get_settings().use_dash())
+
+        # set mediatype
+        video_item.set_mediatype('episode')  # using episode since all setContent is currently episode as well
+
         # set the title
         video_item.set_title(snippet['title'])
 
@@ -196,6 +202,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         video_item.set_year_from_datetime(datetime)
         video_item.set_aired_from_datetime(datetime)
         video_item.set_premiered_from_datetime(datetime)
+        video_item.set_date_from_datetime(datetime)
 
         # duration
         duration = yt_item.get('contentDetails', {}).get('duration', '')
