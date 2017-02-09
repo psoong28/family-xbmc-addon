@@ -1,0 +1,20 @@
+﻿import xbmc, xbmcgui, xbmcplugin
+import os
+ 
+#get actioncodes from https://github.com/xbmc/xbmc/blob/master/xbmc/guilib/Key.h
+ACTION_PREVIOUS_MENU = 10
+ACTION_SELECT_ITEM = 7
+ACTION_PARENT_DIR = 9
+
+ROOT = os.getcwd().replace(";","")
+XBMC = ROOT + "/.xbmc/"
+SCRIPT = XBMC + "addons/script.rawmaintenance"
+
+freeString = "%d MB of %d MB Free"%(0,0)
+cacheString = "%d MB"%(0)
+thumbnailString = "%d MB"%(0)
+
+viewmode = ' '
+xbmc.executebuiltin("Container.SetViewMode(%s)" % str("icons"))
+xbmcplugin.endOfDirectory(int(sys.argv[0])) 
+

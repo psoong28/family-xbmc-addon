@@ -3580,6 +3580,21 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
 	</extension>
 </addon>
 
+<addon id="repository.rawmaintenance" name="Raw Media's Kodi Add-ons" version="0.1.0" provider-name="Raw Media">
+	<extension point="xbmc.addon.repository" name="Raw Media's Kodi Add-on Repository">
+		<dir>
+			<info compressed="false">http://raw.github.com/rawmedia/raw_maintenance/master/rawmaintenance_repo/addons.xml</info>
+			<checksum>http://raw.github.com/rawmedia/raw_maintenance/master/rawmaintenance_repo/addons.xml.md5</checksum>
+			<datadir zip="true">http://raw.github.com/rawmedia/raw_maintenance/master/rawmaintenance_repo/</datadir>
+		</dir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Install Add-ons from Raw Media</summary>
+		<description lang="en">Download and install add-ons from Raw Media repository.</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="script.areswizard" name="[COLOR black].[/COLOR] Ares Wizard" provider-name="AresTeam" version="0.0.23">
  <requires>
  <import addon="script.module.pyxbmct" version="1.1.4"/>
@@ -3976,6 +3991,32 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
     <website>http://www.navixtreme.com/</website>
     <source></source>
     <email></email>
+  </extension>
+</addon>
+
+<addon id="script.rawmaintenance"
+       name="Raw Maintenance"
+       version="0.1.0"
+       provider-name="Foreverska|Gombeek|Raw Media">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary>Raw Maintinance</summary>
+    <description>
+	Your one stop tool for maintaining your device.
+	For support please visit www.no-issue.ca
+	Thank you to raw-media.ca for sponsoring the development of this add-on.
+    </description>
+    <language></language>
+    <license></license>
+    <source></source>
+    <forum></forum>
+    <website></website>
   </extension>
 </addon>
 
