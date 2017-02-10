@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon 	id="repository.anonymouspvr" 
+		name="[COLOR ghostwhite][B]PVR REPO[/B][/COLOR]" 
+		version="2.0.0" 
+		provider-name="[COLOR ghostwhite][B]KISAKUL[/B][/COLOR]">
+	<extension point="xbmc.addon.repository" name="[COLOR ghostwhite][B]THE ANONYMOUS GROUP REPOSITORY[/B][/COLOR]">
+	<dir>
+		<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+		<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+	</dir>
+		<info compressed="false">http://kisakul.com/tvtools/zips/addons.xml</info>
+		<checksum>http://kisakul.com/tvtools/zips/addons.xml.md5</checksum>
+		<datadir zip="true">http://kisakul.com/tvtools/zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>THE ANONYMOUS GROUP PVR REPOSITORY</summary>
+		<description>Bringing you the ANONYMOUS Addons and Builds. This repository and all it's addons are OPEN SOURCE.  Rip it up, chop it up, and use it as you like.  Learn from it. Develop something. Share it.  HAVE FUN WITH IT. Contact us on Facebook at:  https://www.facebook.com/groups/anonymouskodi/</description>
+		<platform>all</platform>
+	</extension>
+</addon>

@@ -1145,6 +1145,43 @@
   </extension>
 </addon>
 
+<addon id="plugin.video.anonymous"
+       name="Anonymous Stolen Streams"
+       version="4.0.0"
+       provider-name="Modified by Anonymous/ Origional Author Shani">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.beautifulsoup" version="3.2.1"/>
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.beautifulsoup4" />
+    <import addon="script.module.requests" />
+    <import addon="script.module.httplib2" />
+    <import addon="script.module.liveresolver" version="0.1.24" optional="true"/>
+    <import addon="script.module.youtube.dl" optional="true"/>
+    <import addon="plugin.video.youtube" optional="true" />
+    <import addon="script.module.urlresolver" optional="true"/>
+    <import addon="script.module.simplejson" />
+     <import addon="script.module.livestreamer" optional="true"/>
+     <import addon="script.module.pyamf" optional="true"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+
+
+  <extension point="xbmc.addon.metadata">
+    <summary>Anonymous Without Shame Gives You Free TV links</summary>
+    <description>
+		Streams we have JACKED, these internet links are from other addons
+		and other sources found pubically on the internet.
+		Thank you to who we JACKED them from... Much Love!
+		We don not HOST any content, we only provied the URLS that were
+		Attained through google and other internet sources pubically searchable.
+    </description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
 <addon id="plugin.video.Ares-Streams"
        name="Ares-Streams"
        version="1.1.1"
@@ -2676,6 +2713,48 @@ http://www.hometheater.co.il</description>
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">Alleidun's repository</summary>
 		<description lang="en">Alleidun's repository</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon 	id="repository.anonymousgroup"
+		name="[COLOR ghostwhite][B]THE ANONYMOUS GROUP REPOSITORY[/B][/COLOR]"
+		version="2.0.0"
+		provider-name="[COLOR ghostwhite][B]KISAKUL[/B][/COLOR]">
+	<extension point="xbmc.addon.repository" name="[COLOR ghostwhite][B]THE ANONYMOUS GROUP REPOSITORY[/B][/COLOR]">
+	<dir>
+		<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+		<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+	</dir>
+		<info compressed="false">http://kisakul.com/test/zips/addons.xml</info>
+		<checksum>http://kisakul.com/test/zips/addons.xml.md5</checksum>
+		<datadir zip="true">http://kisakul.com/test/zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>THE ANONYMOUS GROUP REPOSITORY</summary>
+		<description>Bringing you the ANONYMOUS Addons and Builds. This repository and all it's addons are OPEN SOURCE.  Rip it up, chop it up, and use it as you like.  Learn from it. Develop something. Share it.  HAVE FUN WITH IT. Contact us on Facebook at:  https://www.facebook.com/groups/anonymouskodi/</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon 	id="repository.anonymouspvr"
+		name="[COLOR ghostwhite][B]PVR REPO[/B][/COLOR]"
+		version="2.0.0"
+		provider-name="[COLOR ghostwhite][B]KISAKUL[/B][/COLOR]">
+	<extension point="xbmc.addon.repository" name="[COLOR ghostwhite][B]THE ANONYMOUS GROUP REPOSITORY[/B][/COLOR]">
+	<dir>
+		<info compressed="false">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml</info>
+		<checksum>https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://offshoregit.com/tvaresolvers/tva-common-repository/raw/master/zips/</datadir>
+	</dir>
+		<info compressed="false">http://kisakul.com/tvtools/zips/addons.xml</info>
+		<checksum>http://kisakul.com/tvtools/zips/addons.xml.md5</checksum>
+		<datadir zip="true">http://kisakul.com/tvtools/zips/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>THE ANONYMOUS GROUP PVR REPOSITORY</summary>
+		<description>Bringing you the ANONYMOUS Addons and Builds. This repository and all it's addons are OPEN SOURCE.  Rip it up, chop it up, and use it as you like.  Learn from it. Develop something. Share it.  HAVE FUN WITH IT. Contact us on Facebook at:  https://www.facebook.com/groups/anonymouskodi/</description>
 		<platform>all</platform>
 	</extension>
 </addon>
@@ -4239,6 +4318,26 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
     <forum>http://forum.xbmc.org/showthread.php?tid=129499</forum>
     <source>https://github.com/robweber/xbmcbackup</source>
   </extension>
+</addon>
+
+<addon id="service.AnonymousPVRTools"
+       name="Anonymous PVR Tools"
+      version="2.0.0"
+      provider-name="Anonymous">
+    <requires>
+        <import addon="xbmc.addon" version="12.0.0"/>
+        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.requests"/>
+    </requires>
+    <extension point="xbmc.service" library="service.py" start="login"/>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">A simple PVR tools addon for kodi (iptv simple) Reworked by Anonymous</summary>
+        <summary lang="pt">Um simples addon de ferramentas pvr para o kodi (iptv simple)Reworked by Anonymous</summary>
+         <description lang="en">This addon allows you to download, extract and merge xmltv files to make a single xmltv file for XBMC PVR. It supports internet files compressed in gzip format (or plain xml). The same is applied to different m3u lists (local or hosted on the web)</description>
+         <description lang="pt">Este addon permite juntar vários ficheiros xmltv de forma a construir um xmltv único para a secção PVR do XBMC. Suporta ficheiros alojados na web comprimidos em gzip (ou simples xml). Também permite juntar várias listas m3u (locais ou da web). </description>
+        <platform>all</platform>
+        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    </extension>
 </addon>
 
 <addon
