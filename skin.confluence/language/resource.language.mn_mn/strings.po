@@ -20,10 +20,6 @@ msgctxt "#31008"
 msgid "Full screen"
 msgstr "Бүтэн дэлгэц"
 
-msgctxt "#31022"
-msgid "Music - Files"
-msgstr "Дууны Файлууд"
-
 msgctxt "#31023"
 msgid "Playing"
 msgstr "Тоглуулж байна"
@@ -80,6 +76,10 @@ msgctxt "#31051"
 msgid "Sort: Descending"
 msgstr "Уруудахаар эрэмбэлэх"
 
+msgctxt "#31059"
+msgid "Current playlist"
+msgstr "Одоогийн тоглох жагсаалт"
+
 msgctxt "#31102"
 msgid "Background"
 msgstr "Арын хэсэг"
@@ -135,36 +135,3 @@ msgstr "ТВ"
 msgctxt "#31952"
 msgid "TV"
 msgstr "ТВ"
-
-
-msgctxt "#55500"
-msgid "Arial"
-msgstr "Arial"
-
-msgctxt "#55501"
-msgid "David"
-msgstr "David"
-
-msgctxt "#55502"
-msgid "Nrkis"
-msgstr "Nrkis"
-
-msgctxt "#55503"
-msgid "Miryam"
-msgstr "Miryam"
-
-msgctxt "#55504"
-msgid "Curier New"
-msgstr "Curier New"
-
-msgctxt "#55505"
-msgid "Pfennig"
-msgstr "Pfennig"
-
-msgctxt "#55506"
-msgid "Roboto"
-msgstr "Roboto"
-
-msgctxt "#55507"
-msgid "OpenSans"
-msgstr "OpenSans"

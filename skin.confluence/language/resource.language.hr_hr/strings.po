@@ -44,10 +44,6 @@ msgctxt "#31009"
 msgid "Total duration"
 msgstr "Ukupno trajanje"
 
-msgctxt "#31022"
-msgid "Music - Files"
-msgstr "Glazba - Datoteke"
-
 msgctxt "#31023"
 msgid "Playing"
 msgstr "Reprodukcija"
@@ -152,10 +148,6 @@ msgctxt "#31059"
 msgid "Current playlist"
 msgstr "Trenutni popis izvođenja"
 
-msgctxt "#31060"
-msgid "This file is stacked, select the part you want to play from."
-msgstr "Ova datoteka je složena, odaberite dio od kojeg želite pokrenuti reprodukciju."
-
 msgctxt "#31061"
 msgid "Current selected"
 msgstr "Trenutno odabrano"
@@ -214,11 +206,15 @@ msgstr "Prikaži nedavno dodane video snimke"
 
 msgctxt "#31118"
 msgid "Home page programs submenu"
-msgstr "Početna stranica podizbornika programa "
+msgstr "Početna stranica \"Programi\" podizbornika"
 
 msgctxt "#31119"
 msgid "Hide background fanart"
 msgstr "Sakrij pozadinu slike omota"
+
+msgctxt "#31122"
+msgid "Hide EPG if RDS is present on channel window"
+msgstr "Sakrij EPG ako je RDS prisutan na prozoru programa"
 
 msgctxt "#31124"
 msgid "Show background \"Now playing\" video"
@@ -227,14 +223,6 @@ msgstr "Prikaži pozadinu \"Trenutno se reproducira\" videa"
 msgctxt "#31125"
 msgid "Show background \"Now playing\" visualisation"
 msgstr "Prikaži pozadinu \"Trenutno se reproducira\" vizualizacije"
-
-msgctxt "#31126"
-msgid "Play TV theme songs in video library (TvTunes add-on)"
-msgstr "Reproduciraj pjesme TV tema iz videoteke (TvTunes dodatak)"
-
-msgctxt "#31127"
-msgid "TvTunes"
-msgstr "Tv melodije"
 
 msgctxt "#31128"
 msgid "Lyrics"
@@ -250,23 +238,19 @@ msgstr "Dodatak za tekstove pjesama"
 
 msgctxt "#31134"
 msgid "Home page \"Videos\" submenu"
-msgstr "Početna stranica \"video\"  podizbornika"
+msgstr "Početna stranica \"Video\"  podizbornika"
 
 msgctxt "#31135"
 msgid "Home page \"Music\" submenu"
-msgstr "Početna stranica \"glazbenog\" podizbornika"
+msgstr "Početna stranica \"Glazba\" podizbornika"
 
 msgctxt "#31136"
 msgid "Home page \"Pictures\" submenu"
-msgstr "Početna stranica podizbornika \"slika\""
+msgstr "Početna stranica \"Slike\" podizbornika"
 
 msgctxt "#31140"
 msgid "Music OSD"
 msgstr "OSD glazbe"
-
-msgctxt "#31141"
-msgid "Video OSD"
-msgstr "OSD videa"
 
 msgctxt "#31142"
 msgid "Settings level"
@@ -308,10 +292,6 @@ msgctxt "#31303"
 msgid "Data provider"
 msgstr "Pružatelj podataka"
 
-msgctxt "#31307"
-msgid "Hide fanart"
-msgstr "Sakrij sliku omota"
-
 msgctxt "#31308"
 msgid "Movie details"
 msgstr "Pojedinosti filma"
@@ -324,26 +304,6 @@ msgctxt "#31310"
 msgid "Track number"
 msgstr "Broj pjesme"
 
-msgctxt "#31311"
-msgid "Fanart image[CR][CR]Unavailable[CR][CR] Click button to set"
-msgstr "Slika za omot[CR][CR]je nedostupna[CR][CR] Kliknite tipku za postavljanje"
-
-msgctxt "#31312"
-msgid "Current scraper"
-msgstr "Trenutni sakupljač"
-
-msgctxt "#31313"
-msgid "Choose a scraper"
-msgstr "Odaberite sakupljača"
-
-msgctxt "#31314"
-msgid "Content scanning options"
-msgstr "Mogućnosti pretraživanja sadržaja"
-
-msgctxt "#31317"
-msgid "Set fanart path"
-msgstr "Postavite putanju slike omota"
-
 msgctxt "#31319"
 msgid "Selected profile"
 msgstr "Odabrani profil"
@@ -351,10 +311,6 @@ msgstr "Odabrani profil"
 msgctxt "#31320"
 msgid "Last logged in"
 msgstr "Posljednji prijavljen"
-
-msgctxt "#31321"
-msgid "Karaoke song selector"
-msgstr "Izbornik karaoke pjesama"
 
 msgctxt "#31322"
 msgid "Aired"
@@ -435,42 +391,6 @@ msgstr "Uobičajena presvlaka bez velikih slova"
 msgctxt "#31392"
 msgid "Arial based"
 msgstr "Temeljen na Arialu "
-
-msgctxt "#31400"
-msgid "[B]CONFIGURE APPEARANCE SETTINGS[/B][CR][CR]Change the skin · Set language and region · Change file listing options[CR]Set up a screensaver"
-msgstr "[B]PRILAGODITE POSTAVKE IZGLEDA[/B][CR][CR]Promijenite presvlaku · Postavite jezik i regiju · Promijenite mogućnosti popisivanja datoteka[CR]Postavite čuvara zaslona"
-
-msgctxt "#31401"
-msgid "[B]CONFIGURE VIDEO SETTINGS[/B][CR][CR]Manage your video library · Set video playback options · Change video listing options[CR]Set subtitle fonts"
-msgstr "[B]PRILAGODITE VIDEO POSTAVKE[/B][CR][CR]Upravljajte svojom videotekom · Postavite mogućnosti reprodukcije videa[CR]Promijenite mogućnosti popisivanja video sadržaja · Postavite slova podnaslova"
-
-msgctxt "#31402"
-msgid "[B]CONFIGURE MUSIC SETTINGS[/B][CR][CR]Manage your music library · Set music playback options · Change music listing options[CR]Setup song submission · Set karaoke options"
-msgstr "[B]PRILAGODITE POSTAVKE GLAZBE[/B][CR][CR]Upravljajte svojm fonotekom · Postavite mogućnosti reprodukcije glazbe[CR]Promjenite mogućnosti popisivanja glazbenoga sadržaja · Postavite slanje pjesama · Postavite mogućnosti karaoka"
-
-msgctxt "#31403"
-msgid "[B]CONFIGURE PICTURE SETTINGS[/B][CR][CR]Set picture listing options · Configure slideshow"
-msgstr "[B]PRILAGODITE POSTAVKE SLIKA[/B][CR][CR]Postavljanje mogućnosti popsivanja slika · Postavke slikovne prezentacije"
-
-msgctxt "#31404"
-msgid "[B]CONFIGURE WEATHER SETTINGS[/B][CR][CR]Set various cities to collect weather information"
-msgstr "[B]PRILAGODITE POSTAVKE VREMENSKE PROGNOZE[/B][CR][CR]Postavite različite gradove za prikupljanje informacija vremenske prognoze"
-
-msgctxt "#31406"
-msgid "[B]CONFIGURE SYSTEM SETTINGS[/B][CR][CR]Setup and calibrate displays · Configure audio output · Setup remote controls[CR]Set power saving options · Enable debugging · Setup master lock"
-msgstr "[B]PRILAGODITE POSTAVKE SUSTAVA[/B][CR][CR]Prilagodite i kalibrirajte zaslon · Prilagodite izlaz zvuka · Postavite daljinsko upravljanje[CR]Postavite mogućnosti uštede energije  · Omogućite zapise otklanjanja grešaka · Postavite glavno zaključavanje"
-
-msgctxt "#31408"
-msgid "[B]CONFIGURE ADD-ONS[/B][CR][CR]Manage your installed add-ons · Browse for and install add-ons from kodi.tv[CR]Modify add-on settings"
-msgstr "[B]PRILAGODITE DODATKE[/B][CR][CR]Upravljajte svojim instaliranim dodacima · Pregledavajte i instalirajte dodatake iz kodi.tv[CR]Mijenjajte postavke dodataka"
-
-msgctxt "#31409"
-msgid "[B]CONFIGURE TV SETTINGS[/B][CR][CR]Change full screen info · Manage EPG data settings"
-msgstr "[B]PRILAGODITE TV POSTAVKE[/B][CR][CR]Promjenite informacije cijelog zaslona · Upravljajte postavkama podataka elektronskog programskog vodiča (EPG)"
-
-msgctxt "#31410"
-msgid "[B]CONFIGURE SERVICE SETTINGS[/B][CR][CR]Setup control of Kodi via UPnP and HTTP · Configure file sharing[CR]Enable Zeroconf · Configure AirPlay"
-msgstr "[B]PRILAGODITE POSTAVKE USLUGA[/B][CR][CR]Postavite upravljanje Kodijem putem UPnP-a i HTTP-a · Prilagodite dijeljenje datoteka[CR]Omogućite Zeroconf · Prilagodite AirPlay"
 
 msgctxt "#31411"
 msgid "First run help..."
@@ -556,10 +476,6 @@ msgctxt "#31905"
 msgid "Forecast"
 msgstr "Prognoza"
 
-msgctxt "#31908"
-msgid "Chance of precipitation"
-msgstr "Moguće padaline"
-
 msgctxt "#31909"
 msgid "Fetching forecast info..."
 msgstr "Nabavljanje informacija prognoze..."
@@ -611,36 +527,3 @@ msgstr "SUSTAV"
 msgctxt "#31960"
 msgid "RADIO"
 msgstr "RADIO"
-
-
-msgctxt "#55500"
-msgid "Arial"
-msgstr "Arial"
-
-msgctxt "#55501"
-msgid "David"
-msgstr "David"
-
-msgctxt "#55502"
-msgid "Nrkis"
-msgstr "Nrkis"
-
-msgctxt "#55503"
-msgid "Miryam"
-msgstr "Miryam"
-
-msgctxt "#55504"
-msgid "Curier New"
-msgstr "Curier New"
-
-msgctxt "#55505"
-msgid "Pfennig"
-msgstr "Pfennig"
-
-msgctxt "#55506"
-msgid "Roboto"
-msgstr "Roboto"
-
-msgctxt "#55507"
-msgid "OpenSans"
-msgstr "OpenSans"
