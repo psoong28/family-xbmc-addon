@@ -26,7 +26,7 @@ import xbmcaddon
 
 pass#print  "Here in default-py sys.argv =", sys.argv
 
-mainURL="http://dramanice.to"
+mainURL="https://www.dramanices.com"
 thisPlugin = int(sys.argv[1])
 addonId = "plugin.video.dramanice"
 dataPath = xbmc.translatePath('special://profile/addon_data/%s' % (addonId))
@@ -36,7 +36,7 @@ path = addon.getAddonInfo('path')
 #       cmd = "mkdir -p " + dataPath
 #       system(cmd)
      
-Host = "http://www.dramanice.to"
+Host = "https://www.dramanices.com"
 
 def getUrl(url):
     req = urllib2.Request(url)
